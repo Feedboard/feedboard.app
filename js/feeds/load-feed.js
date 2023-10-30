@@ -226,10 +226,10 @@ async function loadFeed() {
         }, 1);
       }
 
-      if (item.feed_type == "youtbe") {
+      if (item.feed_type == "youtube") {
         addNewYoutubeBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}">
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}">
          <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="" width="40" height="40" />
          </a>
         `;
@@ -239,7 +239,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-youtube.svg" width="20" height="20" alt="" />
-              <p class="text-capitalize">${item.feed_options}</p>
+              <p class="text-capitalize">${item.feed_name}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -251,7 +251,7 @@ async function loadFeed() {
               </ul>
             </div>
           </div>
-          <div id="feed-youtube-${item.id}" class="feed-body">
+          <div id="feed-youtube-${item.id}" class="list-group list-group-flush feed-body">
             <div class="p-2 placeholder-glow">
               <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
               <span class="placeholder col-7 bg-secondary"></span>
@@ -262,7 +262,7 @@ async function loadFeed() {
         </div>
         `;
         setTimeout(function () {
-          getYoutubeChannel(item.feed_options);
+          getYoutubeChannel(item.feed_options, item.id);
         }, 1);
       }
 

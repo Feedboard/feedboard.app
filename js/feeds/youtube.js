@@ -1,5 +1,6 @@
-async function getYoutubeChannel(channelUsername) {
+async function getYoutubeChannel(channelId, id) {
   console.log("Loading Youtube...");
+  const youtubeRss = "https://web-production-ba07.up.railway.app/https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
   const youtubeFeed = document.getElementById("feed-youtube-" + id);
 
   await fetch(youtubeRss, {
@@ -30,17 +31,25 @@ async function getYoutubeChannel(channelUsername) {
       entries.forEach((el) => {
         let title = el.querySelector("title").innerHTML;
         let author = el.querySelector("name").textContent;
-        let preview = el.querySelector("thumbnail");
-        let description = el.querySelector("description");
-        let link = el.querySelector("link").getAttribute("href");
+        let videoId = el.querySelector("videoId").textContent;
+        let embedLink = "https://www.youtube.com/embed/" + videoId;
+        let published = convertTime(el.querySelector("published").textContent);
+        let views = el.querySelector("statistics").getAttribute("views");
+        let likes = el.querySelector("starRating").getAttribute("count");
+        let preview = el.querySelector("thumbnail").getAttribute("url");
 
         entry += `
-            <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
+            <div class="list-group-item list-group-item-action" target="_blank">      
+              <div class="ratio ratio-16x9">
+                <iframe class="rounded-3" src="${embedLink}" title="YouTube video" allowfullscreen></iframe>
+              </div>
               <p class="fw-semibold mb-2">${title}</p>
-              <img src="${preview}" class="img-fluid"/>
-              <p class="text-secondary small">${description}</p>
-              <p class="text-secondary small">${author}</p>
-            </a>
+              <div class="d-flex flex-row">
+              <p class="text-secondary small me-3"><img src="./img/clock.svg" width="14" /> ${published}</p>
+              <p class="text-secondary small me-3"><img src="./img/eye.svg" width="14" /> ${views}</p>
+              <p class="text-secondary small me-3"><img src="./img/thumbs-up.svg" width="14" /> ${likes}</p>
+              </div>
+            </div>
               `;
       });
       youtubeFeed.innerHTML = entry;
@@ -59,20 +68,22 @@ addNewYoutubeBtn.addEventListener("click", async function () {
   closeModal("newFeedModal");
   addNewYoutubeBtn.disabled = true;
 
+  const channelName = await getChannelName(newYoutubeName.value);
+
   const { data, error } = await client
     .from("feeds")
-    .insert([{ feed_name: "youtube", feed_type: "youtube", feed_options: newYoutubeName.value, user_id: user_id }])
+    .insert([{ feed_name: channelName, feed_type: "youtube", feed_options: newYoutubeName.value, user_id: user_id }])
     .select();
 
   if (data) {
-    showToast(newYoutubeName.value + " added to your feed");
+    showToast(channelName + " added to your feed");
     const feedContainer = document.getElementById("feedContainer");
     const sidebarContainer = document.getElementById("feedLogoContainer");
     let feed = "";
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${data[0].feed_options}">
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}">
          <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="" width="40" height="40" />
          </a>
         `;
@@ -82,7 +93,7 @@ addNewYoutubeBtn.addEventListener("click", async function () {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-youtube.svg" width="20" height="20" alt="" />
-              <p id="youtubeChannelName">${data[0].feed_options}</p>
+              <p id="youtubeChannelName">${data[0].feed_name}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -130,5 +141,37 @@ async function removeYoutubeChannel(id) {
     let sidebarLogo = document.getElementById("sidebarLogo-" + id);
     feedContainer.remove();
     sidebarLogo.remove();
+  }
+}
+
+// Get channel name from id
+async function getChannelName(channelId) {
+  console.log("Getting channel name...");
+  const youtubeRss = "https://web-production-ba07.up.railway.app/https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
+
+  try {
+    const response = await fetch(youtubeRss, {
+      headers: {
+        "Access-Control-Allow-Origin": youtubeRss,
+        "Access-Control-Allow-Headers": "content-type",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const text = await response.text();
+    const data = new window.DOMParser().parseFromString(text, "text/xml");
+    const title = data.querySelector("title").textContent;
+
+    if (title) {
+      return title;
+    } else {
+      throw new Error("Title not found");
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    throw error; // Re-throw the error so it can be caught by the caller
   }
 }
