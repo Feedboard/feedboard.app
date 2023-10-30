@@ -69,7 +69,6 @@ addNewYoutubeBtn.addEventListener("click", async function () {
   addNewYoutubeBtn.disabled = true;
 
   const channelName = await getChannelName(newYoutubeName.value);
-  console.log(channelName);
 
   const { data, error } = await client
     .from("feeds")
@@ -84,7 +83,7 @@ addNewYoutubeBtn.addEventListener("click", async function () {
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${data[0].feed_options}">
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}">
          <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="" width="40" height="40" />
          </a>
         `;
@@ -167,7 +166,6 @@ async function getChannelName(channelId) {
     const title = data.querySelector("title").textContent;
 
     if (title) {
-      console.log(title);
       return title;
     } else {
       throw new Error("Title not found");

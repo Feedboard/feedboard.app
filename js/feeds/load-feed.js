@@ -229,7 +229,7 @@ async function loadFeed() {
       if (item.feed_type == "youtube") {
         addNewYoutubeBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}">
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}">
          <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="" width="40" height="40" />
          </a>
         `;
