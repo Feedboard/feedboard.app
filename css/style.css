@@ -1,0 +1,175 @@
+body {
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+#sidebar {
+  width: 68px;
+  padding: 0.5rem;
+  overflow: scroll;
+}
+#main-container {
+  height: calc(100vh - 49px);
+}
+
+/* =================================================================
+FEED
+================================================================= */
+
+.feed {
+  max-width: 400px;
+  min-width: 380px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.feed-header {
+  padding: 0.25rem 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.feed-body {
+  padding: 0rem 0rem 1rem 0rem;
+}
+
+.feeds-container {
+  width: 100%;
+  overflow: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.sidebar-add-new {
+  width: 100%;
+  height: auto;
+  border: 1px dashed;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.3s ease-out;
+}
+.sidebar-add-new:hover {
+  padding: 0.8rem;
+}
+
+/* =================================================================
+MODAL
+================================================================= */
+
+.modal-content {
+  border: none;
+  border-radius: 0.75rem;
+}
+.modal-header {
+  padding: 0.5rem 0.75rem;
+  border: none;
+}
+.btn-close {
+  background: none;
+}
+
+.modal-body {
+  padding: 0;
+}
+.modal-footer {
+  padding: 0.5rem;
+  border: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+/* =================================================================
+PRODUCTHUNT
+================================================================= */
+
+.ph-votes {
+  padding: 7px 4px 12px;
+  font-size: 12px;
+  min-width: 52px;
+  max-width: 52px;
+  max-height: 64px;
+}
+
+/* =================================================================
+SUBSTACK
+================================================================= */
+
+.text-lg {
+  font-size: 16px !important;
+  line-height: 1.5rem !important;
+}
+.font-bold {
+  font-weight: 600 !important;
+}
+.font-light {
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  line-height: 1.3rem !important;
+}
+
+/* =================================================================
+DROPDOWN MENU
+================================================================= */
+
+.dropdown-menu {
+  padding: 0.5rem;
+  z-index: 2000;
+}
+.dropdown-item {
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+}
+
+/* =================================================================
+PLACEHOLDER
+================================================================= */
+
+.placeholder {
+  background-color: #cecece !important;
+}
+
+/* =================================================================
+TOOLTIP
+================================================================= */
+
+#toast {
+  z-index: 9999;
+  position: absolute;
+  backdrop-filter: blur(4px);
+  background-color: rgb(33 37 41 / 90%);
+  color: #ffffff;
+  top: -60px;
+  left: 50%;
+  transform: translateY(0px);
+  border-radius: 5rem;
+  max-width: 300px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+}
+
+#toast img {
+  margin-right: 0.5rem;
+}
+
+.toast-fadein {
+  transform: translateY(80px) !important;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+}
