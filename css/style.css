@@ -164,8 +164,8 @@ TOOLTIP
   background-color: rgb(33 37 41 / 90%);
   color: #ffffff;
   top: -60px;
-  left: 44%;
-  transform: translateY(0px);
+  left: 50%;
+  transform: translate(-50%, 0px);
   border-radius: 5rem;
   max-width: 300px;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.25, 1.35);
@@ -176,7 +176,7 @@ TOOLTIP
 }
 
 .toast-fadein {
-  transform: translateY(80px) !important;
+  transform: translate(-50%, 80px) !important;
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.25, 1.35);
 }
 
