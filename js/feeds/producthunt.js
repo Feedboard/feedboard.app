@@ -152,6 +152,7 @@ async function removePhFeed(id) {
     console.log(error);
   } else {
     console.log("Deleted");
+    showToast("Feed deleted");
     addProductHuntBtn.disabled = false;
 
     let feedContainer = document.getElementById(id);

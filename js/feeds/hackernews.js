@@ -105,6 +105,7 @@ async function removeHnFeed(id) {
     console.log(error);
   } else {
     console.log("Deleted");
+    showToast("Feed deleted");
     addHackerNewsBtn.disabled = false;
 
     let feedContainer = document.getElementById(id);
