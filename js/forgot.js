@@ -8,7 +8,7 @@ resetPasswordBtn.addEventListener("click", async (event) => {
   if (isValid) {
     console.log("valid email address.");
     const { data, error } = await client.auth.resetPasswordForEmail(userEmail, {
-      redirectTo: "http://cripto.tools/update-password.html",
+      redirectTo: "http://feedboard.app/update-password.html",
     });
 
     if (error) {
