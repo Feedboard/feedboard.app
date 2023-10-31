@@ -8,6 +8,7 @@ updatePasswordBtn.addEventListener("click", async (event) => {
 
   if (error) {
     console.log(error);
+    document.getElementById("passwordResetlHelper").innerHTML = error;
   } else {
     console.log(data);
     window.location.replace("./reset-success.html");
