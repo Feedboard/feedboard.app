@@ -22,6 +22,12 @@ p {
   height: calc(100vh - 49px);
 }
 
+.bg-landing-gradient {
+  background: rgb(255, 210, 165);
+  background: radial-gradient(ellipse at center bottom, rgba(255, 210, 165, 1) 0%, rgba(255, 210, 165, 0) 60%);
+  background-repeat: no-repeat;
+}
+
 /* =================================================================
 FEED
 ================================================================= */
