@@ -127,6 +127,7 @@ addNewYoutubeBtn.addEventListener("click", async function () {
   if (error) {
     console.log(error);
   }
+  initTooltip();
 });
 
 // Remove youtube channel

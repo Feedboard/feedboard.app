@@ -273,10 +273,13 @@ async function loadFeed() {
   if (error) {
     console.log(error);
   }
+
+  initTooltip();
 }
-// Super hacky shit to load tooltips
-setTimeout(function () {
+
+function initTooltip() {
   // Initialise Bootstrap tooltips
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
-}, 1000);
+  console.log("Tooltip");
+}
