@@ -1,6 +1,7 @@
 body {
   height: 100vh;
   font-family: "Inter", sans-serif;
+  overscroll-behavior-x: none;
 }
 
 h1,
