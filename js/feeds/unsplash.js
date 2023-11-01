@@ -2,22 +2,22 @@ async function getUnsplashFeed() {
   console.log("Loading Unsplash...");
   const feedUnsplash = document.getElementById("feed-unsplash");
 
-  fetch("https://feedboard-api-relay-production.up.railway.app/unsplash")
+  const url = "https://feedboard-api-relay-production.up.railway.app/unsplash";
+  fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       let photos = "";
 
-      // data.forEach((el) => {
-      //   photos += `
-      //   <a href="${el.links.html}" class="list-group-item list-group-item-action" target="_blank">
-      //   <img class="img-fluid rounded-3 mb-2 bg-light" src="${el.links.download}"/>
-      //   <p class="fw-semibold text-capitalize">${el.alt_description}</p>
-      //   <p class="text-secondary small"><img src="./img/thumbs-up.svg" width="14" height="14"/> ${el.likes} likes</p>
-      //   </a>
-      //   `;
-      // });
-      // feedUnsplash.innerHTML = photos;
+      data.forEach((el) => {
+        photos += `
+        <a href="${el.links.html}" class="list-group-item list-group-item-action" target="_blank">
+        <img class="img-fluid rounded-3 mb-2 bg-light" src="${el.links.download}"/>
+        <p class="fw-semibold text-capitalize">${el.alt_description}</p>
+        <p class="text-secondary small"><img src="./img/thumbs-up.svg" width="14" height="14"/> ${el.likes} likes</p>
+        </a>
+        `;
+      });
+      feedUnsplash.innerHTML = photos;
     })
     .catch((error) => {
       console.error("Error:", error);

@@ -2,40 +2,39 @@ async function getPhFeed() {
   console.log("Loading ProductHunt...");
   const feedProductHunt = document.getElementById("feed-producthunt");
 
+  const url = "https://feedboard-api-relay-production.up.railway.app/producthunt";
   // Create a fetch request
-  fetch("https://feedboard-api-relay-production.up.railway.app/producthunt")
+  fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      // let edges = data.data.posts.edges;
-      // let feed = "";
-      // edges.forEach((el) => {
-      //   let name = el.node.name;
-      //   let tagLine = el.node.tagline;
-      //   let createdAt = convertTime(el.node.createdAt);
-      //   let votesCount = el.node.votesCount;
-      //   let image = el.node.thumbnail.url;
-      //   let url = el.node.url;
+      let feed = "";
+      data.forEach((el) => {
+        let name = el.node.name;
+        let tagLine = el.node.tagline;
+        let createdAt = convertTime(el.node.createdAt);
+        let votesCount = el.node.votesCount;
+        let image = el.node.thumbnail.url;
+        let url = el.node.url;
 
-      //   feed += `
-      // <a href="${url}" class="list-group-item list-group-item-action" target="_blank">
-      // <div class="d-flex flex-row justify-content-between">
-      // <div class="d-flex flex-row">
-      //       <img src="${image}" class="rounded-3 me-3" width="64" height="64"/>
-      //       <div>
-      //       <p class="fw-semibold">${name}</p>
-      //       <p class="text-secondary small">${tagLine}</p>
-      //       <p class="text-secondary text-uppercase small">${createdAt}</p>
-      //       </div>
-      //       </div>
-      //       <div class="ph-votes d-flex flex-column align-items-center border rounded-2">
-      //       <img src="./img/arrow-head-up.svg" width="24" />
-      //       <p>${votesCount}</p>
-      //       </div>
-      //   </div>
-      //   </a>
-      //       `;
-      // });
+        feed += `
+      <a href="${url}" class="list-group-item list-group-item-action" target="_blank">
+      <div class="d-flex flex-row justify-content-between">
+      <div class="d-flex flex-row">
+            <img src="${image}" class="rounded-3 me-3" width="64" height="64"/>
+            <div>
+            <p class="fw-semibold">${name}</p>
+            <p class="text-secondary small">${tagLine}</p>
+            <p class="text-secondary text-uppercase small">${createdAt}</p>
+            </div>
+            </div>
+            <div class="ph-votes d-flex flex-column align-items-center border rounded-2">
+            <img src="./img/arrow-head-up.svg" width="24" />
+            <p>${votesCount}</p>
+            </div>
+        </div>
+        </a>
+            `;
+      });
 
       feedProductHunt.innerHTML = feed;
     })
