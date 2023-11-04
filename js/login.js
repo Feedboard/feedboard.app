@@ -1,6 +1,7 @@
 const userEmail = document.getElementById("userEmail");
 const userPassword = document.getElementById("userPassword");
 const loginBtn = document.getElementById("loginBtn");
+const googleAuthBtn = document.getElementById("googleAuthBtn");
 
 loginBtn.addEventListener("click", async (event) => {
   event.preventDefault();
@@ -37,4 +38,13 @@ loginBtn.addEventListener("click", async (event) => {
     console.log("not a valid email address.");
     loginBtn.disabled = false;
   }
+});
+
+googleAuthBtn.addEventListener("click", async function () {
+  const { data, error } = await client.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: "https://feedboard.app/dashboard.html",
+    },
+  });
 });
