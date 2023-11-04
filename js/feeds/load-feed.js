@@ -1,9 +1,10 @@
 // Call the loadFeed function when the document is ready
-document.addEventListener("DOMContentLoaded", function () {
-  loadFeed();
+document.addEventListener("DOMContentLoaded", async function () {
+  await loadFeed();
 });
 
 async function loadFeed() {
+  await checkSession();
   const { data, error } = await client.from("feeds").select("*").eq("user_id", user_id).order("id", { ascending: true });
 
   if (data == "") {
