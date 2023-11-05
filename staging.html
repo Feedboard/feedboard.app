@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html data-bs-theme="light">
+  <head>
+    <!-- Hotjar Tracking Code for https://feedboard.app -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 3719035, hjsv: 6 };
+        a = o.getElementsByTagName("head")[0];
+        r = o.createElement("script");
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })(window, document, "https://static.hotjar.com/c/hotjar-", ".js?sv=");
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feedboard</title>
+
+    <!-- SEO meta tags -->
+    <meta name="title" content="Feedboard - Your internet dashboard Tweetdeck style" />
+    <meta name="description" content="Feedboad is a dashboard for your internet feed like Reddit, ProductHunt, Indie Hackers, Hacker News and more" />
+    <meta name="keywords" content="feed, dashboard, rss, organize, producthunt, indie hacker, hacker news, youtube" />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://feedboard.app/" />
+    <meta property="og:title" content="Feedboard - Your internet dashboard Tweetdeck style" />
+    <meta property="og:description" content="Feedboad is a dashboard for your internet feed like Reddit, ProductHunt, Indie Hackers, Hacker News and more" />
+    <meta property="og:image" content="https://feedboard.app/img/website-preview.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://feedboard.app/" />
+    <meta property="twitter:title" content="Feedboard - Your internet dashboard Tweetdeck style" />
+    <meta property="twitter:description" content="Feedboad is a dashboard for your internet feed like Reddit, ProductHunt, Indie Hackers, Hacker News and more" />
+    <meta property="twitter:image" content="https://feedboard.app/img/website-preview.png" />
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-config" content="favicon/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap & custom styling -->
+    <link href="./vendors/bootstrap-5.3.2/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- Start of navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+      <div class="container-fluid">
+        <div class="small" href="#">
+          <img src="./img/logo.svg" class="me-1" alt="Bootstrap" width="24" height="24" />
+          Feedboard
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn bg-body-secondary btn-sm rounded-pill border-0 p-1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="img/user-circle.svg" width="24" height="24" alt="" />
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <d class="d-flex py-1 px-2">
+                <img class="align-text-bottom me-2" src="./img/user-circle.svg" width="20" height="20" alt="" />
+                <div>
+                  <p>Your account</p>
+                  <p id="displayAccountEmail" class="text-secondary small">emailhere</p>
+                </div>
+              </d>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <button class="dropdown-item d-flex" type="button">
+                <img class="align-text-bottom me-2" src="./img/notification.svg" width="20" height="20" alt="" />
+                <div>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p>What's new</p>
+                    <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
+                  </div>
+                  <p class="text-secondary small">Find out all the latest changes.</p>
+                </div>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item d-flex" type="button">
+                <img class="align-text-bottom me-2" src="./img/hand-palm.svg" width="20" height="20" alt="" />
+                <div>
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p>Feed request</p>
+                    <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
+                  </div>
+                  <p class="text-secondary small">Request a new feed to be added.</p>
+                </div>
+              </button>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <button id="logoutBtn" class="dropdown-item" type="button">
+                <img class="align-text-bottom" src="./img/sign-out.svg" width="20" height="20" alt="" />
+                Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="main-container" class="d-flex flex-row">
+      <!-- Start of sidebar -->
+      <div id="sidebar" class="d-flex flex-column align-items-center bg-body-tertiary border-end">
+        <a class="d-flex justify-content-center mb-2" href="" data-bs-toggle="modal" data-bs-target="#newFeedModal"><img class="sidebar-add-new bg-body-secondary border-secondary" src="./img/plus.svg" width="24" height="24" alt="" /></a>
+        <div id="feedLogoContainer" class="d-flex flex-column align-items-center"></div>
+      </div>
+
+      <!-- Start of feed container -->
+      <div id="feedContainer" class="feeds-container d-flex flex-row">
+        <div id="spinnerContainer" class="w-100 d-flex justify-content-center align-items-center">
+          <img src="./img/spinner.svg" width="24" height="24" alt="loading spinner" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Add new feed Modal -->
+    <div class="modal fade" id="newFeedModal" tabindex="-1" aria-labelledby="newFeedModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header bg-body-secondary">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add new feed</h1>
+            <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close">
+              <img src="./img/x.svg" width="16" height="16" alt="" />
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="accordion accordion-flush" id="accordionExample">
+              <!-- Subreddit -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubreddit" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-reddit.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">Subreddit</p>
+                        <p class="text-secondary small">Get a feed of the latest post from a subreddit</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseSubreddit" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="subreddit-name">r/</span>
+                      <input id="newSubredditName" type="text" class="form-control" placeholder="Subreddit name" autocomplete="off" aria-label="Subreddit name" aria-describedby="subreddit-name" />
+                    </div>
+                    <button id="addNewSubreddit" class="btn btn-dark btn-sm" disabled>Add subreddit</button>
+                  </div>
+                </div>
+              </div>
+              <!-- HackerNews -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHackerNews" aria-expanded="false" aria-controls="collapseTwo">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-hackernews.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">Hacker News</p>
+                        <p class="text-secondary small">Get a feed of the latest news from HackerNews</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseHackerNews" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <button id="addHackerNews" class="btn btn-dark btn-sm">Add HackerNews</button>
+                  </div>
+                </div>
+              </div>
+              <!-- ProductHunt -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-product-hunt.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">ProductHunt</p>
+                        <p class="text-secondary small">Get a list of today's new launch</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <button id="addProductHunt" class="btn btn-dark btn-sm">Add ProductHunt</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Substack -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-substack.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">Substack</p>
+                        <p class="text-secondary small">Get a feed from your favourite newsletter</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="input-group mb-3">
+                      <input id="newSubstackName" type="text" class="form-control" placeholder="Substack name" autocomplete="off" aria-label="Substack name" aria-describedby="substack-name" />
+                      <span class="input-group-text" id="substack-name">.substack.com</span>
+                    </div>
+                    <button id="addNewSubstack" class="btn btn-dark btn-sm" disabled>Add Substack</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Unsplash -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-unsplash.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">Unsplash</p>
+                        <p class="text-secondary small">Every day new photos from Unsplash</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <button id="addUnsplash" class="btn btn-dark btn-sm">Add Unsplash</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Youtube -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-youtube.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">Youtube</p>
+                        <p class="text-secondary small">Get a feed from a Youtube channel</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="mb-3">
+                      <input id="newYoutubeName" type="text" class="form-control" placeholder="Channel ID" autocomplete="off" aria-label="Youtube name" aria-describedby="youtube-name" />
+                    </div>
+                    <button id="addNewYoutube" class="btn btn-dark btn-sm" disabled>Add Youtube channel</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Telegram -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTelegram" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">Telegram channel</p>
+                        <p class="text-secondary small">Get a feed from a public Telegram channel</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseTelegram" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <span class="input-group-text" id="subreddit-name">t.me/</span>
+                        <input id="newTelegramChannelName" type="text" class="form-control" placeholder="Telegram channel" autocomplete="off" aria-label="Telegram channel name" aria-describedby="telegram-name" />
+                      </div>
+                      <div class="form-text">Make sure the Telegram channel is public</div>
+                    </div>
+                    <button id="addNewTelegramChannel" class="btn btn-dark btn-sm" disabled>Add Telegram channel</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Coming soon -->
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item opacity-75">
+                  <div class="d-flex flex-row">
+                    <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="" />
+                    <div class="w-100 d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="fw-semibold">Telegram</p>
+                        <p class="text-secondary small">Get a feed from a public Telegram channel</p>
+                      </div>
+                      <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item opacity-75">
+                  <div class="d-flex flex-row">
+                    <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="" />
+                    <div class="w-100 d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="fw-semibold">Coingecko</p>
+                        <p class="text-secondary small">Get the latest Cryptocurrency data</p>
+                      </div>
+                      <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item opacity-75">
+                  <div class="d-flex flex-row">
+                    <img class="me-3 rounded-3" src="./img/logo-techcrunch.svg" width="45" height="45" alt="" />
+                    <div class="w-100 d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="fw-semibold">TechCrunch</p>
+                        <p class="text-secondary small">Get the latest TechCrunch news</p>
+                      </div>
+                      <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast">
+      <div class="d-flex align-items-center px-3 py-2">
+        <div>
+          <img class="align-text-top" src="./img/check-circle.svg" width="24" height="24" alt="" />
+        </div>
+        <div>
+          <p id="toastHeader" class="small"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Bootstrap -->
+    <script src="./vendors/bootstrap-5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <script src="./js/app.js"></script>
+    <script src="/js/session.js"></script>
+    <script src="./js/feeds/load-feed.js"></script>
+    <script src="./js/feeds/substack.js"></script>
+    <script src="./js/feeds/producthunt.js"></script>
+    <script src="./js/feeds/hackernews.js"></script>
+    <script src="./js/feeds/subreddit.js"></script>
+    <script src="./js/feeds/unsplash.js"></script>
+    <script src="./js/feeds/youtube.js"></script>
+    <script src="./js/feeds/telegram.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/logout.js"></script>
+  </body>
+</html>
