@@ -12,7 +12,7 @@ async function getTelegramFeed(channel, id) {
     .then((response) => response.text())
     .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
     .then((data) => {
-      const entries = data.querySelectorAll("entry");
+      const entries = data.querySelectorAll("item");
       feedTelegram.innerHTML = "";
       let entry = "";
       if (entries.length <= 0) {
@@ -29,16 +29,30 @@ async function getTelegramFeed(channel, id) {
       }
 
       entries.forEach((el) => {
-        let title = el.querySelector("title").innerHTML;
+        let title = el.querySelector("title").textContent;
         let description = el.querySelector("description").textContent;
         let pubDate = el.querySelector("pubDate").textContent;
         let link = el.querySelector("link").textContent;
 
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(description, "text/xml");
+
+        const documentRoot = xmlDoc.documentElement;
+        const cdataContent = documentRoot.textContent;
+
+        const htmlDoc = new DOMParser().parseFromString(description, "text/html");
+        const pEl = htmlDoc.querySelector("p");
+        const aEl = htmlDoc.querySelector("a");
+        const imgEl = htmlDoc.querySelector("img");
+        console.log(pEl);
+        console.log(aEl);
+        console.log(imgEl);
+
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               <p class="fw-semibold mb-2">${title}</p>
-              <p class="text-secondary small">${description}</p>
-              <p class="text-secondary small">${link}</p>
+              ${imgEl ? `<img class="img-fluid rounded-3" src="${imgEl.getAttribute("src")}" />` : ""}
+              <p class="text-secondary small">${convertHnDate(pubDate)}</p>
             </a>
               `;
       });
@@ -64,14 +78,14 @@ addNewTelegramChannelBtn.addEventListener("click", async function () {
     .select();
 
   if (data) {
-    showToast("r/" + newTelegramChannelName.value + " added to your feed");
+    showToast(newTelegramChannelName.value + " added to your feed");
     const feedContainer = document.getElementById("feedContainer");
     const sidebarContainer = document.getElementById("feedLogoContainer");
     let feed = "";
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${data[0].feed_options}">
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}">
          <img class="rounded-3 m-2" src="./img/logo-telegram.svg" alt="" width="40" height="40" />
          </a>
         `;
@@ -81,7 +95,7 @@ addNewTelegramChannelBtn.addEventListener("click", async function () {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-telegram.svg" width="20" height="20" alt="" />
-              <p>r/${data[0].feed_options}</p>
+              <p>${data[0].feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
