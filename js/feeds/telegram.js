@@ -1,6 +1,6 @@
 async function getTelegramFeed(channel, id) {
   console.log("Loading " + channel);
-  const telegramUrl = "https://rsshub.app/telegram/channel/" + channel;
+  const telegramUrl = "https://web-production-ba07.up.railway.app/https://rsshub.app/telegram/channel/" + channel;
   const feedTelegram = document.getElementById("feed-telegram-" + id);
 
   await fetch(telegramUrl, {
