@@ -1,5 +1,10 @@
 [
   {
+    "date": "05 Nov 23",
+    "title": "List of upcoming feeds",
+    "description": "Added a list of upcoming feeds like Telegram public channels, Coingecko and TechCrunch News."
+  },
+  {
     "date": "04 Nov 23",
     "title": "Google single sign-on",
     "description": "Added Google SSO to offer more signup options."
