@@ -34,6 +34,15 @@ async function getTelegramFeed(channel, id) {
         let pubDate = el.querySelector("pubDate").textContent;
         let link = el.querySelector("link").textContent;
 
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(description, "text/xml");
+
+        const documentRoot = xmlDoc.documentElement;
+        const cdataContent = documentRoot.textContent;
+
+        const htmlDoc = new DOMParser().parseFromString(description, "text/html");
+        const imgEl = htmlDoc.querySelector("img");
+
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               <p class="fw-semibold mb-2">${title}</p>
