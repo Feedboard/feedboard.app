@@ -148,6 +148,7 @@
           </div>
           <div class="modal-body">
             <div class="accordion accordion-flush" id="accordionExample">
+              <!-- Subreddit -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubreddit" aria-expanded="false" aria-controls="collapseOne">
@@ -161,7 +162,7 @@
                   </button>
                 </h2>
                 <div id="collapseSubreddit" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
+                  <div class="accordion-body pt-0">
                     <div class="input-group mb-3">
                       <span class="input-group-text" id="subreddit-name">r/</span>
                       <input id="newSubredditName" type="text" class="form-control" placeholder="Subreddit name" autocomplete="off" aria-label="Subreddit name" aria-describedby="subreddit-name" />
@@ -170,6 +171,7 @@
                   </div>
                 </div>
               </div>
+              <!-- HackerNews -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHackerNews" aria-expanded="false" aria-controls="collapseTwo">
@@ -183,11 +185,12 @@
                   </button>
                 </h2>
                 <div id="collapseHackerNews" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
+                  <div class="accordion-body pt-0">
                     <button id="addHackerNews" class="btn btn-dark btn-sm">Add HackerNews</button>
                   </div>
                 </div>
               </div>
+              <!-- ProductHunt -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -201,11 +204,12 @@
                   </button>
                 </h2>
                 <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
+                  <div class="accordion-body pt-0">
                     <button id="addProductHunt" class="btn btn-dark btn-sm">Add ProductHunt</button>
                   </div>
                 </div>
               </div>
+              <!-- Substack -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
@@ -219,7 +223,7 @@
                   </button>
                 </h2>
                 <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
+                  <div class="accordion-body pt-0">
                     <div class="input-group mb-3">
                       <input id="newSubstackName" type="text" class="form-control" placeholder="Substack name" autocomplete="off" aria-label="Substack name" aria-describedby="substack-name" />
                       <span class="input-group-text" id="substack-name">.substack.com</span>
@@ -228,6 +232,7 @@
                   </div>
                 </div>
               </div>
+              <!-- Unsplash -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
@@ -241,7 +246,7 @@
                   </button>
                 </h2>
                 <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
+                  <div class="accordion-body pt-0">
                     <button id="addUnsplash" class="btn btn-dark btn-sm">Add Unsplash</button>
                   </div>
                 </div>
@@ -260,11 +265,37 @@
                   </button>
                 </h2>
                 <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
+                  <div class="accordion-body pt-0">
                     <div class="mb-3">
                       <input id="newYoutubeName" type="text" class="form-control" placeholder="Channel ID" autocomplete="off" aria-label="Youtube name" aria-describedby="youtube-name" />
                     </div>
                     <button id="addNewYoutube" class="btn btn-dark btn-sm" disabled>Add Youtube channel</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Telegram -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTelegram" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">Telegram channel</p>
+                        <p class="text-secondary small">Get a feed from a public Telegram channel</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseTelegram" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <span class="input-group-text" id="subreddit-name">t.me/</span>
+                        <input id="newTelegramChannelName" type="text" class="form-control" placeholder="Telegram channel" autocomplete="off" aria-label="Telegram channel name" aria-describedby="telegram-name" />
+                      </div>
+                      <div class="form-text">Make sure the Telegram channel is public</div>
+                    </div>
+                    <button id="addNewTelegramChannel" class="btn btn-dark btn-sm" disabled>Add Telegram channel</button>
                   </div>
                 </div>
               </div>
@@ -275,13 +306,27 @@
                     <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="" />
                     <div class="w-100 d-flex justify-content-between align-items-center">
                       <div>
-                        <p class="fw-semibold">Telegram</p>
+                        <p class="fw-semibold">Telegram channel</p>
                         <p class="text-secondary small">Get a feed from a public Telegram channel</p>
                       </div>
-                      <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
                     </div>
+                  </button>
+                </h2>
+                <div id="collapseTelegram" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <span class="input-group-text" id="subreddit-name">t.me/</span>
+                        <input id="newTelegramChannelName" type="text" class="form-control" placeholder="Telegram channel" autocomplete="off" aria-label="Telegram channel name" aria-describedby="telegram-name" />
+                      </div>
+                      <div class="form-text">Make sure the Telegram channel is public</div>
+                    </div>
+                    <button id="addNewTelegramChannel" class="btn btn-dark btn-sm" disabled>Add Telegram channel</button>
                   </div>
-                </li>
+                </div>
+              </div>
+              <!-- Coming soon -->
+              <ul class="list-group list-group-flush">
                 <li class="list-group-item opacity-75">
                   <div class="d-flex flex-row">
                     <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="" />
@@ -355,6 +400,7 @@
     <script src="./js/feeds/subreddit.js"></script>
     <script src="./js/feeds/unsplash.js"></script>
     <script src="./js/feeds/youtube.js"></script>
+    <script src="./js/feeds/telegram.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/changelog.js"></script>

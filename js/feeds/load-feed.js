@@ -271,7 +271,7 @@ async function loadFeed() {
       if (item.feed_type == "telegram") {
         addNewTelegramChannelBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}">
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}">
          <img class="rounded-3 m-2" src="./img/logo-telegram.svg" alt="" width="40" height="40" />
          </a>
         `;
@@ -281,7 +281,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-telegram.svg" width="20" height="20" alt="" />
-              <p class="text-capitalize">${item.feed_name}</p>
+              <p class="text-capitalize">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -323,5 +323,4 @@ function initTooltip() {
   // Initialise Bootstrap tooltips
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   const tooltipList = [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
-  console.log("Tooltip");
 }
