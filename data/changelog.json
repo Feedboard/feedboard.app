@@ -1,5 +1,10 @@
 [
   {
+    "date": "06 Nov 23",
+    "title": "Added Changelog",
+    "description": "Added this changelog modal to keep track of all things new on every release."
+  },
+  {
     "date": "05 Nov 23",
     "title": "List of upcoming feeds",
     "description": "Added a list of upcoming feeds like Telegram public channels, Coingecko and TechCrunch News."
