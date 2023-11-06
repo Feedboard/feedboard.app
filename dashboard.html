@@ -74,7 +74,7 @@
           Feedboard
         </div>
         <div class="btn-group">
-          <button type="button" class="btn bg-body-secondary btn-sm rounded-pill border-0 p-1" data-bs-toggle="dropdown" aria-expanded="false">
+          <button type="button" class="btn bg-body-secondary btn-sm rounded-pill border-0 p-1" data-bs-toggle="dropdown" aria-expanded="false" name="user-profile">
             <img src="img/user-circle.svg" width="24" height="24" alt="" />
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -89,7 +89,7 @@
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <button id="changelogBtn" class="dropdown-item d-flex" type="button" data-bs-toggle="modal" data-bs-target="#changelogModal">
+              <button id="changelogBtn" class="dropdown-item d-flex" type="button" data-bs-toggle="modal" data-bs-target="#changelogModal" name="changelog-button">
                 <img class="align-text-bottom me-2" src="./img/notification.svg" width="20" height="20" alt="" />
                 <div>
                   <p>What's new</p>
@@ -98,7 +98,7 @@
               </button>
             </li>
             <li>
-              <button class="dropdown-item d-flex" type="button">
+              <button class="dropdown-item d-flex" type="button" name="feed-request-button">
                 <img class="align-text-bottom me-2" src="./img/hand-palm.svg" width="20" height="20" alt="" />
                 <div>
                   <div class="d-flex align-items-center justify-content-between">
@@ -111,7 +111,7 @@
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <button id="logoutBtn" class="dropdown-item" type="button">
+              <button id="logoutBtn" class="dropdown-item" type="button" name="signout">
                 <img class="align-text-bottom" src="./img/sign-out.svg" width="20" height="20" alt="" />
                 Logout
               </button>
@@ -142,7 +142,7 @@
         <div class="modal-content">
           <div class="modal-header bg-body-secondary">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add new feed</h1>
-            <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close">
+            <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close" name="close-modal">
               <img src="./img/x.svg" width="16" height="16" alt="" />
             </button>
           </div>
@@ -151,7 +151,7 @@
               <!-- Subreddit -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubreddit" aria-expanded="false" aria-controls="collapseOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubreddit" aria-expanded="false" aria-controls="collapseOne" name="subreddit-feed-maker">
                     <div class="d-flex flex-row">
                       <img class="me-3 rounded-3" src="./img/logo-reddit.svg" width="45" height="45" alt="" />
                       <div>
@@ -167,7 +167,7 @@
                       <span class="input-group-text" id="subreddit-name">r/</span>
                       <input id="newSubredditName" type="text" class="form-control" placeholder="Subreddit name" autocomplete="off" aria-label="Subreddit name" aria-describedby="subreddit-name" />
                     </div>
-                    <button id="addNewSubreddit" class="btn btn-dark btn-sm" disabled>Add subreddit</button>
+                    <button id="addNewSubreddit" class="btn btn-dark btn-sm" disabled name="add-subreddit-button">Add subreddit</button>
                   </div>
                 </div>
               </div>
@@ -279,32 +279,6 @@
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTelegram" aria-expanded="false" aria-controls="collapseOne">
                     <div class="d-flex flex-row">
                       <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="" />
-                      <div>
-                        <p class="fw-semibold">Telegram channel</p>
-                        <p class="text-secondary small">Get a feed from a public Telegram channel</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTelegram" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="mb-3">
-                      <div class="input-group">
-                        <span class="input-group-text" id="subreddit-name">t.me/</span>
-                        <input id="newTelegramChannelName" type="text" class="form-control" placeholder="Telegram channel" autocomplete="off" aria-label="Telegram channel name" aria-describedby="telegram-name" />
-                      </div>
-                      <div class="form-text">Make sure the Telegram channel is public</div>
-                    </div>
-                    <button id="addNewTelegramChannel" class="btn btn-dark btn-sm" disabled>Add Telegram channel</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Coming soon -->
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item opacity-75">
-                  <div class="d-flex flex-row">
-                    <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="" />
-                    <div class="w-100 d-flex justify-content-between align-items-center">
                       <div>
                         <p class="fw-semibold">Telegram channel</p>
                         <p class="text-secondary small">Get a feed from a public Telegram channel</p>
