@@ -299,6 +299,59 @@
                   </div>
                 </div>
               </div>
+              <!-- Pinterest account -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestAccount" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="" />
+                      <div>
+                        <div class="d-flex">
+                          <p class="fw-semibold">Pinterest account</p>
+                          <span class="badge rounded-pill text-warning-subtle bg-warning ms-2">Beta</span>
+                        </div>
+                        <p class="text-secondary small">Get a feed of all pins from a Pinterest account.</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapsePinterestAccount" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="subreddit-name">pinterest.com/</span>
+                      <input id="newPinterestAccountName" type="text" class="form-control" placeholder="Pinterest username" autocomplete="off" aria-label="Pinterest account name" aria-describedby="pinterest-account-name" />
+                    </div>
+                    <button id="addNewPinterestAccount" class="btn btn-dark btn-sm" disabled>Add Pinterest account</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Pinterest board -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestBoard" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="" />
+                      <div>
+                        <div class="d-flex">
+                          <p class="fw-semibold">Pinterest board</p>
+                          <span class="badge rounded-pill text-warning-subtle bg-warning ms-2">Beta</span>
+                        </div>
+                        <p class="text-secondary small">Get a feed of all pins from a Pinterest board.</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapsePinterestBoard" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="subreddit-name">pinterest.com/</span>
+                      <input id="newPinterestBoardName" type="text" class="form-control" placeholder="username/boardName" autocomplete="off" aria-label="Pinterest board name" aria-describedby="pinterest-board-name" />
+                    </div>
+                    <button id="addNewPinterestBoard" class="btn btn-dark btn-sm" disabled>Add Pinterest board</button>
+                  </div>
+                </div>
+              </div>
+
               <!-- Coming soon -->
               <ul class="list-group list-group-flush">
                 <li class="list-group-item opacity-75">
@@ -375,6 +428,7 @@
     <script src="./js/feeds/unsplash.js"></script>
     <script src="./js/feeds/youtube.js"></script>
     <script src="./js/feeds/telegram.js"></script>
+    <script src="./js/feeds/pinterest.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/changelog.js"></script>
