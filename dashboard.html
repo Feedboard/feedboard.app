@@ -299,6 +299,29 @@
                   </div>
                 </div>
               </div>
+              <!-- Pinterest account -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestAccount" aria-expanded="false" aria-controls="collapseOne">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="" />
+                      <div>
+                        <p class="fw-semibold">Pinterest account</p>
+                        <p class="text-secondary small">Get a feed of all pins from a Pinterest account.</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapsePinterestAccount" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="subreddit-name">pinterest.com/</span>
+                      <input id="newPinterestAccountName" type="text" class="form-control" placeholder="Pinterest username" autocomplete="off" aria-label="Pinterest account name" aria-describedby="pinterest-account-name" />
+                    </div>
+                    <button id="addNewPinterestAccount" class="btn btn-dark btn-sm" disabled>Add Pinterest account</button>
+                  </div>
+                </div>
+              </div>
               <!-- Coming soon -->
               <ul class="list-group list-group-flush">
                 <li class="list-group-item opacity-75">
@@ -320,6 +343,18 @@
                       <div>
                         <p class="fw-semibold">TechCrunch</p>
                         <p class="text-secondary small">Get the latest TechCrunch news</p>
+                      </div>
+                      <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item opacity-75">
+                  <div class="d-flex flex-row">
+                    <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="" />
+                    <div class="w-100 d-flex justify-content-between align-items-center">
+                      <div>
+                        <p class="fw-semibold">Pinterest</p>
+                        <p class="text-secondary small">Get users and boards pins from Pinterest</p>
                       </div>
                       <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
                     </div>
@@ -375,6 +410,7 @@
     <script src="./js/feeds/unsplash.js"></script>
     <script src="./js/feeds/youtube.js"></script>
     <script src="./js/feeds/telegram.js"></script>
+    <script src="./js/feeds/pinterest.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/changelog.js"></script>
