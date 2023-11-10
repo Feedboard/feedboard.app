@@ -1,5 +1,10 @@
 [
   {
+    "date": "10 Nov 23",
+    "title": "Pinterest feed",
+    "description": "You can now add a Pinterest feed for users and or boards. The functionality is currently in Beta as Pinterest feeds can be a bit unreliable sometimes. Sometimes just reloading the board fixes the issue."
+  },
+  {
     "date": "07 Nov 23",
     "title": "Telegram feed",
     "description": "Telegram feeds for public channels are now available and can be added to your board."
