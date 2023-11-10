@@ -20,7 +20,8 @@ async function getPinterestAccount(username, id) {
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
           <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" />
           <div>
-            This Pinterest account is not public or doesn't seem to exist.
+            This functionality is in Beta and it might fail. If you think the username is correct try to reload this tab.
+            In alternative this Pinterest account is not public or doesn't seem to exist.
           </div>
         </div>
               `;
@@ -165,7 +166,8 @@ async function getPinterestBoard(slug, id) {
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
           <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" />
           <div>
-            This Pinterest board is not public or doesn't seem to exist.
+            This functionality is in Beta and it might fail. If you think the username is correct try to reload this tab.
+            In alternative this Pinterest board is not public or doesn't seem to exist.
           </div>
         </div>
               `;
