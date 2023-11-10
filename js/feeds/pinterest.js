@@ -1,12 +1,11 @@
 async function getPinterestAccount(username, id) {
   console.log("Loading " + username);
-  const pinterestAccountUrl = "https://web-production-ba07.up.railway.app/https://pinterest.co.uk/" + username + "/feed.rss";
+  const pinterestAccountUrl = "https://web-production-ba07.up.railway.app/pinterest.com/" + username + "/feed.rss";
   const feedPinterestAccount = document.getElementById("feed-pinterestAccount-" + id);
 
   await fetch(pinterestAccountUrl, {
     headers: {
-      "Access-Control-Allow-Origin": pinterestAccountUrl,
-      "Access-Control-Allow-Headers": "content-type",
+      "X-Requested-With": "XMLHttpRequest",
     },
   })
     .then((response) => response.text())
@@ -42,11 +41,10 @@ async function getPinterestAccount(username, id) {
 
         const htmlDoc = new DOMParser().parseFromString(description, "text/html");
         const imgEl = htmlDoc.querySelector("img");
-        console.log(imgEl);
 
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              ${imgEl ? `<img class="img-fluid rounded-3" src="${imgEl.getAttribute("src")}" />` : ""}
+              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
               <p class="text-secondary small">${convertHnDate(pubDate)}</p>
             </a>
