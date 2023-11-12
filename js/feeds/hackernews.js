@@ -54,8 +54,8 @@ addHackerNewsBtn.addEventListener("click", async function () {
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}">
-         <img class="rounded-3 m-2" src="./img/logo-hackernews.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
+         <img class="rounded-3 m-2" src="./img/logo-hackernews.svg" alt="hackernews logo" width="40" height="40" />
          </a>
         `;
 
@@ -63,12 +63,12 @@ addHackerNewsBtn.addEventListener("click", async function () {
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-hackernews.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-hackernews.svg" width="20" height="20" alt="hackernews logo" />
               Hacker News
             </div>
             <div class="btn-group">
               <button type="button" name="options" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getHnFeed(${data[0].id})"><button class="dropdown-item" type="button" name="reload">Reload</button></li>

@@ -20,7 +20,7 @@ async function getPhFeed() {
       <a href="${url}" class="list-group-item list-group-item-action" target="_blank">
       <div class="d-flex flex-row justify-content-between">
       <div class="d-flex flex-row">
-            <img src="${image}" class="rounded-3 me-3" width="64" height="64"/>
+            <img src="${image}" class="rounded-3 me-3" width="64" height="64" alt="${name}"/>
             <div>
             <p class="fw-semibold">${name}</p>
             <p class="text-secondary small">${tagLine}</p>
@@ -28,7 +28,7 @@ async function getPhFeed() {
             </div>
             </div>
             <div class="ph-votes d-flex flex-column align-items-center border rounded-2">
-            <img src="./img/arrow-head-up.svg" width="24" />
+            <img src="./img/arrow-head-up.svg" width="24" alt="arrow head up" />
             <p>${votesCount}</p>
             </div>
         </div>
@@ -64,8 +64,8 @@ addProductHuntBtn.addEventListener("click", async function () {
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}">
-         <img class="rounded-3 m-2" src="./img/logo-product-hunt.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
+         <img class="rounded-3 m-2" src="./img/logo-product-hunt.svg" alt="producthunt logo" width="40" height="40" />
          </a>
         `;
 
@@ -73,12 +73,12 @@ addProductHuntBtn.addEventListener("click", async function () {
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-product-hunt.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-product-hunt.svg" width="20" height="20" alt="producthunt logo" />
               ProductHunt
             </div>
             <div class="btn-group">
               <button type="button" name="options" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getPhFeed(${data[0].id})"><button class="dropdown-item" type="button" name="reload">Reload</button></li>

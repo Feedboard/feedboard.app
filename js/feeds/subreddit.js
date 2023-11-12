@@ -19,7 +19,7 @@ async function getRedditFeed(subreddit, id) {
         console.log("not ok");
         entry += `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
-          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" />
+          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" alt="warning icon" />
           <div>
             This subreddit doesn't seem to exist.
           </div>
@@ -52,7 +52,7 @@ async function getRedditFeed(subreddit, id) {
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               <p class="fw-semibold mb-2">${title}</p>
-              ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}"/>` : ""}
+              ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}" alt="${title}" />` : ""}
               <p class="text-secondary small">${truncatedContent}</p>
               <p class="text-secondary small">${name}</p>
             </a>
@@ -87,8 +87,8 @@ addNewSubredditBtn.addEventListener("click", async function () {
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${data[0].feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-reddit.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${data[0].feed_options}" aria-label="${data[0].feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-reddit.svg" alt="reddit logo" width="40" height="40" />
          </a>
         `;
 
@@ -96,12 +96,12 @@ addNewSubredditBtn.addEventListener("click", async function () {
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-reddit.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-reddit.svg" width="20" height="20" alt="reddit logo" />
               <p id="subredditName">r/${data[0].feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getRedditFeed('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>

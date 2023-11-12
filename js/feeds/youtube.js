@@ -19,7 +19,7 @@ async function getYoutubeChannel(channelId, id) {
         console.log("not ok");
         entry += `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
-          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" />
+          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" alt="warning icon" />
           <div>
             This Youtube channel doesn't seem to exist.
           </div>
@@ -45,9 +45,9 @@ async function getYoutubeChannel(channelId, id) {
               </div>
               <p class="fw-semibold mb-2">${title}</p>
               <div class="d-flex flex-row">
-              <p class="text-secondary small me-3"><img src="./img/clock.svg" width="14" /> ${published}</p>
-              <p class="text-secondary small me-3"><img src="./img/eye.svg" width="14" /> ${views}</p>
-              <p class="text-secondary small me-3"><img src="./img/thumbs-up.svg" width="14" /> ${likes}</p>
+              <p class="text-secondary small me-3"><img src="./img/clock.svg" width="14" alt="clock icon" /> ${published}</p>
+              <p class="text-secondary small me-3"><img src="./img/eye.svg" width="14" alt="eye icon" /> ${views}</p>
+              <p class="text-secondary small me-3"><img src="./img/thumbs-up.svg" width="14" alt="thunbs up icon" /> ${likes}</p>
               </div>
             </div>
               `;
@@ -83,8 +83,8 @@ addNewYoutubeBtn.addEventListener("click", async function () {
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}">
-         <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
+         <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="youtube logo" width="40" height="40" />
          </a>
         `;
 
@@ -92,12 +92,12 @@ addNewYoutubeBtn.addEventListener("click", async function () {
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-youtube.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-youtube.svg" width="20" height="20" alt="youtube logo" />
               <p id="youtubeChannelName">${data[0].feed_name}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getYoutubeChannel('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>

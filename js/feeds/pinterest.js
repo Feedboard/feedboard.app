@@ -18,7 +18,7 @@ async function getPinterestAccount(username, id) {
         console.log("not ok");
         entry += `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
-          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" />
+          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" alt="warning icon" />
           <div>
             This functionality is in Beta and it might fail. If you think the username is correct try to reload this tab.
             In alternative this Pinterest account is not public or doesn't seem to exist.
@@ -45,7 +45,7 @@ async function getPinterestAccount(username, id) {
 
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" />` : ""}
+              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
               <p class="text-secondary small">${convertHnDate(pubDate)}</p>
             </a>
@@ -80,8 +80,8 @@ addNewPinterestAccountBtn.addEventListener("click", async function () {
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}" aria-label="${data[0].feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="pinterest logo" width="40" height="40" />
          </a>
         `;
 
@@ -89,12 +89,12 @@ addNewPinterestAccountBtn.addEventListener("click", async function () {
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="pinterest logo" />
               <p>${data[0].feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getPinterestAccount('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>
@@ -164,7 +164,7 @@ async function getPinterestBoard(slug, id) {
         console.log("not ok");
         entry += `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
-          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" />
+          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" alt="warning icon" />
           <div>
             This functionality is in Beta and it might fail. If you think the username is correct try to reload this tab.
             In alternative this Pinterest board is not public or doesn't seem to exist.
@@ -191,7 +191,7 @@ async function getPinterestBoard(slug, id) {
 
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" />` : ""}
+              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
               <p class="text-secondary small">${convertHnDate(pubDate)}</p>
             </a>
@@ -226,8 +226,8 @@ addNewPinterestBoardBtn.addEventListener("click", async function () {
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}" aria-label="${data[0].feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="pinterest logo" width="40" height="40" />
          </a>
         `;
 
@@ -235,12 +235,12 @@ addNewPinterestBoardBtn.addEventListener("click", async function () {
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="pinterest logo" />
               <p>${data[0].feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getPinterestBoard('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>

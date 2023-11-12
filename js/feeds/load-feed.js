@@ -12,7 +12,7 @@ async function loadFeed() {
     empty = `
     <div class="d-flex flex-column align-items-center">
     <p>You do not have any feed</p>
-    <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#newFeedModal">Add feed</button>
+    <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#newFeedModal" name="add-feed">Add feed</button>
     </div>
     `;
     document.getElementById("spinnerContainer").innerHTML = empty;
@@ -27,8 +27,8 @@ async function loadFeed() {
     data.forEach((item) => {
       if (item.feed_type == "subreddit") {
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${item.feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-reddit.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${item.feed_options}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-reddit.svg" alt="reddit logo" width="40" height="40" />
          </a>
         `;
 
@@ -36,16 +36,16 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-reddit.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-reddit.svg" width="20" height="20" alt="reddit logo" />
               <p id="subredditName">r/${item.feed_options}</p>
             </div>
             <div class="btn-group">
-              <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+              <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getRedditFeed('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
-                <li onclick="removeRedditFeed(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
+                <li onclick="getRedditFeed('${item.feed_options}', ${item.id})"><button name="get-reddit-feed" class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="removeRedditFeed(${item.id})"><button class="dropdown-item" type="button" name="remove">Remove</button></li>
               </ul>
             </div>
           </div>
@@ -66,20 +66,20 @@ async function loadFeed() {
       if (item.feed_type == "hackernews") {
         addHackerNewsBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}">
-         <img class="rounded-3 m-2" src="./img/logo-hackernews.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}" aria-label="${item.feed_name}">
+         <img class="rounded-3 m-2" src="./img/logo-hackernews.svg" alt="hackernews logo" width="40" height="40" />
          </a>
         `;
         feed += `
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-hackernews.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-hackernews.svg" width="20" height="20" alt="hackernews logo" />
               Hacker News
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getHnFeed(${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
@@ -105,8 +105,8 @@ async function loadFeed() {
       if (item.feed_type == "producthunt") {
         addProductHuntBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}">
-         <img class="rounded-3 m-2" src="./img/logo-product-hunt.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}" aria-label="${item.feed_name}">
+         <img class="rounded-3 m-2" src="./img/logo-product-hunt.svg" alt="producthunt logo" width="40" height="40" />
          </a>
         `;
 
@@ -114,12 +114,12 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-product-hunt.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-product-hunt.svg" width="20" height="20" alt="producthunt logo" />
               ProductHunt
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getPhFeed(${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
@@ -145,8 +145,8 @@ async function loadFeed() {
       if (item.feed_type == "substack") {
         addNewSubstackBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-substack.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-substack.svg" alt="substack logo" width="40" height="40" />
          </a>
         `;
 
@@ -154,12 +154,12 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-substack.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-substack.svg" width="20" height="20" alt="substack logo" />
               <p class="text-capitalize">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getSubstack('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
@@ -190,8 +190,8 @@ async function loadFeed() {
       if (item.feed_type == "unsplash") {
         addUnsplashBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}">
-         <img class="rounded-3 m-2" src="./img/logo-unsplash.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}" aria-label="${item.feed_name}">
+         <img class="rounded-3 m-2" src="./img/logo-unsplash.svg" alt="unsplash logo" width="40" height="40" />
          </a>
         `;
 
@@ -199,12 +199,12 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-unsplash.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-unsplash.svg" width="20" height="20" alt="unsplash logo" />
               Unsplash
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getUnsplashFeed(${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
@@ -230,8 +230,8 @@ async function loadFeed() {
       if (item.feed_type == "youtube") {
         addNewYoutubeBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}">
-         <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}" aria-label="${item.feed_name}">
+         <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="youtube logo" width="40" height="40" />
          </a>
         `;
 
@@ -239,12 +239,12 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-youtube.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-youtube.svg" width="20" height="20" alt="youtube logo" />
               <p class="text-capitalize">${item.feed_name}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getYoutubeChannel('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
@@ -271,8 +271,8 @@ async function loadFeed() {
       if (item.feed_type == "telegram") {
         addNewTelegramChannelBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-telegram.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-telegram.svg" alt="telegram logo" width="40" height="40" />
          </a>
         `;
 
@@ -280,12 +280,12 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-telegram.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-telegram.svg" width="20" height="20" alt="telegram logo" />
               <p class="text-capitalize">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getTelegramFeed('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
@@ -312,8 +312,8 @@ async function loadFeed() {
       if (item.feed_type == "pinterest-account") {
         addNewPinterestAccountBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="pinterest logo" width="40" height="40" />
          </a>
         `;
 
@@ -321,12 +321,12 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="pinterest logo" />
               <p class="text-capitalize">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getPinterestAccount('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
@@ -353,8 +353,8 @@ async function loadFeed() {
       if (item.feed_type == "pinterest-board") {
         addNewPinterestBoardBtn.disabled = true;
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="pinterest logo" width="40" height="40" />
          </a>
         `;
 
@@ -362,12 +362,12 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="" />
+              <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="pinterest logo" />
               <p class="text-capitalize">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="" />
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getPinterestBoard('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>

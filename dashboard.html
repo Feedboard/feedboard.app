@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="light">
+<html lang="en" data-bs-theme="light">
   <head>
     <!-- Hotjar Tracking Code for https://feedboard.app -->
     <script>
@@ -70,17 +70,17 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
       <div class="container-fluid">
         <div class="small" href="#">
-          <img src="./img/logo.svg" class="me-1" alt="Bootstrap" width="24" height="24" />
+          <img src="./img/logo.svg" class="me-1" alt="feedboard-logo" width="24" height="24" />
           Feedboard
         </div>
         <div class="btn-group">
           <button type="button" class="btn bg-body-secondary btn-sm rounded-pill border-0 p-1" data-bs-toggle="dropdown" aria-expanded="false" name="user-profile">
-            <img src="img/user-circle.svg" width="24" height="24" alt="" />
+            <img src="img/user-circle.svg" width="24" height="24" alt="user-profile-icon" />
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
               <d class="d-flex py-1 px-2">
-                <img class="align-text-bottom me-2" src="./img/user-circle.svg" width="20" height="20" alt="" />
+                <img class="align-text-bottom me-2" src="./img/user-circle.svg" width="20" height="20" alt="user-circle-icon" />
                 <div>
                   <p>Your account</p>
                   <p id="displayAccountEmail" class="text-secondary small">emailhere</p>
@@ -90,7 +90,7 @@
             <li><hr class="dropdown-divider" /></li>
             <li>
               <button id="changelogBtn" class="dropdown-item d-flex" type="button" data-bs-toggle="modal" data-bs-target="#changelogModal" name="changelog-button">
-                <img class="align-text-bottom me-2" src="./img/notification.svg" width="20" height="20" alt="" />
+                <img class="align-text-bottom me-2" src="./img/notification.svg" width="20" height="20" alt="notification-icon" />
                 <div>
                   <p>What's new</p>
                   <p class="text-secondary small">Find out all the latest changes.</p>
@@ -99,7 +99,7 @@
             </li>
             <li>
               <button class="dropdown-item d-flex" type="button" name="feed-request-button">
-                <img class="align-text-bottom me-2" src="./img/hand-palm.svg" width="20" height="20" alt="" />
+                <img class="align-text-bottom me-2" src="./img/hand-palm.svg" width="20" height="20" alt="hand-palm-icon" />
                 <div>
                   <div class="d-flex align-items-center justify-content-between">
                     <p>Feed request</p>
@@ -112,7 +112,7 @@
             <li><hr class="dropdown-divider" /></li>
             <li>
               <button id="logoutBtn" class="dropdown-item" type="button" name="signout">
-                <img class="align-text-bottom" src="./img/sign-out.svg" width="20" height="20" alt="" />
+                <img class="align-text-bottom" src="./img/sign-out.svg" width="20" height="20" alt="signout-icon" />
                 Logout
               </button>
             </li>
@@ -124,7 +124,7 @@
     <div id="main-container" class="d-flex flex-row">
       <!-- Start of sidebar -->
       <div id="sidebar" class="d-flex flex-column align-items-center bg-body-tertiary border-end">
-        <a class="d-flex justify-content-center mb-2" href="" data-bs-toggle="modal" data-bs-target="#newFeedModal"><img class="sidebar-add-new bg-body-secondary border-secondary" src="./img/plus.svg" width="24" height="24" alt="" /></a>
+        <a class="d-flex justify-content-center mb-2" href="" data-bs-toggle="modal" data-bs-target="#newFeedModal" aria-label="add-new-feed"><img class="sidebar-add-new bg-body-secondary border-secondary" src="./img/plus.svg" width="24" height="24" alt="add-new" /></a>
         <div id="feedLogoContainer" class="d-flex flex-column align-items-center"></div>
       </div>
 
@@ -143,7 +143,7 @@
           <div class="modal-header bg-body-secondary">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add new feed</h1>
             <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close" name="close-modal">
-              <img src="./img/x.svg" width="16" height="16" alt="" />
+              <img src="./img/x.svg" width="16" height="16" alt="close-icon" />
             </button>
           </div>
           <div class="modal-body">
@@ -153,7 +153,7 @@
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubreddit" aria-expanded="false" aria-controls="collapseOne" name="subreddit-feed-maker">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-reddit.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-reddit.svg" width="45" height="45" alt="logo-reddit" />
                       <div>
                         <p class="fw-semibold">Subreddit</p>
                         <p class="text-secondary small">Get a feed of the latest post from a subreddit</p>
@@ -174,9 +174,9 @@
               <!-- HackerNews -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHackerNews" aria-expanded="false" aria-controls="collapseTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHackerNews" aria-expanded="false" aria-controls="collapseTwo" name="hacker-news-feed">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-hackernews.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-hackernews.svg" width="45" height="45" alt="hackernews logo" />
                       <div>
                         <p class="fw-semibold">Hacker News</p>
                         <p class="text-secondary small">Get a feed of the latest news from HackerNews</p>
@@ -186,16 +186,16 @@
                 </h2>
                 <div id="collapseHackerNews" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body pt-0">
-                    <button id="addHackerNews" class="btn btn-dark btn-sm">Add HackerNews</button>
+                    <button id="addHackerNews" class="btn btn-dark btn-sm" name="add-hackernews-button">Add HackerNews</button>
                   </div>
                 </div>
               </div>
               <!-- ProductHunt -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" name="producthunt-feed">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-product-hunt.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-product-hunt.svg" width="45" height="45" alt="producthunt logo" />
                       <div>
                         <p class="fw-semibold">ProductHunt</p>
                         <p class="text-secondary small">Get a list of today's new launch</p>
@@ -205,16 +205,16 @@
                 </h2>
                 <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body pt-0">
-                    <button id="addProductHunt" class="btn btn-dark btn-sm">Add ProductHunt</button>
+                    <button id="addProductHunt" class="btn btn-dark btn-sm" name="add-producthunt">Add ProductHunt</button>
                   </div>
                 </div>
               </div>
               <!-- Substack -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree" name="substack-feed">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-substack.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-substack.svg" width="45" height="45" alt="substack logo" />
                       <div>
                         <p class="fw-semibold">Substack</p>
                         <p class="text-secondary small">Get a feed from your favourite newsletter</p>
@@ -228,16 +228,16 @@
                       <input id="newSubstackName" type="text" class="form-control" placeholder="Substack name" autocomplete="off" aria-label="Substack name" aria-describedby="substack-name" />
                       <span class="input-group-text" id="substack-name">.substack.com</span>
                     </div>
-                    <button id="addNewSubstack" class="btn btn-dark btn-sm" disabled>Add Substack</button>
+                    <button id="addNewSubstack" class="btn btn-dark btn-sm" name="add-substack" disabled>Add Substack</button>
                   </div>
                 </div>
               </div>
               <!-- Unsplash -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree" name="unsplash-feed">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-unsplash.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-unsplash.svg" width="45" height="45" alt="unsplash logo" />
                       <div>
                         <p class="fw-semibold">Unsplash</p>
                         <p class="text-secondary small">Every day new photos from Unsplash</p>
@@ -247,16 +247,16 @@
                 </h2>
                 <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body pt-0">
-                    <button id="addUnsplash" class="btn btn-dark btn-sm">Add Unsplash</button>
+                    <button id="addUnsplash" class="btn btn-dark btn-sm" name="add-unsplash">Add Unsplash</button>
                   </div>
                 </div>
               </div>
               <!-- Youtube -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" name="youtube-feed">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-youtube.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-youtube.svg" width="45" height="45" alt="youtube logo" />
                       <div>
                         <p class="fw-semibold">Youtube</p>
                         <p class="text-secondary small">Get a feed from a Youtube channel</p>
@@ -269,16 +269,16 @@
                     <div class="mb-3">
                       <input id="newYoutubeName" type="text" class="form-control" placeholder="Channel ID" autocomplete="off" aria-label="Youtube name" aria-describedby="youtube-name" />
                     </div>
-                    <button id="addNewYoutube" class="btn btn-dark btn-sm" disabled>Add Youtube channel</button>
+                    <button id="addNewYoutube" class="btn btn-dark btn-sm" name="add-youtube" disabled>Add Youtube channel</button>
                   </div>
                 </div>
               </div>
               <!-- Telegram -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTelegram" aria-expanded="false" aria-controls="collapseOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTelegram" aria-expanded="false" aria-controls="collapseOne" name="telegram-feed">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="telegram logo" />
                       <div>
                         <p class="fw-semibold">Telegram channel</p>
                         <p class="text-secondary small">Get a feed from a public Telegram channel</p>
@@ -290,21 +290,21 @@
                   <div class="accordion-body pt-0">
                     <div class="mb-3">
                       <div class="input-group">
-                        <span class="input-group-text" id="subreddit-name">t.me/</span>
+                        <span class="input-group-text" id="telegram-name">t.me/</span>
                         <input id="newTelegramChannelName" type="text" class="form-control" placeholder="Telegram channel" autocomplete="off" aria-label="Telegram channel name" aria-describedby="telegram-name" />
                       </div>
                       <div class="form-text">Make sure the Telegram channel is public</div>
                     </div>
-                    <button id="addNewTelegramChannel" class="btn btn-dark btn-sm" disabled>Add Telegram channel</button>
+                    <button id="addNewTelegramChannel" class="btn btn-dark btn-sm" name="add-telegram" disabled>Add Telegram channel</button>
                   </div>
                 </div>
               </div>
               <!-- Pinterest account -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestAccount" aria-expanded="false" aria-controls="collapseOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestAccount" aria-expanded="false" aria-controls="collapseOne" name="pinterest-feed">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="pinterest logo" />
                       <div>
                         <div class="d-flex">
                           <p class="fw-semibold">Pinterest account</p>
@@ -318,19 +318,19 @@
                 <div id="collapsePinterestAccount" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body pt-0">
                     <div class="input-group mb-3">
-                      <span class="input-group-text" id="subreddit-name">pinterest.com/</span>
+                      <span class="input-group-text" id="pinterest-account-name">pinterest.com/</span>
                       <input id="newPinterestAccountName" type="text" class="form-control" placeholder="Pinterest username" autocomplete="off" aria-label="Pinterest account name" aria-describedby="pinterest-account-name" />
                     </div>
-                    <button id="addNewPinterestAccount" class="btn btn-dark btn-sm" disabled>Add Pinterest account</button>
+                    <button id="addNewPinterestAccount" class="btn btn-dark btn-sm" name="add-pinterest" disabled>Add Pinterest account</button>
                   </div>
                 </div>
               </div>
               <!-- Pinterest board -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestBoard" aria-expanded="false" aria-controls="collapseOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestBoard" aria-expanded="false" aria-controls="collapseOne" name="pinterest-board">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="" />
+                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="pinterest logo" />
                       <div>
                         <div class="d-flex">
                           <p class="fw-semibold">Pinterest board</p>
@@ -344,10 +344,10 @@
                 <div id="collapsePinterestBoard" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body pt-0">
                     <div class="input-group mb-3">
-                      <span class="input-group-text" id="subreddit-name">pinterest.com/</span>
+                      <span class="input-group-text" id="pinterest-board-name">pinterest.com/</span>
                       <input id="newPinterestBoardName" type="text" class="form-control" placeholder="username/boardName" autocomplete="off" aria-label="Pinterest board name" aria-describedby="pinterest-board-name" />
                     </div>
-                    <button id="addNewPinterestBoard" class="btn btn-dark btn-sm" disabled>Add Pinterest board</button>
+                    <button id="addNewPinterestBoard" class="btn btn-dark btn-sm" name="add-pinterest-board" disabled>Add Pinterest board</button>
                   </div>
                 </div>
               </div>
@@ -356,7 +356,7 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item opacity-75">
                   <div class="d-flex flex-row">
-                    <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="" />
+                    <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="coingecko logo" />
                     <div class="w-100 d-flex justify-content-between align-items-center">
                       <div>
                         <p class="fw-semibold">Coingecko</p>
@@ -368,7 +368,7 @@
                 </li>
                 <li class="list-group-item opacity-75">
                   <div class="d-flex flex-row">
-                    <img class="me-3 rounded-3" src="./img/logo-techcrunch.svg" width="45" height="45" alt="" />
+                    <img class="me-3 rounded-3" src="./img/logo-techcrunch.svg" width="45" height="45" alt="techcrunch logo" />
                     <div class="w-100 d-flex justify-content-between align-items-center">
                       <div>
                         <p class="fw-semibold">TechCrunch</p>
@@ -380,7 +380,7 @@
                 </li>
                 <li class="list-group-item opacity-75">
                   <div class="d-flex flex-row">
-                    <img class="me-3 rounded-3" src="./img/logo-behance.svg" width="45" height="45" alt="" />
+                    <img class="me-3 rounded-3" src="./img/logo-behance.svg" width="45" height="45" alt="behance logo" />
                     <div class="w-100 d-flex justify-content-between align-items-center">
                       <div>
                         <p class="fw-semibold">Behance</p>
@@ -404,8 +404,8 @@
         <div class="modal-content">
           <div class="modal-header bg-body-secondary">
             <h1 class="modal-title fs-5" id="exampleModalLabel">What's new</h1>
-            <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close">
-              <img src="./img/x.svg" width="16" height="16" alt="" />
+            <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close" name="close-modal">
+              <img src="./img/x.svg" width="16" height="16" alt="close icon" />
             </button>
           </div>
           <div id="changelogBody" class="modal-body p-3"></div>
@@ -417,7 +417,7 @@
     <div id="toast">
       <div class="d-flex align-items-center px-3 py-2">
         <div>
-          <img class="align-text-top" src="./img/check-circle.svg" width="24" height="24" alt="" />
+          <img class="align-text-top" src="./img/check-circle.svg" width="24" height="24" alt="check circle icon" />
         </div>
         <div>
           <p id="toastHeader" class="small"></p>
