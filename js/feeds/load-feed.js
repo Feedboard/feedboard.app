@@ -59,8 +59,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getRedditFeed(item.feed_options, item.id);
+        setTimeout(async function () {
+          await getRedditFeed(item.feed_options, item.id);
         }, 1);
       }
       if (item.feed_type == "hackernews") {
@@ -97,8 +97,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getHnFeed();
+        setTimeout(async function () {
+          await getHnFeed();
         }, 1);
       }
 
@@ -137,8 +137,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getPhFeed();
+        setTimeout(async function () {
+          await getPhFeed();
         }, 1);
       }
 
@@ -177,13 +177,13 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
+        setTimeout(async function () {
           // Inject SubstackAPI script
           var script = document.createElement("script");
           script.src = "https://substackapi.com/embeds/feed.js";
           document.body.appendChild(script);
 
-          getSubstack(item.feed_options);
+          await getSubstack(item.feed_options);
         }, 1);
       }
 
@@ -222,8 +222,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getUnsplashFeed();
+        setTimeout(async function () {
+          await getUnsplashFeed();
         }, 1);
       }
 
@@ -262,8 +262,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getYoutubeChannel(item.feed_options, item.id);
+        setTimeout(async function () {
+          await getYoutubeChannel(item.feed_options, item.id);
         }, 1);
       }
 
@@ -303,8 +303,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getTelegramFeed(item.feed_options, item.id);
+        setTimeout(async function () {
+          await getTelegramFeed(item.feed_options, item.id);
         }, 1);
       }
 
@@ -344,8 +344,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getPinterestAccount(item.feed_options, item.id);
+        setTimeout(async function () {
+          await getPinterestAccount(item.feed_options, item.id);
         }, 1);
       }
 
@@ -385,8 +385,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getPinterestBoard(item.feed_options, item.id);
+        setTimeout(async function () {
+          await getPinterestBoard(item.feed_options, item.id);
         }, 1);
       }
 
@@ -426,8 +426,8 @@ async function loadFeed() {
           </div>
         </div>
         `;
-        setTimeout(function () {
-          getCoingeckoTop();
+        setTimeout(async function () {
+          await getCoingeckoTop();
         }, 1);
       }
 
