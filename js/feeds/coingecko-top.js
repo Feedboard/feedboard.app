@@ -1,6 +1,6 @@
 async function getCoingeckoTop() {
   console.log("Loading Coingecko Too 100...");
-  const cgURL = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h&locale=en";
+  const cgURL = "https://web-production-ba07.up.railway.app/https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h&locale=en";
   const feedCoingeckoTop = document.getElementById("feed-coingeckoTop");
 
   await fetch(cgURL, {
@@ -10,7 +10,6 @@ async function getCoingeckoTop() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       feedCoingeckoTop.innerHTML = "";
       let entry = "";
       data.forEach((el) => {
@@ -20,14 +19,20 @@ async function getCoingeckoTop() {
         let coinName = el.name;
         let symbol = el.symbol;
         let currentPrice = el.current_price;
-        let change24h = el.price_change_percentage_24h;
+        let change24h = el.price_change_percentage_24h.toFixed(2);
         entry += `
-              <a href="${coinId}" class="list-group-item list-group-item-action" target="_blank">
-              <img src="${coinImage} width="24" height="24" alt="${coinId}"/>
-              <p class="fw-semibold">${coinName}</p>
-              <p class="text-secondary small text-uppercase">${symbol}</p>
-              <p class="text-secondary small">${currentPrice}</p>
-              <p class="text-secondary small">${change24h}</p>
+              <a href="https://www.coingecko.com/en/coins/${coinId}" class="d-flex justify-content-between list-group-item list-group-item-action align-items-center" target="_blank">
+              <div class="d-flex align-items-center">
+                <img class="me-2" src="${coinImage} width="32" height="32" alt="${coinId}"/>
+                <div>
+                  <p class="fw-semibold">${coinName}</p>
+                  <p class="text-secondary small text-uppercase">${symbol}</p>
+                </div>
+                </div>
+                <div class="d-flex">
+                  <p class="text-secondary small me-4">$${currentPrice}</p>
+                  ${change24h >= 0 ? `<p class="text-success small">+${change24h}</p>` : `<p class="text-danger small">${change24h}</p>`}
+                </div>
               </a>
               `;
       });

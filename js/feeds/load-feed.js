@@ -390,6 +390,47 @@ async function loadFeed() {
         }, 1);
       }
 
+      // Coingecko Top 100 board
+      if (item.feed_type == "coingecko") {
+        addCoingeckoTopBtn.disabled = true;
+        sidebar += `
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_name}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-coingecko.svg" alt="coingecko logo" width="40" height="40" />
+         </a>
+        `;
+
+        feed += `
+        <div id="${item.id}" class="feed border-end">
+          <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
+            <div class="d-flex align-items-center">
+              <img class="me-2" src="./img/logo-coingecko.svg" width="20" height="20" alt="coingecko logo" />
+              <p class="text-capitalize">${item.feed_options}</p>
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li onclick="getCoingeckoTop()"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="removeCoingeckoTop(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
+              </ul>
+            </div>
+          </div>
+          <div id="feed-coingeckoTop" class="list-group list-group-flush feed-body">
+            <div class="p-2 placeholder-glow">
+              <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
+              <span class="placeholder col-7 bg-secondary"></span>
+              <span class="placeholder col-4 bg-secondary"></span>
+              <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
+            </div>
+          </div>
+        </div>
+        `;
+        setTimeout(function () {
+          getCoingeckoTop();
+        }, 1);
+      }
+
       feedContainer.innerHTML = feed;
       sidebarContainer.innerHTML = sidebar;
     });
