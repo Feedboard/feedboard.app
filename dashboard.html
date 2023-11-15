@@ -351,21 +351,28 @@
                   </div>
                 </div>
               </div>
+              <!-- Coingecko Top 100 -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCoingeckoTop" aria-expanded="false" aria-controls="collapseTwo" name="coingecko-top-feed">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="coingecko logo" />
+                      <div>
+                        <p class="fw-semibold">Coingecko Top 100</p>
+                        <p class="text-secondary small">Get price info for the top 100 cryptocurrencies</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseCoingeckoTop" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <button id="addCoingeckoTop" class="btn btn-dark btn-sm" name="add-coingecko-button">Add Coingecko Top 100</button>
+                  </div>
+                </div>
+              </div>
 
               <!-- Coming soon -->
               <ul class="list-group list-group-flush">
-                <li class="list-group-item opacity-75">
-                  <div class="d-flex flex-row">
-                    <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="coingecko logo" />
-                    <div class="w-100 d-flex justify-content-between align-items-center">
-                      <div>
-                        <p class="fw-semibold">Coingecko</p>
-                        <p class="text-secondary small">Get the latest Cryptocurrency data</p>
-                      </div>
-                      <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
-                    </div>
-                  </div>
-                </li>
                 <li class="list-group-item opacity-75">
                   <div class="d-flex flex-row">
                     <img class="me-3 rounded-3" src="./img/logo-techcrunch.svg" width="45" height="45" alt="techcrunch logo" />
@@ -441,6 +448,7 @@
     <script src="./js/feeds/youtube.js"></script>
     <script src="./js/feeds/telegram.js"></script>
     <script src="./js/feeds/pinterest.js"></script>
+    <script src="./js/feeds/coingecko-top.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/changelog.js"></script>
