@@ -1,5 +1,5 @@
 async function getCoingeckoTop() {
-  console.log("Loading Coingecko Too 100...");
+  console.log("Loading Coingecko Top 100...");
   const cgURL = "https://web-production-ba07.up.railway.app/https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h&locale=en";
   const feedCoingeckoTop = document.getElementById("feed-coingeckoTop");
 
