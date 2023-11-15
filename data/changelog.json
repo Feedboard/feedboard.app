@@ -1,10 +1,14 @@
 [
   {
+    "date": "15 Nov 23",
+    "title": "Coingecko Top 100",
+    "description": "You can now add a feed from Coingecko for the top 100 coins by marketcap."
+  },
+  {
     "date": "12 Nov 23",
     "title": "Accessiblity improvements",
     "description": "Small improvements around accessibility and SEO."
   },
-
   {
     "date": "10 Nov 23",
     "title": "Pinterest feed",
