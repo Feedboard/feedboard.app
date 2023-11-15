@@ -23,7 +23,7 @@ async function getCoingeckoTop() {
         entry += `
               <a href="https://www.coingecko.com/en/coins/${coinId}" class="d-flex justify-content-between list-group-item list-group-item-action align-items-center" target="_blank">
               <div class="d-flex align-items-center">
-                <img class="me-2" src="${coinImage} width="32" height="32" alt="${coinId}"/>
+                <img class="rounded-3 me-2" src="${coinImage} width="32" height="32" alt="${coinId}"/>
                 <div>
                   <p class="fw-semibold">${coinName}</p>
                   <p class="text-secondary small text-uppercase">${symbol}</p>
