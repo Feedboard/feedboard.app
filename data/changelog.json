@@ -1,5 +1,10 @@
 [
   {
+    "date": "16 Nov 23",
+    "title": "Medium feed",
+    "description": "Medium is now integrated in Feedboard and you can add your favourite authors and follow their publications."
+  },
+  {
     "date": "15 Nov 23",
     "title": "Coingecko Top 100",
     "description": "You can now add a feed from Coingecko for the top 100 coins by marketcap."
