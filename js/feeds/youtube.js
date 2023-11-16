@@ -41,7 +41,7 @@ async function getYoutubeChannel(channelId, id) {
         entry += `
             <div class="list-group-item list-group-item-action" target="_blank">      
               <div class="ratio ratio-16x9">
-                <iframe class="rounded-3" src="${embedLink}" title="YouTube video" allowfullscreen></iframe>
+                <iframe class="rounded-3" src="${embedLink}" title="YouTube video" allowfullscreen loading="lazy"></iframe>
               </div>
               <p class="fw-semibold mb-2">${title}</p>
               <div class="d-flex flex-row">

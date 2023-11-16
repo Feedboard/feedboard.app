@@ -11,7 +11,7 @@ async function getUnsplashFeed() {
       data.forEach((el) => {
         photos += `
         <a href="${el.links.html}" class="list-group-item list-group-item-action" target="_blank">
-        <img class="img-fluid rounded-3 mb-2 bg-light" src="${el.links.download}" alt="${el.alt_description}"/>
+        <img class="img-fluid rounded-3 mb-2 bg-light" src="${el.links.download}" alt="${el.alt_description}" loading="lazy"/>
         <p class="fw-semibold text-capitalize">${el.alt_description}</p>
         <p class="text-secondary small"><img src="./img/thumbs-up.svg" width="14" height="14" alt="thungs up icon"/> ${el.likes} likes</p>
         </a>

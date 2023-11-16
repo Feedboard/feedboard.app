@@ -46,7 +46,7 @@ async function getTelegramFeed(channel, id) {
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               <p class="fw-semibold mb-2">${title}</p>
-              ${imgEl ? `<img class="img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" />` : ""}
+              ${imgEl ? `<img class="img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" loading="lazy" />` : ""}
               <p class="text-secondary small">${convertHnDate(pubDate)}</p>
             </a>
               `;

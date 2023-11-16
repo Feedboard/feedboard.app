@@ -45,7 +45,7 @@ async function getPinterestAccount(username, id) {
 
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" />` : ""}
+              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" loading="lazy" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
               <p class="text-secondary small">${convertHnDate(pubDate)}</p>
             </a>

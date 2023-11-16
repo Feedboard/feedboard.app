@@ -52,7 +52,7 @@ async function getRedditFeed(subreddit, id) {
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               <p class="fw-semibold mb-2">${title}</p>
-              ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}" alt="${title}" />` : ""}
+              ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}" alt="${title}" loading="lazy" />` : ""}
               <p class="text-secondary small">${truncatedContent}</p>
               <p class="text-secondary small">${name}</p>
             </a>
