@@ -370,6 +370,29 @@
                   </div>
                 </div>
               </div>
+              <!-- Medium -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseOne" name="subreddit-feed-maker">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-medium.svg" width="45" height="45" alt="logo-medium" />
+                      <div>
+                        <p class="fw-semibold">Medium</p>
+                        <p class="text-secondary small">Get a Medium publication feed</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseMedium" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="medium-name">medium.com/</span>
+                      <input id="newMediumName" type="text" class="form-control" placeholder="@username" autocomplete="off" aria-label="Medium name" aria-describedby="medium-name" />
+                    </div>
+                    <button id="addNewMedium" class="btn btn-dark btn-sm" disabled name="add-medium-button">Add Medium</button>
+                  </div>
+                </div>
+              </div>
 
               <!-- Coming soon -->
               <ul class="list-group list-group-flush">
@@ -473,6 +496,7 @@
     <script src="./js/feeds/telegram.js"></script>
     <script src="./js/feeds/pinterest.js"></script>
     <script src="./js/feeds/coingecko-top.js"></script>
+    <script src="./js/feeds/medium.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/changelog.js"></script>

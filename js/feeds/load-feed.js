@@ -63,6 +63,7 @@ async function loadFeed() {
           await getRedditFeed(item.feed_options, item.id);
         }, 1);
       }
+
       if (item.feed_type == "hackernews") {
         addHackerNewsBtn.disabled = true;
         sidebar += `
@@ -428,6 +429,46 @@ async function loadFeed() {
         `;
         setTimeout(async function () {
           await getCoingeckoTop();
+        }, 1);
+      }
+
+      // Medium
+      if (item.feed_type == "medium") {
+        sidebar += `
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-medium.svg" alt="medium logo" width="40" height="40" />
+         </a>
+        `;
+
+        feed += `
+        <div id="${item.id}" class="feed border-end">
+          <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
+            <div class="d-flex align-items-center">
+              <img class="me-2" src="./img/logo-medium.svg" width="20" height="20" alt="medium logo" />
+              <p id="mediumName">${item.feed_options}</p>
+            </div>
+            <div class="btn-group">
+              <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li onclick="getMediumFeed('${item.feed_options}', ${item.id})"><button name="get-medium-feed" class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="removeMediumFeed(${item.id})"><button class="dropdown-item" type="button" name="remove">Remove</button></li>
+              </ul>
+            </div>
+          </div>
+          <div id="feed-medium-${item.id}" class="list-group list-group-flush feed-body">
+            <div class="p-2 placeholder-glow">
+              <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
+              <span class="placeholder col-7 bg-secondary"></span>
+              <span class="placeholder col-4 bg-secondary"></span>
+              <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
+            </div>
+          </div>
+        </div>
+        `;
+        setTimeout(async function () {
+          await getMediumFeed(item.feed_options, item.id);
         }, 1);
       }
 

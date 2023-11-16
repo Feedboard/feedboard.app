@@ -1,5 +1,5 @@
 async function getMediumFeed(username, id) {
-  console.log("Loading r/" + username);
+  console.log("Loading Medium " + username);
   const mediumUrl = "https://web-production-ba07.up.railway.app/https://www.medium.com/feed/" + username;
   const feedMedium = document.getElementById("feed-medium-" + id);
 
@@ -12,10 +12,10 @@ async function getMediumFeed(username, id) {
     .then((response) => response.text())
     .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
     .then((data) => {
-      const entries = data.querySelectorAll("entry");
+      const items = data.querySelectorAll("item");
       feedMedium.innerHTML = "";
       let entry = "";
-      if (entries.length <= 0) {
+      if (items.length <= 0) {
         console.log("not ok");
         entry += `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
@@ -28,33 +28,25 @@ async function getMediumFeed(username, id) {
         feedMedium.innerHTML = entry;
       }
 
-      entries.forEach((el) => {
-        let title = el.querySelector("title").innerHTML;
-        let post = el.querySelector("content").textContent;
-        let image = el.querySelector("thumbnail");
-        let link = el.querySelector("link").getAttribute("href");
+      items.forEach((el) => {
+        let title = el.querySelector("title").textContent;
+        let link = el.querySelector("link").textContent;
+        let creator = el.querySelector("creator").textContent;
+        let pubDate = el.querySelector("pubDate").textContent;
+        let content = el.querySelector("encoded").textContent;
+
         let container = document.createElement("div");
-        container.innerHTML = post;
-        let mdEl = container.querySelector(".md");
+        container.innerHTML = content;
+        let img = container.querySelector("img").getAttribute("src");
 
-        let truncatedContent = "";
-        if (mdEl) {
-          let firstContent = container.querySelector(".md").textContent;
-          truncatedContent = firstContent.slice(0, 160) + "...";
-        }
-
-        let imageUrl = "";
-        if (image) {
-          imageUrl = image.getAttribute("url");
-        }
-
-        let name = el.querySelector("name").textContent;
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
+              ${img ? `<img class="img-fluid rounded-3 mb-2" src="${img}" alt="${title}" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
-              ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}" alt="${title}" />` : ""}
-              <p class="text-secondary small">${truncatedContent}</p>
-              <p class="text-secondary small">${name}</p>
+              <div class="d-flex justify-content-between">
+                <p class="text-secondary small">${creator}</p>
+                <p class="text-secondary small">${convertTime(pubDate)}</p>
+              </div>
             </a>
               `;
       });
@@ -80,14 +72,14 @@ addNewMediumBtn.addEventListener("click", async function () {
     .select();
 
   if (data) {
-    showToast("r/" + newMediumName.value + " added to your feed");
+    showToast(newMediumName.value + " added to your feed");
     const feedContainer = document.getElementById("feedContainer");
     const sidebarContainer = document.getElementById("feedLogoContainer");
     let feed = "";
     let sidebar = "";
 
     sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${data[0].feed_options}" aria-label="${data[0].feed_options}">
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}" aria-label="${data[0].feed_options}">
          <img class="rounded-3 m-2" src="./img/logo-medium.svg" alt="medium logo" width="40" height="40" />
          </a>
         `;
@@ -97,7 +89,7 @@ addNewMediumBtn.addEventListener("click", async function () {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-medium.svg" width="20" height="20" alt="medium logo" />
-              <p id="mediumName">r/${data[0].feed_options}</p>
+              <p id="mediumName">${data[0].feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
