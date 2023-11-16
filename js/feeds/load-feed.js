@@ -44,7 +44,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getRedditFeed('${item.feed_options}', ${item.id})"><button name="get-reddit-feed" class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getRedditFeed('${item.feed_options}', ${item.id})"><button name="get-reddit-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeRedditFeed(${item.id})"><button class="dropdown-item" type="button" name="remove">Remove</button></li>
               </ul>
             </div>
@@ -83,7 +83,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getHnFeed(${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getHnFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeHnFeed(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
@@ -123,7 +123,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPhFeed(${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getPhFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removePhFeed(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>         
@@ -163,7 +163,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getSubstack('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getSubstack('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeSubstack(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
@@ -208,7 +208,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getUnsplashFeed(${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getUnsplashFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeUnsplashFeed(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
@@ -248,7 +248,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getYoutubeChannel('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getYoutubeChannel('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeYoutubeChannel(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
@@ -289,7 +289,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getTelegramFeed('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getTelegramFeed('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeTelegramFeed(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
@@ -330,7 +330,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPinterestAccount('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getPinterestAccount('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removePinterestAccount(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
@@ -371,7 +371,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPinterestBoard('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getPinterestBoard('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removePinterestBoard(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
@@ -412,7 +412,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getCoingeckoTop()"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getCoingeckoTop()"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeCoingeckoTop(${item.id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
@@ -452,7 +452,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getMediumFeed('${item.feed_options}', ${item.id})"><button name="get-medium-feed" class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getMediumFeed('${item.feed_options}', ${item.id})"><button name="get-medium-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeMediumFeed(${item.id})"><button class="dropdown-item" type="button" name="remove">Remove</button></li>
               </ul>
             </div>
@@ -492,7 +492,7 @@ async function loadFeed() {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getBehanceFeed('${item.feed_options}', ${item.id})"><button name="get-behance-feed" class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getBehanceFeed('${item.feed_options}', ${item.id})"><button name="get-behance-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeBehanceFeed(${item.id})"><button class="dropdown-item" type="button" name="remove">Remove</button></li>
               </ul>
             </div>

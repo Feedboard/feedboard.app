@@ -100,7 +100,7 @@ addNewYoutubeBtn.addEventListener("click", async function () {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getYoutubeChannel('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="getYoutubeChannel('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeYoutubeChannel(${data[0].id})"><button class="dropdown-item" type="button">Remove</button></li>
               </ul>
             </div>
