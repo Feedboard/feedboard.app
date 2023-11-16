@@ -321,7 +321,7 @@
               <!-- Medium -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseOne" name="subreddit-feed-maker">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseOne" name="medium-feed-maker">
                     <div class="d-flex flex-row">
                       <img class="me-3 rounded-3" src="./img/logo-medium.svg" width="45" height="45" alt="logo-medium" />
                       <div>
@@ -341,6 +341,30 @@
                   </div>
                 </div>
               </div>
+              <!-- Behance -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBehance" aria-expanded="false" aria-controls="collapseOne" name="behance-feed-maker">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-behance.svg" width="45" height="45" alt="logo-behance" />
+                      <div>
+                        <p class="fw-semibold">Behance</p>
+                        <p class="text-secondary small">Get a Behance user feed</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseBehance" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="behance-name">behance.net/</span>
+                      <input id="newBehanceName" type="text" class="form-control" placeholder="username" autocomplete="off" aria-label="Behance name" aria-describedby="behance-name" />
+                    </div>
+                    <button id="addNewBehance" class="btn btn-dark btn-sm" disabled name="add-behance-button">Add Behance</button>
+                  </div>
+                </div>
+              </div>
+
               <!-- Pinterest account -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -485,6 +509,7 @@
     <script src="./js/feeds/pinterest.js"></script>
     <script src="./js/feeds/coingecko-top.js"></script>
     <script src="./js/feeds/medium.js"></script>
+    <script src="./js/feeds/behance.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/changelog.js"></script>
