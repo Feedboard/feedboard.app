@@ -299,6 +299,48 @@
                   </div>
                 </div>
               </div>
+              <!-- Coingecko Top 100 -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCoingeckoTop" aria-expanded="false" aria-controls="collapseTwo" name="coingecko-top-feed">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="coingecko logo" />
+                      <div>
+                        <p class="fw-semibold">Coingecko Top 100</p>
+                        <p class="text-secondary small">Get price info for the top 100 cryptocurrencies</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseCoingeckoTop" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <button id="addCoingeckoTop" class="btn btn-dark btn-sm" name="add-coingecko-button">Add Coingecko Top 100</button>
+                  </div>
+                </div>
+              </div>
+              <!-- Medium -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseOne" name="subreddit-feed-maker">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-medium.svg" width="45" height="45" alt="logo-medium" />
+                      <div>
+                        <p class="fw-semibold">Medium</p>
+                        <p class="text-secondary small">Get a Medium publication feed</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseMedium" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="medium-name">medium.com/</span>
+                      <input id="newMediumName" type="text" class="form-control" placeholder="@username" autocomplete="off" aria-label="Medium name" aria-describedby="medium-name" />
+                    </div>
+                    <button id="addNewMedium" class="btn btn-dark btn-sm" disabled name="add-medium-button">Add Medium</button>
+                  </div>
+                </div>
+              </div>
               <!-- Pinterest account -->
               <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -348,48 +390,6 @@
                       <input id="newPinterestBoardName" type="text" class="form-control" placeholder="username/boardName" autocomplete="off" aria-label="Pinterest board name" aria-describedby="pinterest-board-name" />
                     </div>
                     <button id="addNewPinterestBoard" class="btn btn-dark btn-sm" name="add-pinterest-board" disabled>Add Pinterest board</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Coingecko Top 100 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCoingeckoTop" aria-expanded="false" aria-controls="collapseTwo" name="coingecko-top-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="coingecko logo" />
-                      <div>
-                        <p class="fw-semibold">Coingecko Top 100</p>
-                        <p class="text-secondary small">Get price info for the top 100 cryptocurrencies</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseCoingeckoTop" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <button id="addCoingeckoTop" class="btn btn-dark btn-sm" name="add-coingecko-button">Add Coingecko Top 100</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Medium -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseOne" name="subreddit-feed-maker">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-medium.svg" width="45" height="45" alt="logo-medium" />
-                      <div>
-                        <p class="fw-semibold">Medium</p>
-                        <p class="text-secondary small">Get a Medium publication feed</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseMedium" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="medium-name">medium.com/</span>
-                      <input id="newMediumName" type="text" class="form-control" placeholder="@username" autocomplete="off" aria-label="Medium name" aria-describedby="medium-name" />
-                    </div>
-                    <button id="addNewMedium" class="btn btn-dark btn-sm" disabled name="add-medium-button">Add Medium</button>
                   </div>
                 </div>
               </div>
