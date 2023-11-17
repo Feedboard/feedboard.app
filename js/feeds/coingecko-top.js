@@ -3,24 +3,38 @@ async function getCoingeckoTop() {
   const cgURL = "https://web-production-ba07.up.railway.app/https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h&locale=en";
   const feedCoingeckoTop = document.getElementById("feed-coingeckoTop");
 
-  await fetch(cgURL, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      feedCoingeckoTop.innerHTML = "";
-      let entry = "";
-      data.forEach((el) => {
-        // console.log(el);
-        let coinId = el.id;
-        let coinImage = el.image;
-        let coinName = el.name;
-        let symbol = el.symbol;
-        let currentPrice = el.current_price;
-        let change24h = el.price_change_percentage_24h.toFixed(2);
-        entry += `
+  try {
+    const response = await fetch(cgURL, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // Check if the response status is 429 (Too Many Requests)
+    if (response.status === 429) {
+      console.log("API rate limit exceeded. Retrying after a delay...");
+      // Implement a delay and then retry
+      await new Promise((resolve) => setTimeout(resolve, 60000)); //Retry after 1 minute
+      return getCoingeckoTop();
+    }
+
+    if (!response.ok) {
+      throw new Error(`Network response was not ok. Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    feedCoingeckoTop.innerHTML = "";
+    let entry = "";
+    data.forEach((el) => {
+      // console.log(el);
+      let coinId = el.id;
+      let coinImage = el.image;
+      let coinName = el.name;
+      let symbol = el.symbol;
+      let currentPrice = el.current_price;
+      let change24h = el.price_change_percentage_24h.toFixed(2);
+      entry += `
               <a href="https://www.coingecko.com/en/coins/${coinId}" class="d-flex justify-content-between list-group-item list-group-item-action align-items-center" target="_blank">
               <div class="d-flex align-items-center">
                 <img class="rounded-3 me-2" src="${coinImage} width="32" height="32" alt="${coinId}"/>
@@ -35,9 +49,11 @@ async function getCoingeckoTop() {
                 </div>
               </a>
               `;
-      });
-      feedCoingeckoTop.innerHTML = entry;
     });
+    feedCoingeckoTop.innerHTML = entry;
+  } catch (error) {
+    console.error("Error during API call:", error);
+  }
 }
 
 // Add Coingecko Top 100
