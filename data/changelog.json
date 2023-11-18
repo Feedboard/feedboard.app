@@ -1,5 +1,10 @@
 [
   {
+    "date": "18 Nov 23",
+    "title": "Substack bug fixes",
+    "description": "This hotfix limits the number of Substack publications that can be added due to a problem in the libray currently used. We are investigating into a fix to bring back multiple Substack soon."
+  },
+  {
     "date": "16 Nov 23",
     "title": "Medium feed",
     "description": "Medium is now integrated in Feedboard and you can add your favourite authors and follow their publications."
