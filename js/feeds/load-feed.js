@@ -184,7 +184,7 @@ async function loadFeed() {
           script.src = "https://substackapi.com/embeds/feed.js";
           document.body.appendChild(script);
 
-          await getSubstack(item.feed_options);
+          await getSubstack(item.feed_options, item.id);
         }, 1);
       }
 

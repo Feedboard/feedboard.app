@@ -1,5 +1,5 @@
-async function getSubstack(substack) {
-  console.log("Loading Substack...");
+async function getSubstack(substack, id) {
+  console.log("Loading Substack for " + substack + "...");
   window.SubstackFeedWidget = {
     substackUrl: substack + ".substack.com",
     posts: 12,
@@ -26,6 +26,8 @@ addNewSubstackBtn.addEventListener("click", async function () {
 
   if (data) {
     showToast(newSubstackName.value + " added to your feed");
+    addNewSubstackBtn.disabled = true;
+    newSubstackName.disabled = true;
     const feedContainer = document.getElementById("feedContainer");
     const sidebarContainer = document.getElementById("feedLogoContainer");
     let feed = "";
@@ -93,6 +95,8 @@ async function removeSubstack(id) {
   } else {
     console.log("Deleted");
     showToast("Feed deleted");
+    addNewSubstackBtn.disabled = false;
+    newSubstackName.disabled = false;
     let feedContainer = document.getElementById(id);
     let sidebarLogo = document.getElementById("sidebarLogo-" + id);
     feedContainer.remove();
