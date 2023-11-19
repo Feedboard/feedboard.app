@@ -1,5 +1,10 @@
 [
   {
+    "date": "19 Nov 23",
+    "title": "Behance",
+    "description": "Add your favourite Behance artists to create a beautiful inspiring Feedboard."
+  },
+  {
     "date": "18 Nov 23",
     "title": "Substack bug fixes",
     "description": "This hotfix limits the number of Substack publications that can be added due to a problem in the libray currently used. We are investigating into a fix to bring back multiple Substack soon."

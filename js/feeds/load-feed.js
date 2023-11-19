@@ -472,6 +472,46 @@ async function loadFeed() {
         }, 1);
       }
 
+      // Behance
+      if (item.feed_type == "behance") {
+        sidebar += `
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="./img/logo-behance.svg" alt="Behance logo" width="40" height="40" />
+         </a>
+        `;
+
+        feed += `
+        <div id="${item.id}" class="feed border-end">
+          <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
+            <div class="d-flex align-items-center">
+              <img class="me-2" src="./img/logo-behance.svg" width="20" height="20" alt="Behance logo" />
+              <p id="behanceName">${item.feed_options}</p>
+            </div>
+            <div class="btn-group">
+              <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li onclick="getBehanceFeed('${item.feed_options}', ${item.id})"><button name="get-behance-feed" class="dropdown-item" type="button">Reload</button></li>
+                <li onclick="removeBehanceFeed(${item.id})"><button class="dropdown-item" type="button" name="remove">Remove</button></li>
+              </ul>
+            </div>
+          </div>
+          <div id="feed-behance-${item.id}" class="list-group list-group-flush feed-body">
+            <div class="p-2 placeholder-glow">
+              <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
+              <span class="placeholder col-7 bg-secondary"></span>
+              <span class="placeholder col-4 bg-secondary"></span>
+              <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
+            </div>
+          </div>
+        </div>
+        `;
+        setTimeout(async function () {
+          await getBehanceFeed(item.feed_options, item.id);
+        }, 1);
+      }
+
       feedContainer.innerHTML = feed;
       sidebarContainer.innerHTML = sidebar;
     });
