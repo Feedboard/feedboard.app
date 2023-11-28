@@ -45,7 +45,7 @@ async function getPinterestAccount(username, id) {
 
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" />` : ""}
+              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
               <p class="text-secondary small">${convertHnDate(pubDate)}</p>
             </a>
@@ -97,8 +97,8 @@ addNewPinterestAccountBtn.addEventListener("click", async function () {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPinterestAccount('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>
-                <li onclick="removePinterestAccount(${data[0].id})"><button class="dropdown-item" type="button">Remove</button></li>
+                <li onclick="getPinterestAccount('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removePinterestAccount(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -243,8 +243,8 @@ addNewPinterestBoardBtn.addEventListener("click", async function () {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPinterestBoard('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>
-                <li onclick="removePinterestBoard(${data[0].id})"><button class="dropdown-item" type="button">Remove</button></li>
+                <li onclick="getPinterestBoard('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removePinterestBoard(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>

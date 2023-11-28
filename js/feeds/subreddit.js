@@ -52,7 +52,7 @@ async function getRedditFeed(subreddit, id) {
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               <p class="fw-semibold mb-2">${title}</p>
-              ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}" alt="${title}" />` : ""}
+              ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               <p class="text-secondary small">${truncatedContent}</p>
               <p class="text-secondary small">${name}</p>
             </a>
@@ -104,8 +104,8 @@ addNewSubredditBtn.addEventListener("click", async function () {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getRedditFeed('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>
-                <li onclick="removeRedditFeed(${data[0].id})"><button class="dropdown-item" type="button">Remove</button></li>
+                <li onclick="getRedditFeed('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeRedditFeed(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>

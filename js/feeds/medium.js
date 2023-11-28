@@ -41,7 +41,7 @@ async function getMediumFeed(username, id) {
 
         entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              ${img ? `<img class="img-fluid rounded-3 mb-2" src="${img}" alt="${title}" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+              ${img ? `<img class="img-fluid rounded-3 mb-2" src="${img}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
               <div class="d-flex justify-content-between">
                 <p class="text-secondary small">${creator}</p>
@@ -96,8 +96,8 @@ addNewMediumBtn.addEventListener("click", async function () {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getMediumFeed('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>
-                <li onclick="removeMediumFeed(${data[0].id})"><button class="dropdown-item" type="button">Remove</button></li>
+                <li onclick="getMediumFeed('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeMediumFeed(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>

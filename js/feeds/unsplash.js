@@ -11,7 +11,7 @@ async function getUnsplashFeed() {
       data.forEach((el) => {
         photos += `
         <a href="${el.links.html}" class="list-group-item list-group-item-action" target="_blank">
-        <img class="img-fluid rounded-3 mb-2 bg-light" src="${el.links.download}" alt="${el.alt_description}"/>
+        <img class="img-fluid rounded-3 mb-2 bg-light" src="${el.links.download}" alt="${el.alt_description}" loading="lazy"/>
         <p class="fw-semibold text-capitalize">${el.alt_description}</p>
         <p class="text-secondary small"><img src="./img/thumbs-up.svg" width="14" height="14" alt="thungs up icon"/> ${el.likes} likes</p>
         </a>
@@ -63,8 +63,8 @@ addUnsplashBtn.addEventListener("click", async function () {
                 <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getUnsplashFeed(${data[0].id})"><button class="dropdown-item" type="button">Reload</button></li>
-                <li onclick="removeUnsplashFeed(${data[0].id})"><button class="dropdown-item" type="button">Remove</button></li>
+                <li onclick="getUnsplashFeed(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeUnsplashFeed(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
