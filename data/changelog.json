@@ -1,5 +1,10 @@
 [
   {
+    "date": "27 Nov 23",
+    "title": "Performance improvements",
+    "description": "Performance improvements to increase feeds reliability and minor UI changes."
+  },
+  {
     "date": "19 Nov 23",
     "title": "Behance",
     "description": "Add your favourite Behance artists to create a beautiful inspiring Feedboard."
