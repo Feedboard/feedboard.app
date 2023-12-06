@@ -16,7 +16,6 @@ registerBtn.addEventListener("click", async (event) => {
     registerBtn.disabled = false;
   } else {
     console.log(data);
-    await addUserSettings(data);
     window.location.replace("./success.html");
   }
 });
@@ -29,14 +28,3 @@ googleAuthBtn.addEventListener("click", async function () {
     },
   });
 });
-
-async function addUserSettings(data) {
-  // Add default settings
-  const { users, error } = await client.from("settings").insert([{ user_id: data.user.id, user_email: data.user.email }]);
-  if (error) {
-    console.log(error);
-  }
-  if (users) {
-    console.log(users);
-  }
-}
