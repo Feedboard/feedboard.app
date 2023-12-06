@@ -44,7 +44,7 @@ googleAuthBtn.addEventListener("click", async function () {
   const { data, error } = await client.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: "https://feedboard.app/dashboard.html",
+      redirectTo: "https://feedboard.app/success.html",
     },
   });
 });
