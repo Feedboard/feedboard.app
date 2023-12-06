@@ -36,6 +36,7 @@ async function checkSettings(user_id) {
 async function addUserSettings(user_id, user_email) {
   if (await checkSettings(user_id)) {
     console.log("Settings already declared");
+    window.location.replace("/dashboard.html");
   } else {
     // Add default settings
     const { users, error } = await client.from("settings").insert([{ user_id: user_id, user_email: user_email }]);
