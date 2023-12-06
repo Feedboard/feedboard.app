@@ -1,3 +1,5 @@
+const displaySuccess = document.getElementById("displaySuccess");
+
 checkSession();
 
 async function checkSession() {
@@ -38,6 +40,7 @@ async function addUserSettings(user_id, user_email) {
     console.log("Settings already declared");
     window.location.replace("/dashboard.html");
   } else {
+    displaySuccess.style.display = "block";
     // Add default settings
     const { users, error } = await client.from("settings").insert([{ user_id: user_id, user_email: user_email }]);
     if (error) {
