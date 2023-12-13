@@ -74,16 +74,46 @@
         <a href="login.html" class="btn btn-outline-primary btn-sm">Login</a>
       </div>
     </nav>
-    <div class="h-100 container d-flex flex-column justify-content-between align-items-center pt-5">
-      <div class="d-flex flex-column justify-content-center align-items-center mt-5 pt-4 text-center">
-        <h1 class="display-1 fw-medium">Your Internet Dashboard</h1>
-        <h5 class="mb-3">Create your everything board, Tweet deck style.</h5>
-        <a href="signup.html" class="btn btn-primary btn-lg">Create my board</a>
-      </div>
-      <video src="./video/demo-desktop-low.mp4" poster="./video/poster-desktop.png" class="d-none d-sm-block d-md-block d-lg-block img-fluid object-fit-fill rounded-top-3 mt-5" autoplay loop muted></video>
+    <div class="h-100 container-fluid d-flex flex-column justify-content-between align-items-center pt-5">
+      <div class="row">
+        <div class="d-flex flex-column justify-content-center align-items-sm-start align-items-center col-md-6 text-sm-start text-center">
+          <h1 class="display-2 fw-medium text-sm-start text-center">Your <span class="text-orange">Favourite Feeds</span> In One</h1>
+          <h5 class="mb-3 col-sm-10 col-12 text-sm-start text-center lh-base">Everything you don’t want to miss from your favourite creators in one place.</h5>
+          <a href="signup.html" class="btn btn-primary btn-lg">Create my board</a>
+          <div class="d-flex align-items-center flex-sm-row flex-column mt-3">
+            <p class="text-secondary">Loved by 200+ people</p>
+            <img class="ms-2" src="./img/testimonials.png" height="32" alt="" />
+          </div>
+          <div class="col-12 d-flex flex-row flex-wrap mt-4 justify-content-sm-start justify-content-center">
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-reddit.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-hackernews.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-product-hunt.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-substack.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-unsplash.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-youtube.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-telegram.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-coingecko.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-techcrunch.svg" width="42" height="42" alt="" />
+            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-behance.svg" width="42" height="42" alt="" />
+          </div>
+        </div>
+        <div class="d-flex justify-content-center col-md-6 p-0">
+          <video src="./video/feedboard-demo-low.mp4" poster="./video/feedboard-poster-desktop.png" class="d-none d-sm-block d-md-block d-lg-block img-fluid object-fit-fill rounded-start-3 mt-5" autoplay loop muted></video>
 
-      <div class="col-10 d-block d-sm-none">
-        <video src="./video/demo-mobile-low.mp4" poster="./video/poster-mobile.png" class="img-fluid rounded-top-3 mt-5" autoplay loop muted playsinline></video>
+          <div class="col-10 d-block d-sm-none">
+            <video src="./video/demo-mobile-low.mp4" poster="./video/poster-mobile.png" class="img-fluid rounded-top-3 mt-5" autoplay loop muted playsinline></video>
+          </div>
+        </div>
+      </div>
+      <div class="w-100 d-flex flex-sm-row flex-column align-items-center justify-content-between text-secondary px-4 py-3">
+        <div class="d-flex flex-row align-items-center mb-sm-0 mb-2">
+          <img class="me-2" src="./img/logo-footer.svg" width="32" height="32" alt="" />
+          <h6>Feedboard</h6>
+        </div>
+        <ul class="list-inline m-0">
+          <li class="list-inline-item">Terms & Conditions</li>
+          <li class="list-inline-item">Privacy Policy</li>
+        </ul>
       </div>
     </div>
     <!-- Bootstrap -->
