@@ -1,5 +1,8 @@
+html {
+  height: 100%;
+}
 body {
-  height: 100vh;
+  height: 100%;
   font-family: "Inter", sans-serif;
   overscroll-behavior-x: none;
 }
@@ -27,6 +30,10 @@ p {
   background: rgb(255, 210, 165);
   background: radial-gradient(ellipse at center bottom, rgba(255, 210, 165, 1) 0%, rgba(255, 210, 165, 0) 60%);
   background-repeat: no-repeat;
+}
+
+.text-orange {
+  color: #ff640a;
 }
 
 /* =================================================================
@@ -181,6 +188,20 @@ TOOLTIP
   transition: all 0.4s cubic-bezier(0.68, -0.55, 0.25, 1.35);
 }
 
+.desaturate {
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+}
+.desaturate:hover {
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+  -moz-filter: grayscale(0%);
+}
+
 video {
   box-shadow: inset 0 2px 3px #ffffffa8, 0 0 0 8px #00000005, 0 2px 4px #0000001f, 0 1px 1px #00000014;
 }
@@ -189,4 +210,11 @@ video {
   width: 2px;
   border-radius: 4px;
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .display-2 {
+    margin-top: 24px;
+    font-size: 56px;
+  }
 }
