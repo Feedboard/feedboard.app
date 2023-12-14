@@ -1,6 +1,6 @@
 async function getMediumFeed(username, id) {
   console.log("Loading Medium " + username);
-  const mediumUrl = "https://web-production-ba07.up.railway.app/https://www.medium.com/feed/" + username;
+  const mediumUrl = "https://web-production-09ad.up.railway.app/https://www.medium.com/feed/" + username;
   const feedMedium = document.getElementById("feed-medium-" + id);
 
   await fetch(mediumUrl, {

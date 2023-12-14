@@ -1,6 +1,6 @@
 async function getHnFeed() {
   console.log("Loading HackerNews...");
-  const hnUrl = "https://web-production-ba07.up.railway.app/https://hnrss.org/newest";
+  const hnUrl = "https://web-production-09ad.up.railway.app/https://hnrss.org/newest";
   const feedHackernews = document.getElementById("feed-hackernews");
 
   await fetch(hnUrl, {

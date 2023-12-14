@@ -1,6 +1,6 @@
 async function getBehanceFeed(username, id) {
   console.log("Loading Behance " + username);
-  const behanceUrl = "https://web-production-ba07.up.railway.app/https://www.behance.net/feeds/user?username=" + username;
+  const behanceUrl = "https://web-production-09ad.up.railway.app/https://www.behance.net/feeds/user?username=" + username;
   const feedBehance = document.getElementById("feed-behance-" + id);
 
   await fetch(behanceUrl, {

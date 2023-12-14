@@ -1,6 +1,6 @@
 async function getYoutubeChannel(channelId, id) {
   console.log("Loading Youtube...");
-  const youtubeRss = "https://web-production-ba07.up.railway.app/https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
+  const youtubeRss = "https://web-production-09ad.up.railway.app/https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
   const youtubeFeed = document.getElementById("feed-youtube-" + id);
 
   await fetch(youtubeRss, {
@@ -148,7 +148,7 @@ async function removeYoutubeChannel(id) {
 // Get channel name from id
 async function getChannelName(channelId) {
   console.log("Getting channel name...");
-  const youtubeRss = "https://web-production-ba07.up.railway.app/https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
+  const youtubeRss = "https://web-production-09ad.up.railway.app/https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
 
   try {
     const response = await fetch(youtubeRss, {

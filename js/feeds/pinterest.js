@@ -1,6 +1,6 @@
 async function getPinterestAccount(username, id) {
   console.log("Loading " + username);
-  const pinterestAccountUrl = "https://web-production-ba07.up.railway.app/pinterest.com/" + username + "/feed.rss";
+  const pinterestAccountUrl = "https://web-production-09ad.up.railway.app/pinterest.com/" + username + "/feed.rss";
   const feedPinterestAccount = document.getElementById("feed-pinterestAccount-" + id);
 
   await fetch(pinterestAccountUrl, {
@@ -146,7 +146,7 @@ async function removePinterestAccount(id) {
 
 async function getPinterestBoard(slug, id) {
   console.log("Loading " + slug);
-  const pinterestBoardUrl = "https://web-production-ba07.up.railway.app/pinterest.com/" + slug + ".rss";
+  const pinterestBoardUrl = "https://web-production-09ad.up.railway.app/pinterest.com/" + slug + ".rss";
   const feedPinterestBoard = document.getElementById("feed-pinterestBoard-" + id);
 
   await fetch(pinterestBoardUrl, {
