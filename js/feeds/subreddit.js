@@ -1,6 +1,6 @@
 async function getRedditFeed(subreddit, id) {
   console.log("Loading r/" + subreddit);
-  const redditUrl = "https://web-production-09ad.up.railway.app/https://oauth.reddit.com/r/" + subreddit + "/.rss";
+  const redditUrl = "https://web-production-09ad.up.railway.app/https://www.reddit.com/r/" + subreddit + "/.rss";
   const feedReddit = document.getElementById("feed-reddit-" + id);
 
   await fetch(redditUrl, {
