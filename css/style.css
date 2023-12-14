@@ -32,6 +32,9 @@ p {
   background-repeat: no-repeat;
 }
 
+.info-banner {
+  background-color: #ff640a;
+
 .text-orange {
   color: #ff640a;
 }
