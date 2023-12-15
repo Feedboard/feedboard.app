@@ -10,6 +10,7 @@ async function checkSession() {
     user_email = data.session.user.email;
     user_id = data.session.user.id;
     addUserSettings(user_id, user_email);
+    addUserViaLoop(user_email);
   }
 }
 
@@ -50,4 +51,16 @@ async function addUserSettings(user_id, user_email) {
       console.log(users);
     }
   }
+}
+
+async function addUserViaLoop(user_email) {
+  const url = "https://feedboard-api-relay-production.up.railway.app/adduser/" + user_email;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
