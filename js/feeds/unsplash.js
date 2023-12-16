@@ -63,8 +63,8 @@ addUnsplashBtn.addEventListener("click", async function () {
                 <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getUnsplashFeed(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeUnsplashFeed(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getUnsplashFeed(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeUnsplashFeed(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
