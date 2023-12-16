@@ -28,7 +28,7 @@ async function getPhFeed() {
             </div>
             </div>
             <div class="ph-votes d-flex flex-column align-items-center border rounded-2">
-            <img src="./img/arrow-head-up.svg" width="24" alt="arrow head up" />
+            <img class="svg-icon" src="./img/arrow-head-up.svg" width="24" alt="arrow head up" />
             <p>${votesCount}</p>
             </div>
         </div>
