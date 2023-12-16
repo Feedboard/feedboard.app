@@ -94,7 +94,7 @@ addNewTelegramChannelBtn.addEventListener("click", async function () {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getTelegramFeed('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" /></button></li>
