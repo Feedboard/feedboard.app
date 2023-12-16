@@ -1,6 +1,31 @@
+const themeToggle = document.getElementById("darkmodeSwitch");
+
 // Call the loadFeed function when the document is ready
 document.addEventListener("DOMContentLoaded", async function () {
   await loadFeed();
+});
+window.addEventListener("load", function () {
+  if (savedTheme == "dark") {
+    themeToggle.checked = true;
+  }
+  if (savedTheme == "light") {
+    themeToggle.checked = false;
+  }
+  if (savedTheme == "default") {
+    themeToggle.checked = false;
+  }
+});
+
+themeToggle.addEventListener("click", function () {
+  if (themeToggle.checked) {
+    console.log("Dark mode");
+    document.documentElement.setAttribute("data-bs-theme", "dark");
+    localStorage.setItem("data-bs-theme", "dark");
+  } else {
+    console.log("Light mode");
+    document.documentElement.setAttribute("data-bs-theme", "light");
+    localStorage.setItem("data-bs-theme", "light");
+  }
 });
 
 async function loadFeed() {
