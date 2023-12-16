@@ -1,3 +1,9 @@
+* {
+  /* Smooth transition when switching between themes */
+  --duration: 0.5s;
+  --timing: ease;
+  transition: all var(--duration) var(--timing);
+}
 html {
   height: 100%;
 }
