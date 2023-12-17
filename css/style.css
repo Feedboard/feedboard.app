@@ -55,6 +55,19 @@ p {
 }
 
 /* =================================================================
+SUBSTACK FEED WIDGET
+================================================================= */
+.substack-feed-widget {
+  background-color: transparent !important;
+}
+[data-bs-theme="dark"] .substack-feed-widget .sfw-title {
+  color: #dee2e6;
+}
+.substack-feed-widget .sfw-title {
+  color: #212529;
+}
+
+/* =================================================================
 FEED
 ================================================================= */
 
@@ -89,7 +102,7 @@ FEED
   height: auto;
   border: 1px dashed;
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0.5rem;
   transition: all 0.3s ease-out;
 }
 .sidebar-add-new:hover {
