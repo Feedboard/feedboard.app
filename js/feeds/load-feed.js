@@ -1,6 +1,31 @@
+const themeToggle = document.getElementById("darkmodeSwitch");
+
 // Call the loadFeed function when the document is ready
 document.addEventListener("DOMContentLoaded", async function () {
   await loadFeed();
+});
+window.addEventListener("load", function () {
+  if (savedTheme == "dark") {
+    themeToggle.checked = true;
+  }
+  if (savedTheme == "light") {
+    themeToggle.checked = false;
+  }
+  if (savedTheme == "default") {
+    themeToggle.checked = false;
+  }
+});
+
+themeToggle.addEventListener("click", function () {
+  if (themeToggle.checked) {
+    console.log("Dark mode");
+    document.documentElement.setAttribute("data-bs-theme", "dark");
+    localStorage.setItem("data-bs-theme", "dark");
+  } else {
+    console.log("Light mode");
+    document.documentElement.setAttribute("data-bs-theme", "light");
+    localStorage.setItem("data-bs-theme", "light");
+  }
 });
 
 async function loadFeed() {
@@ -41,11 +66,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getRedditFeed('${item.feed_options}', ${item.id})"><button name="get-reddit-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeRedditFeed(${item.id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getRedditFeed('${item.feed_options}', ${item.id})"><button name="get-reddit-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeRedditFeed(${item.id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -80,11 +105,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getHnFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeHnFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getHnFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeHnFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -120,11 +145,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPhFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removePhFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getPhFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removePhFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>         
           </div>
@@ -160,11 +185,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getSubstack('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeSubstack(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getSubstack('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeSubstack(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -205,11 +230,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getUnsplashFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeUnsplashFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getUnsplashFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeUnsplashFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -245,11 +270,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getYoutubeChannel('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeYoutubeChannel(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getYoutubeChannel('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeYoutubeChannel(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -286,11 +311,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getTelegramFeed('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeTelegramFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getTelegramFeed('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeTelegramFeed(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -327,11 +352,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPinterestAccount('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removePinterestAccount(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getPinterestAccount('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removePinterestAccount(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -368,11 +393,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPinterestBoard('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removePinterestBoard(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getPinterestBoard('${item.feed_options}', ${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removePinterestBoard(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -409,11 +434,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getCoingeckoTop()"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeCoingeckoTop(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getCoingeckoTop()"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeCoingeckoTop(${item.id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -436,7 +461,7 @@ async function loadFeed() {
       if (item.feed_type == "medium") {
         sidebar += `
          <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-medium.svg" alt="medium logo" width="40" height="40" />
+         <img class="rounded-3 m-2 svg-icon" src="./img/logo-medium.svg" alt="medium logo" width="40" height="40" />
          </a>
         `;
 
@@ -444,16 +469,16 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-medium.svg" width="20" height="20" alt="medium logo" />
+              <img class="me-2 svg-icon" src="./img/logo-medium.svg" width="20" height="20" alt="medium logo" />
               <p id="mediumName">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getMediumFeed('${item.feed_options}', ${item.id})"><button name="get-medium-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeMediumFeed(${item.id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getMediumFeed('${item.feed_options}', ${item.id})"><button name="get-medium-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeMediumFeed(${item.id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>
@@ -489,11 +514,11 @@ async function loadFeed() {
             </div>
             <div class="btn-group">
               <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getBehanceFeed('${item.feed_options}', ${item.id})"><button name="get-behance-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removeBehanceFeed(${item.id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getBehanceFeed('${item.feed_options}', ${item.id})"><button name="get-behance-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeBehanceFeed(${item.id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
           </div>

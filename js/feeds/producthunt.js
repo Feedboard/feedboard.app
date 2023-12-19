@@ -28,7 +28,7 @@ async function getPhFeed() {
             </div>
             </div>
             <div class="ph-votes d-flex flex-column align-items-center border rounded-2">
-            <img src="./img/arrow-head-up.svg" width="24" alt="arrow head up" />
+            <img class="svg-icon" src="./img/arrow-head-up.svg" width="24" alt="arrow head up" />
             <p>${votesCount}</p>
             </div>
         </div>
@@ -78,11 +78,11 @@ addProductHuntBtn.addEventListener("click", async function () {
             </div>
             <div class="btn-group">
               <button type="button" name="options" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPhFeed(${data[0].id})"><button class="dropdown-item" type="button" name="reload"><img class="align-text-bottom me-2" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-                <li onclick="removePhFeed(${data[0].id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getPhFeed(${data[0].id})"><button class="dropdown-item" type="button" name="reload"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removePhFeed(${data[0].id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>         
           </div>

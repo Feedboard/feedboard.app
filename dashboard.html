@@ -64,6 +64,7 @@
     <!-- Bootstrap & custom styling -->
     <link href="./vendors/bootstrap-5.3.2/css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="./css/style.css" />
+    <script src="./js/getTheme.js"></script>
   </head>
   <body>
     <!-- Info banner -->
@@ -81,12 +82,12 @@
         </div>
         <div class="btn-group">
           <button type="button" class="btn bg-body-secondary btn-sm rounded-pill border-0 p-1" data-bs-toggle="dropdown" aria-expanded="false" name="user-profile">
-            <img src="img/user-circle.svg" width="24" height="24" alt="user-profile-icon" />
+            <img class="svg-icon" src="img/user-circle.svg" width="24" height="24" alt="user-profile-icon" />
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
               <d class="d-flex py-1 px-2">
-                <img class="align-text-bottom me-2" src="./img/user-circle.svg" width="20" height="20" alt="user-circle-icon" />
+                <img class="align-text-bottom me-2 svg-icon" src="./img/user-circle.svg" width="20" height="20" alt="user-circle-icon" />
                 <div>
                   <p>Your account</p>
                   <p id="displayAccountEmail" class="text-secondary small">emailhere</p>
@@ -96,7 +97,7 @@
             <li><hr class="dropdown-divider" /></li>
             <li>
               <button id="changelogBtn" class="dropdown-item d-flex" type="button" data-bs-toggle="modal" data-bs-target="#changelogModal" name="changelog-button">
-                <img class="align-text-bottom me-2" src="./img/notification.svg" width="20" height="20" alt="notification-icon" />
+                <img class="align-text-bottom me-2 svg-icon" src="./img/notification.svg" width="20" height="20" alt="notification-icon" />
                 <div>
                   <p>What's new</p>
                   <p class="text-secondary small">Find out all the latest changes.</p>
@@ -105,7 +106,7 @@
             </li>
             <li>
               <div id="" class="dropdown-item d-flex">
-                <img class="align-text-bottom me-2" src="./img/envelope.svg" width="20" height="20" alt="envelope-icon" />
+                <img class="align-text-bottom me-2 svg-icon" src="./img/envelope.svg" width="20" height="20" alt="envelope-icon" />
                 <div>
                   <p>Weekly digest</p>
                   <p class="text-secondary small">Receive a weekly recap of your feeds.</p>
@@ -116,8 +117,20 @@
               </div>
             </li>
             <li>
+              <div id="" class="dropdown-item d-flex">
+                <img class="align-text-bottom me-2 svg-icon" src="./img/moon-stars.svg" width="20" height="20" alt="moon-stars-icon" />
+                <div class="w-100">
+                  <p>Dark mode</p>
+                  <p class="text-secondary small">For the night owls.</p>
+                </div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="darkmodeSwitch" />
+                </div>
+              </div>
+            </li>
+            <li>
               <button class="dropdown-item d-flex" type="button" name="feed-request-button">
-                <img class="align-text-bottom me-2" src="./img/hand-palm.svg" width="20" height="20" alt="hand-palm-icon" />
+                <img class="align-text-bottom me-2 svg-icon" src="./img/hand-palm.svg" width="20" height="20" alt="hand-palm-icon" />
                 <div>
                   <div class="d-flex align-items-center justify-content-between">
                     <p>Feed request</p>
@@ -130,7 +143,7 @@
             <li><hr class="dropdown-divider" /></li>
             <li>
               <button id="logoutBtn" class="dropdown-item" type="button" name="signout">
-                <img class="align-text-bottom" src="./img/sign-out.svg" width="20" height="20" alt="signout-icon" />
+                <img class="align-text-bottom svg-icon" src="./img/sign-out.svg" width="20" height="20" alt="signout-icon" />
                 Logout
               </button>
             </li>
@@ -142,14 +155,16 @@
     <div id="main-container" class="d-flex flex-row">
       <!-- Start of sidebar -->
       <div id="sidebar" class="d-flex flex-column align-items-center bg-body-tertiary border-end">
-        <a class="d-flex justify-content-center mb-2" href="" data-bs-toggle="modal" data-bs-target="#newFeedModal" aria-label="add-new-feed"><img class="sidebar-add-new bg-body-secondary border-secondary" src="./img/plus.svg" width="24" height="24" alt="add-new" /></a>
+        <a class="d-flex justify-content-center mb-2 sidebar-add-new bg-body-secondary border-secondary" href="" data-bs-toggle="modal" data-bs-target="#newFeedModal" aria-label="add-new-feed">
+          <img class="svg-icon" src="./img/plus.svg" width="24" height="24" alt="add-new" />
+        </a>
         <div id="feedLogoContainer" class="d-flex flex-column align-items-center"></div>
       </div>
 
       <!-- Start of feed container -->
       <div id="feedContainer" class="feeds-container d-flex flex-row">
         <div id="spinnerContainer" class="w-100 d-flex justify-content-center align-items-center">
-          <img src="./img/spinner.svg" width="24" height="24" alt="loading spinner" />
+          <img class="svg-icon" src="./img/spinner.svg" width="24" height="24" alt="loading spinner" />
         </div>
       </div>
     </div>
@@ -161,7 +176,7 @@
           <div class="modal-header bg-body-secondary">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add new feed</h1>
             <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close" name="close-modal">
-              <img src="./img/x.svg" width="16" height="16" alt="close-icon" />
+              <img class="svg-icon" src="./img/x.svg" width="16" height="16" alt="close-icon" />
             </button>
           </div>
           <div class="modal-body">
@@ -341,7 +356,7 @@
                 <h2 class="accordion-header">
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseOne" name="medium-feed-maker">
                     <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-medium.svg" width="45" height="45" alt="logo-medium" />
+                      <img class="me-3 rounded-3 svg-icon" src="./img/logo-medium.svg" width="45" height="45" alt="logo-medium" />
                       <div>
                         <p class="fw-semibold">Medium</p>
                         <p class="text-secondary small">Get a Medium publication feed</p>
@@ -477,7 +492,7 @@
           <div class="modal-header bg-body-secondary">
             <h1 class="modal-title fs-5" id="exampleModalLabel">What's new</h1>
             <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close" name="close-modal">
-              <img src="./img/x.svg" width="16" height="16" alt="close icon" />
+              <img class="svg-icon" src="./img/x.svg" width="16" height="16" alt="close icon" />
             </button>
           </div>
           <div id="changelogBody" class="modal-body p-3"></div>
@@ -489,7 +504,7 @@
     <div id="toast">
       <div class="d-flex align-items-center px-3 py-2">
         <div>
-          <img class="align-text-top" src="./img/check-circle.svg" width="24" height="24" alt="check circle icon" />
+          <img class="svg-icon" class="align-text-top" src="./img/check-circle.svg" width="24" height="24" alt="check circle icon" />
         </div>
         <div>
           <p id="toastHeader" class="small"></p>
