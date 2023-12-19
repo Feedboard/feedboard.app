@@ -1,5 +1,15 @@
 [
   {
+    "date": "19 Dec 23",
+    "title": "Dark mode",
+    "description": "For the night owls, the pros and the avid readers."
+  },
+  {
+    "date": "16 Dec 23",
+    "title": "Feedboard Weekly",
+    "description": "Automated custom weekly newsletter based on your feeds."
+  },
+  {
     "date": "27 Nov 23",
     "title": "Performance improvements",
     "description": "Performance improvements to increase feeds reliability and minor UI changes."
