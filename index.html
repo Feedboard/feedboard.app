@@ -64,58 +64,58 @@
     <link href="./vendors/bootstrap-5.3.2/css/bootstrap.css" rel="stylesheet" />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <body class="bg-body-secondary bg-landing-gradient">
+  <body class="bg-body-secondary">
     <nav class="navbar fixed-top bg-body-secondary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img src="./img/logo.svg" alt="Logo" width="24" height="24" class="d-inline-block align-text-top" />
           Feedboard
         </a>
-        <a href="login.html" class="btn btn-outline-primary btn-sm">Login</a>
+        <div>
+          <a href="login.html" class="btn btn-link btn-sm">Login</a>
+          <a href="signup.html" class="btn btn-primary btn-sm">Signup</a>
+        </div>
       </div>
     </nav>
-    <div class="h-100 container-fluid d-flex flex-column justify-content-between align-items-center pt-5">
-      <div class="h-100 row">
-        <div class="d-flex flex-column justify-content-center align-items-sm-start align-items-center col-md-6 offset-md-1 text-sm-start text-center">
-          <h1 class="display-2 fw-medium text-sm-start text-center">Your <span class="text-orange">Favourite Feeds</span> In One</h1>
-          <h5 class="mb-3 col-sm-10 col-12 text-sm-start text-center lh-base">Everything you don’t want to miss from your favourite creators in one place.</h5>
-          <a href="signup.html" class="btn btn-primary btn-lg">Create my board</a>
-          <div class="d-flex align-items-center flex-sm-row flex-column mt-3">
+    <div class="container mt-5 pt-5">
+      <div class="d-flex justify-content-center">
+        <div class="col-12 col-md-8 text-center">
+          <h1 class="display-2 fw-medium mb-3">Your <span class="text-orange">Favourite Feeds</span> In One</h1>
+          <div class="d-flex flex-column flex-sm-row align-items-stretch align-items-sm-center signup-bar justify-content-between">
+            <div class="d-flex mb-sm-0 mb-4 d-none d-sm-block">
+              <img class="me-2" src="./img/logo-reddit.svg" width="42" height="42" alt="" />
+              <img class="mx-2 rounded-2" src="./img/logo-hackernews.svg" width="42" height="42" alt="" />
+              <img class="mx-2" src="./img/logo-product-hunt.svg" width="42" height="42" alt="" />
+              <img class="ms-2" src="./img/logo-coingecko.svg" width="42" height="42" alt="" />
+            </div>
+            <input class="mb-sm-0 mb-4" type="email" placeholder="Type your email..." />
+            <a href="signup.html" class="btn btn-primary">Create my board</a>
+            <img class="board-doodle d-none d-sm-block" src="./img/board-doodle.svg" alt="" />
+          </div>
+          <div class="d-flex align-items-center justify-content-center flex-row mt-3 mb-4">
             <p class="text-secondary">Loved by 200+ people</p>
             <img class="ms-2" src="./img/testimonials.png" height="32" alt="" />
           </div>
-          <div class="col-12 d-flex flex-row flex-wrap mt-4 justify-content-sm-start justify-content-center">
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-reddit.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-hackernews.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-product-hunt.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-substack.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-unsplash.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-youtube-large.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-telegram.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-coingecko.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-techcrunch.svg" width="42" height="42" alt="" />
-            <img class="desaturate me-sm-5 mx-4 mt-4" src="./img/logo-behance.svg" width="42" height="42" alt="" />
-          </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center col-md-5 p-0">
-          <video src="./video/feedboard-demo-low.mp4" poster="./video/feedboard-poster-desktop.png" class="d-none d-sm-block d-md-block d-lg-block img-fluid rounded-start-3 mt-5" autoplay loop muted></video>
-
-          <div class="col-10 d-block d-sm-none">
-            <video src="./video/demo-mobile-low.mp4" poster="./video/poster-mobile.png" class="img-fluid rounded-top-3 mt-5" autoplay loop muted playsinline></video>
-          </div>
-        </div>
-      </div>
-      <!-- Footer -->
-      <div class="w-100 d-flex flex-sm-row flex-column align-items-center justify-content-between text-secondary px-4 py-3">
-        <div class="d-flex flex-row align-items-center mb-sm-0 mb-2">
-          <h6>© 2023 Feedboard</h6>
-        </div>
-        <ul class="list-inline m-0">
-          <li class="list-inline-item"><a class="text-secondary" href="terms-and-conditions.html">Terms & Conditions</a></li>
-          <li class="list-inline-item"><a class="text-secondary" href="privacy-policy.html">Privacy Policy</a></li>
-        </ul>
       </div>
     </div>
+
+    <div class="feeds-slide overflow-x-scroll">
+      <div class="feed-cards"></div>
+      <!-- <img src="./img/feeds-slide.svg" alt="" /> -->
+    </div>
+
+    <!-- Footer -->
+    <div class="footer w-100 d-flex flex-sm-row flex-column align-items-center justify-content-between text-secondary px-4 py-3">
+      <div class="d-flex flex-row align-items-center mb-sm-0 mb-2 text-center">
+        <h6>Feedboard is a project of <a href="">@0xfabs</a> and <a href="">@arianadeliii</a> - Landing page inspired by <a href="">@JabbaPro</a></h6>
+      </div>
+      <ul class="list-inline m-0">
+        <li class="list-inline-item"><a class="text-secondary" href="terms-and-conditions.html">Terms & Conditions</a></li>
+        <li class="list-inline-item"><a class="text-secondary" href="privacy-policy.html">Privacy Policy</a></li>
+      </ul>
+    </div>
+
     <!-- Bootstrap -->
     <script src="./vendors/bootstrap-5.3.2/js/bootstrap.bundle.min.js"></script>
   </body>

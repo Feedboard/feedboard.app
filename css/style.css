@@ -8,9 +8,11 @@ html {
   height: 100%;
 }
 body {
-  height: 100%;
   font-family: "Inter", sans-serif;
   overscroll-behavior-x: none;
+  background: rgb(255, 210, 165);
+  background: radial-gradient(ellipse at center, rgba(255, 210, 165, 1) 0%, rgba(255, 210, 165, 0) 60%);
+  background-repeat: no-repeat;
 }
 
 h1,
@@ -52,6 +54,58 @@ p {
 
 [data-bs-theme="dark"] .svg-icon {
   filter: invert(1);
+}
+
+/* =================================================================
+LANDING PAGE
+================================================================= */
+.signup-bar {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(108, 117, 125, 0.2);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.signup-bar input {
+  height: 38px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.board-doodle {
+  position: absolute;
+  right: 10%;
+}
+
+.feeds-slide {
+  background: rgb(234, 236, 239);
+  background: linear-gradient(0deg, rgba(234, 236, 239, 1) 0%, rgba(234, 236, 239, 0) 20%);
+}
+
+.feed-cards {
+  height: 50vh;
+  background-image: url("../img/feeds-slide.svg");
+  background-size: cover;
+  background-attachment: scroll;
+  position: relative;
+  z-index: -1;
+  display: block;
+  animation: scrollCards 50s linear infinite forwards;
+}
+
+@keyframes scrollCards {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -200vw 0;
+  }
+}
+
+.footer h6,
+.footer a {
+  font-size: 12px !important;
 }
 
 /* =================================================================
