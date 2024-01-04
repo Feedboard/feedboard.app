@@ -10,9 +10,6 @@ html {
 body {
   font-family: "Inter", sans-serif;
   overscroll-behavior-x: none;
-  background: rgb(255, 210, 165);
-  background: radial-gradient(ellipse at center, rgba(255, 210, 165, 1) 0%, rgba(255, 210, 165, 0) 60%);
-  background-repeat: no-repeat;
 }
 
 h1,
@@ -36,7 +33,7 @@ p {
 
 .bg-landing-gradient {
   background: rgb(255, 210, 165);
-  background: radial-gradient(ellipse at center bottom, rgba(255, 210, 165, 1) 0%, rgba(255, 210, 165, 0) 60%);
+  background: radial-gradient(ellipse at center, rgba(255, 210, 165, 1) 0%, rgba(255, 210, 165, 0) 60%);
   background-repeat: no-repeat;
 }
 
