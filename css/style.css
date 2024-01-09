@@ -137,9 +137,6 @@ FEED
   top: 0;
   z-index: 1000;
 }
-.feed-body {
-  padding: 0rem 0rem 1rem 0rem;
-}
 
 .feeds-container {
   width: 100%;

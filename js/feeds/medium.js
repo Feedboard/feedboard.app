@@ -26,20 +26,19 @@ async function getMediumFeed(username, id) {
         </div>
               `;
         feedMedium.innerHTML = entry;
-      }
+      } else {
+        items.forEach((el) => {
+          let title = el.querySelector("title").textContent;
+          let link = el.querySelector("link").textContent;
+          let creator = el.querySelector("creator").textContent;
+          let pubDate = el.querySelector("pubDate").textContent;
+          let content = el.querySelector("encoded").textContent;
 
-      items.forEach((el) => {
-        let title = el.querySelector("title").textContent;
-        let link = el.querySelector("link").textContent;
-        let creator = el.querySelector("creator").textContent;
-        let pubDate = el.querySelector("pubDate").textContent;
-        let content = el.querySelector("encoded").textContent;
+          let container = document.createElement("div");
+          container.innerHTML = content;
+          let img = container.querySelector("img").getAttribute("src");
 
-        let container = document.createElement("div");
-        container.innerHTML = content;
-        let img = container.querySelector("img").getAttribute("src");
-
-        entry += `
+          entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               ${img ? `<img class="img-fluid rounded-3 mb-2" src="${img}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
@@ -49,8 +48,14 @@ async function getMediumFeed(username, id) {
               </div>
             </a>
               `;
-      });
-      feedMedium.innerHTML = entry;
+        });
+        entry += `
+      <div class="bg-dark-subtle py-4 px- text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>
+      `;
+        feedMedium.innerHTML = entry;
+      }
     });
 }
 

@@ -50,6 +50,11 @@ async function getCoingeckoTop() {
               </a>
               `;
     });
+    entry += `
+      <div class="bg-dark-subtle py-4 px- text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>
+      `;
     feedCoingeckoTop.innerHTML = entry;
   } catch (error) {
     console.error("Error during API call:", error);
