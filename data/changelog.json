@@ -1,5 +1,15 @@
 [
   {
+    "date": "9 Jan 24",
+    "title": "Layout and styling improvements",
+    "description": "Some small UI and layout bug fixing"
+  },
+  {
+    "date": "5 Jan 24",
+    "title": "New Landing page",
+    "description": "Launched a redesigned landing page."
+  },
+  {
     "date": "19 Dec 23",
     "title": "Dark mode",
     "description": "For the night owls, the pros and the avid readers."
