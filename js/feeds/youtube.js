@@ -26,19 +26,18 @@ async function getYoutubeChannel(channelId, id) {
         </div>
               `;
         youtubeFeed.innerHTML = entry;
-      }
+      } else {
+        entries.forEach((el) => {
+          let title = el.querySelector("title").innerHTML;
+          let author = el.querySelector("name").textContent;
+          let videoId = el.querySelector("videoId").textContent;
+          let embedLink = "https://www.youtube.com/embed/" + videoId;
+          let published = convertTime(el.querySelector("published").textContent);
+          let views = el.querySelector("statistics").getAttribute("views");
+          let likes = el.querySelector("starRating").getAttribute("count");
+          let preview = el.querySelector("thumbnail").getAttribute("url");
 
-      entries.forEach((el) => {
-        let title = el.querySelector("title").innerHTML;
-        let author = el.querySelector("name").textContent;
-        let videoId = el.querySelector("videoId").textContent;
-        let embedLink = "https://www.youtube.com/embed/" + videoId;
-        let published = convertTime(el.querySelector("published").textContent);
-        let views = el.querySelector("statistics").getAttribute("views");
-        let likes = el.querySelector("starRating").getAttribute("count");
-        let preview = el.querySelector("thumbnail").getAttribute("url");
-
-        entry += `
+          entry += `
             <div class="list-group-item list-group-item-action" target="_blank">      
               <div class="ratio ratio-16x9">
                 <iframe class="rounded-3" src="${embedLink}" title="YouTube video" allowfullscreen loading="lazy"></iframe>
@@ -51,8 +50,14 @@ async function getYoutubeChannel(channelId, id) {
               </div>
             </div>
               `;
-      });
-      youtubeFeed.innerHTML = entry;
+        });
+        entry += `
+        <div class="bg-dark-subtle py-4 px- text-center">
+          <p class="text-secondary small">You reached the end of the feed</p>
+        </div>
+        `;
+        youtubeFeed.innerHTML = entry;
+      }
     });
 }
 

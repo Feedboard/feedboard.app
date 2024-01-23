@@ -35,7 +35,11 @@ async function getPhFeed() {
         </a>
             `;
       });
-
+      feed += `
+      <div class="bg-dark-subtle py-4 px- text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>
+      `;
       feedProductHunt.innerHTML = feed;
     })
     .catch((error) => {

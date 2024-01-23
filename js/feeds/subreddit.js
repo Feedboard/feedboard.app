@@ -26,30 +26,29 @@ async function getRedditFeed(subreddit, id) {
         </div>
               `;
         feedReddit.innerHTML = entry;
-      }
+      } else {
+        entries.forEach((el) => {
+          let title = el.querySelector("title").innerHTML;
+          let post = el.querySelector("content").textContent;
+          let image = el.querySelector("thumbnail");
+          let link = el.querySelector("link").getAttribute("href");
+          let container = document.createElement("div");
+          container.innerHTML = post;
+          let mdEl = container.querySelector(".md");
 
-      entries.forEach((el) => {
-        let title = el.querySelector("title").innerHTML;
-        let post = el.querySelector("content").textContent;
-        let image = el.querySelector("thumbnail");
-        let link = el.querySelector("link").getAttribute("href");
-        let container = document.createElement("div");
-        container.innerHTML = post;
-        let mdEl = container.querySelector(".md");
+          let truncatedContent = "";
+          if (mdEl) {
+            let firstContent = container.querySelector(".md").textContent;
+            truncatedContent = firstContent.slice(0, 160) + "...";
+          }
 
-        let truncatedContent = "";
-        if (mdEl) {
-          let firstContent = container.querySelector(".md").textContent;
-          truncatedContent = firstContent.slice(0, 160) + "...";
-        }
+          let imageUrl = "";
+          if (image) {
+            imageUrl = image.getAttribute("url");
+          }
 
-        let imageUrl = "";
-        if (image) {
-          imageUrl = image.getAttribute("url");
-        }
-
-        let name = el.querySelector("name").textContent;
-        entry += `
+          let name = el.querySelector("name").textContent;
+          entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               <p class="fw-semibold mb-2">${title}</p>
               ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
@@ -57,8 +56,14 @@ async function getRedditFeed(subreddit, id) {
               <p class="text-secondary small">${name}</p>
             </a>
               `;
-      });
-      feedReddit.innerHTML = entry;
+        });
+        entry += `
+      <div class="bg-dark-subtle py-4 px- text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>
+      `;
+        feedReddit.innerHTML = entry;
+      }
     });
 }
 

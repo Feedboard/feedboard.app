@@ -26,32 +26,37 @@ async function getPinterestAccount(username, id) {
         </div>
               `;
         feedPinterestAccount.innerHTML = entry;
-      }
+      } else {
+        entries.forEach((el) => {
+          let title = el.querySelector("title").textContent;
+          let description = el.querySelector("description").textContent;
+          let pubDate = el.querySelector("pubDate").textContent;
+          let link = el.querySelector("link").textContent;
 
-      entries.forEach((el) => {
-        let title = el.querySelector("title").textContent;
-        let description = el.querySelector("description").textContent;
-        let pubDate = el.querySelector("pubDate").textContent;
-        let link = el.querySelector("link").textContent;
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(description, "text/xml");
 
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(description, "text/xml");
+          const documentRoot = xmlDoc.documentElement;
+          const cdataContent = documentRoot.textContent;
 
-        const documentRoot = xmlDoc.documentElement;
-        const cdataContent = documentRoot.textContent;
+          const htmlDoc = new DOMParser().parseFromString(description, "text/html");
+          const imgEl = htmlDoc.querySelector("img");
 
-        const htmlDoc = new DOMParser().parseFromString(description, "text/html");
-        const imgEl = htmlDoc.querySelector("img");
-
-        entry += `
+          entry += `
             <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
               ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               <p class="fw-semibold mb-2">${title}</p>
               <p class="text-secondary small">${convertHnDate(pubDate)}</p>
             </a>
               `;
-      });
-      feedPinterestAccount.innerHTML = entry;
+        });
+        entry += `
+        <div class="bg-dark-subtle py-4 px- text-center">
+          <p class="text-secondary small">You reached the end of the feed</p>
+        </div>
+        `;
+        feedPinterestAccount.innerHTML = entry;
+      }
     });
 }
 
