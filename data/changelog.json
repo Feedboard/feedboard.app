@@ -1,5 +1,10 @@
 [
   {
+    "date": "20 Jan 24",
+    "title": "Smart reload",
+    "description": "Your feeds now reload automatically without to having to manually reload your dashboard"
+  },
+  {
     "date": "9 Jan 24",
     "title": "Layout and styling improvements",
     "description": "Some small UI and layout bug fixing"
