@@ -1,10 +1,7 @@
-async function getGenericRSS(link, id) {
+async function getGenericRss(link, id) {
   console.log("Loading Generic RSS...");
   const rssURL = "https://web-production-09ad.up.railway.app/" + link;
-  // const feedGenericRSS = document.getElementById("feed-genericRSS" + id);
-  const feedGenericRSS = document.getElementById("feed-genericRSS");
-  //Remove
-  const title = document.getElementById("title");
+  const feedGenericRSS = document.getElementById("feed-genericRSS-" + id);
 
   await fetch(rssURL, {
     headers: {
@@ -15,16 +12,23 @@ async function getGenericRSS(link, id) {
     .then((response) => response.text())
     .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
     .then((data) => {
-      console.log(data);
-
-      let channelTitle;
-      if (data.querySelector("channel")) {
-        channelTitle = data.querySelector("channel").querySelector("title").textContent;
-      }
-      title.innerHTML = channelTitle;
       const entries = data.querySelectorAll("item");
       feedGenericRSS.innerHTML = "";
       let entry = "";
+
+      if (entries.length <= 0) {
+        console.log("not ok");
+        entry += `
+        <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
+          <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" alt="warning icon" />
+          <div>
+            This link seems to be invalid or the website doesn't have any RSS feed.
+          </div>
+        </div>
+              `;
+        feedGenericRSS.innerHTML = entry;
+      }
+
       entries.forEach((el) => {
         let title = el.querySelector("title").textContent;
         let link = el.querySelector("link").innerHTML;
@@ -54,7 +58,6 @@ async function getGenericRSS(link, id) {
               ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
               ${pubDate ? `<p class="text-secondary small">${pubDate}</p>` : ""}
               </a>
-              <hr>
               `;
       });
       feedGenericRSS.innerHTML = entry;
@@ -84,88 +87,126 @@ async function getGenericRSS(link, id) {
 // getGenericRSS("https://feeds.a.dj.com/rss/RSSWorldNews.xml", 1);
 // getGenericRSS("https://www.technologyreview.com/feed/", 1);
 // getGenericRSS("https://www.espn.com/espn/rss/news", 1);
-getGenericRSS("https://www.vox.com/rss/index.xml", 1);
+// getGenericRSS("https://www.vox.com/rss/index.xml", 1);
 // getGenericRSS("", 1);
 
-// Add HackerNews
-// const addHackerNewsBtn = document.getElementById("addHackerNews");
+// Add RSS Feed
+const addNewRssBtn = document.getElementById("addNewRssBtn");
+const newRssFeed = document.getElementById("newRssFeed");
 
-// addHackerNewsBtn.addEventListener("click", async function () {
-//   closeModal("newFeedModal");
+newRssFeed.addEventListener("input", function () {
+  checkInputFill(newRssFeed, addNewRssBtn);
+});
 
-//   const { data, error } = await client
-//     .from("feeds")
-//     .insert([{ feed_name: "Hacker News", feed_options: "hackernews", feed_type: "hackernews", user_id: user_id }])
-//     .select();
+addNewRssBtn.addEventListener("click", async function () {
+  closeModal("newFeedModal");
+  addNewRssBtn.disabled = true;
 
-//   if (data) {
-//     showToast("HackerNews added to your feed");
-//     addHackerNewsBtn.disabled = true;
-//     console.log(data);
-//     const feedContainer = document.getElementById("feedContainer");
-//     const sidebarContainer = document.getElementById("feedLogoContainer");
-//     let feed = "";
-//     let sidebar = "";
+  const feedTitle = await getRssTitle(newRssFeed.value);
 
-//     sidebar += `
-//          <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
-//          <img class="rounded-3 m-2" src="./img/logo-hackernews.svg" alt="hackernews logo" width="40" height="40" />
-//          </a>
-//         `;
+  const { data, error } = await client
+    .from("feeds")
+    .insert([{ feed_name: feedTitle, feed_options: newRssFeed.value, feed_type: "RSS", user_id: user_id }])
+    .select();
 
-//     feed += `
-//         <div id="${data[0].id}" class="feed border-end">
-//           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
-//             <div class="d-flex align-items-center">
-//               <img class="me-2" src="./img/logo-hackernews.svg" width="20" height="20" alt="hackernews logo" />
-//               Hacker News
-//             </div>
-//             <div class="btn-group">
-//               <button type="button" name="options" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
-//                 <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
-//               </button>
-//               <ul class="dropdown-menu dropdown-menu-end">
-//                 <li onclick="getHnFeed(${data[0].id})"><button class="dropdown-item" type="button" name="reload"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
-//                 <li onclick="removeHnFeed(${data[0].id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
-//               </ul>
-//             </div>
-//           </div>
-//           <div id="feed-hackernews" class="list-group list-group-flush feed-body">
-//             <div class="p-2 placeholder-glow">
-//               <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
-//               <span class="placeholder col-7 bg-secondary"></span>
-//               <span class="placeholder col-4 bg-secondary"></span>
-//               <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
-//             </div>
-//           </div>
-//         </div>
-//         `;
-//     hideEmpty();
-//     feedContainer.innerHTML += feed;
-//     sidebarContainer.innerHTML += sidebar;
-//     scrollToPos(data[0].id);
-//     getHnFeed(data[0].id);
-//   }
+  if (data) {
+    showToast("New RSS added to your feed");
+    const feedContainer = document.getElementById("feedContainer");
+    const sidebarContainer = document.getElementById("feedLogoContainer");
+    let feed = "";
+    let sidebar = "";
 
-//   if (error) {
-//     console.log(error);
-//   }
-//   initTooltip();
-// });
+    sidebar += `
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
+         <img class="rounded-3 m-2" src="./img/logo-rss.svg" alt="rss logo" width="40" height="40" />
+         </a>
+        `;
 
-// Remove hackernews
-async function removeHnFeed(id) {
+    feed += `
+        <div id="${data[0].id}" class="feed border-end">
+          <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
+            <div class="d-flex align-items-center">
+              <img class="me-2" src="./img/logo-rss.svg" width="20" height="20" alt="rss logo" />
+               ${data[0].feed_name}
+            </div>
+            <div class="btn-group">
+              <button type="button" name="options" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li onclick="getGenericRss(${data[0].id})"><button class="dropdown-item" type="button" name="reload"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeRssFeed(${data[0].id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+              </ul>
+            </div>
+          </div>
+          <div id="feed-genericRSS-${data[0].id}" class="list-group list-group-flush feed-body">
+            <div class="p-2 placeholder-glow">
+              <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
+              <span class="placeholder col-7 bg-secondary"></span>
+              <span class="placeholder col-4 bg-secondary"></span>
+              <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
+            </div>
+          </div>
+        </div>
+        `;
+    hideEmpty();
+    feedContainer.innerHTML += feed;
+    sidebarContainer.innerHTML += sidebar;
+    scrollToPos(data[0].id);
+    getGenericRss(data[0].feed_options, data[0].id);
+  }
+
+  newRssFeed.value = "";
+
+  if (error) {
+    console.log(error);
+  }
+  initTooltip();
+});
+
+// Remove RSS feed
+async function removeRssFeed(id) {
   const { error } = await client.from("feeds").delete().eq("id", id);
   if (error) {
     console.log(error);
   } else {
     console.log("Deleted");
     showToast("Feed deleted");
-    addHackerNewsBtn.disabled = false;
 
     let feedContainer = document.getElementById(id);
     let sidebarLogo = document.getElementById("sidebarLogo-" + id);
     feedContainer.remove();
     sidebarLogo.remove();
+  }
+}
+
+// Get channel name from link
+async function getRssTitle(link) {
+  console.log("Getting feed title...");
+  showToast("Getting your feed...");
+  const rssLink = "https://web-production-09ad.up.railway.app/" + link;
+
+  try {
+    const response = await fetch(rssLink, {
+      headers: {
+        "Access-Control-Allow-Origin": rssLink,
+        "Access-Control-Allow-Headers": "content-type",
+      },
+    });
+
+    const str = await response.text();
+    const data = new window.DOMParser().parseFromString(str, "text/xml");
+
+    let rssTitle;
+    if (data.querySelector("channel")) {
+      rssTitle = data.querySelector("channel").querySelector("title").textContent;
+      formattedRssTitle = rssTitle.toString();
+      return formattedRssTitle;
+    } else {
+      throw new Error("No channel found in the XML data");
+    }
+  } catch (error) {
+    console.error("Error fetching or parsing RSS data:", error);
+    throw error;
   }
 }
