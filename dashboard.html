@@ -451,20 +451,34 @@
                 </div>
               </div>
 
+              <!-- Generic RSS Feed -->
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGenericRss" aria-expanded="false" aria-controls="collapseGenericRss" name="generic-rss">
+                    <div class="d-flex flex-row">
+                      <img class="me-3 rounded-3" src="./img/logo-rss.svg" width="45" height="45" alt="rss logo" />
+                      <div>
+                        <div class="d-flex">
+                          <p class="fw-semibold">RSS Feed</p>
+                          <span class="badge rounded-pill text-warning-subtle bg-warning ms-2">Beta</span>
+                        </div>
+                        <p class="text-secondary small">Get a feed from any RSS enabled website</p>
+                      </div>
+                    </div>
+                  </button>
+                </h2>
+                <div id="collapseGenericRss" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                  <div class="accordion-body pt-0">
+                    <div class="mb-3">
+                      <input id="newRssFeed" type="text" class="form-control" placeholder="Website URL" autocomplete="off" aria-label="RSS name" aria-describedby="rss-name" />
+                    </div>
+                    <button id="addNewRssBtn" class="btn btn-dark btn-sm" name="add-rss" disabled>Add RSS Feed</button>
+                  </div>
+                </div>
+              </div>
+
               <!-- Coming soon -->
               <ul class="list-group list-group-flush">
-                <li class="list-group-item opacity-75">
-                  <div class="d-flex flex-row">
-                    <img class="me-3 rounded-3" src="./img/logo-rss.svg" width="45" height="45" alt="rss logo" />
-                    <div class="w-100 d-flex justify-content-between align-items-center">
-                      <div>
-                        <p class="fw-semibold">Generic RSS</p>
-                        <p class="text-secondary small">Get an RSS feed from a source link</p>
-                      </div>
-                      <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
-                    </div>
-                  </div>
-                </li>
                 <li class="list-group-item opacity-75">
                   <div class="d-flex flex-row">
                     <img class="me-3 rounded-3" src="./img/logo-techcrunch.svg" width="45" height="45" alt="techcrunch logo" />
@@ -531,6 +545,7 @@
     <script src="./js/feeds/coingecko-top.js"></script>
     <script src="./js/feeds/medium.js"></script>
     <script src="./js/feeds/behance.js"></script>
+    <script src="./js/feeds/rss.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/changelog.js"></script>
