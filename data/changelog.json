@@ -1,5 +1,10 @@
 [
   {
+    "date": "24 Jan 24",
+    "title": "RSS Reader Feed",
+    "description": "You can now add any RSS feed from your favourite publications directly into Feedboard. This one was a ton of work! Onto the next one... Oh, btw the feature is in Beta as we testing more feeds and we squash pesky bugs."
+  },
+  {
     "date": "20 Jan 24",
     "title": "Smart reload",
     "description": "Your feeds now reload automatically without to having to manually reload your dashboard"
