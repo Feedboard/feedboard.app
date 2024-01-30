@@ -99,30 +99,32 @@ newRssFeed.addEventListener("input", function () {
 });
 
 addNewRssBtn.addEventListener("click", async function () {
-  closeModal("newFeedModal");
-  addNewRssBtn.disabled = true;
+  console.log(newRssFeed.value);
+  if (await isRssLinkValid(newRssFeed.value)) {
+    closeModal("newFeedModal");
+    addNewRssBtn.disabled = true;
 
-  const feedTitle = await getRssTitle(newRssFeed.value);
+    const feedTitle = await getRssTitle(newRssFeed.value);
 
-  const { data, error } = await client
-    .from("feeds")
-    .insert([{ feed_name: feedTitle, feed_options: newRssFeed.value, feed_type: "RSS", user_id: user_id }])
-    .select();
+    const { data, error } = await client
+      .from("feeds")
+      .insert([{ feed_name: feedTitle, feed_options: newRssFeed.value, feed_type: "RSS", user_id: user_id }])
+      .select();
 
-  if (data) {
-    showToast("New RSS added to your feed");
-    const feedContainer = document.getElementById("feedContainer");
-    const sidebarContainer = document.getElementById("feedLogoContainer");
-    let feed = "";
-    let sidebar = "";
+    if (data) {
+      showToast("New RSS added to your feed");
+      const feedContainer = document.getElementById("feedContainer");
+      const sidebarContainer = document.getElementById("feedLogoContainer");
+      let feed = "";
+      let sidebar = "";
 
-    sidebar += `
+      sidebar += `
          <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
          <img class="rounded-3 m-2" src="./img/logo-rss.svg" alt="rss logo" width="40" height="40" />
          </a>
         `;
 
-    feed += `
+      feed += `
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
@@ -149,17 +151,22 @@ addNewRssBtn.addEventListener("click", async function () {
           </div>
         </div>
         `;
-    hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
-    scrollToPos(data[0].id);
-    getGenericRss(data[0].feed_options, data[0].id);
-  }
+      hideEmpty();
+      feedContainer.innerHTML += feed;
+      sidebarContainer.innerHTML += sidebar;
+      scrollToPos(data[0].id);
+      getGenericRss(data[0].feed_options, data[0].id);
+    }
+    if (error) {
+      console.log(error);
+    }
 
-  newRssFeed.value = "";
-
-  if (error) {
-    console.log(error);
+    newRssFeed.value = "";
+  } else {
+    document.getElementById("rssErrorHelp").hidden = false;
+    setTimeout(() => {
+      document.getElementById("rssErrorHelp").hidden = true;
+    }, 5000);
   }
   initTooltip();
 });
@@ -177,6 +184,24 @@ async function removeRssFeed(id) {
     let sidebarLogo = document.getElementById("sidebarLogo-" + id);
     feedContainer.remove();
     sidebarLogo.remove();
+  }
+}
+
+// Check RSS feed validity
+async function isRssLinkValid(rssLink) {
+  try {
+    const response = await fetch("https://web-production-09ad.up.railway.app/" + rssLink);
+    const text = await response.text();
+    // Check if the response is in a valid RSS format
+    if (response.ok && text.includes("<rss") && text.includes("</rss>")) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    // An error occurred during the fetch (e.g., network error)
+    console.error("Error checking RSS link:", error);
+    return false;
   }
 }
 
