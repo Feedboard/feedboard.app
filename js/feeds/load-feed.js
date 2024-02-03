@@ -539,9 +539,10 @@ async function loadFeed() {
 
       // Generic RSS
       if (item.feed_type == "RSS") {
+        let favicon = getApexDomain(item.feed_options);
         sidebar += `
-         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="r/${item.feed_options}" aria-label="${item.feed_options}">
-         <img class="rounded-3 m-2" src="./img/logo-rss.svg" alt="rss logo" width="40" height="40" />
+         <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
+         <img class="rounded-3 m-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" alt="rss logo" width="40" height="40" />
          </a>
         `;
 
@@ -549,7 +550,7 @@ async function loadFeed() {
         <div id="${item.id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-rss.svg" width="20" height="20" alt="rss logo" />
+              <img class="me-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" width="20" height="20" alt="rss logo" />
               <p id="">${item.feed_name}</p>
             </div>
             <div class="btn-group">

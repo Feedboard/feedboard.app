@@ -68,3 +68,14 @@ function showToast(header) {
     toast.classList.remove("toast-fadein");
   }, 3000);
 }
+
+function getApexDomain(url) {
+  try {
+    const parsedUrl = new URL(url);
+    const favicon = "https://" + parsedUrl.hostname + "/favicon.ico";
+    return favicon;
+  } catch (error) {
+    console.error("Invalid URL:", url);
+    return null;
+  }
+}

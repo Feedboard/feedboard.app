@@ -117,10 +117,11 @@ addNewRssBtn.addEventListener("click", async function () {
       const sidebarContainer = document.getElementById("feedLogoContainer");
       let feed = "";
       let sidebar = "";
+      let favicon = getApexDomain(data[0].feed_options);
 
       sidebar += `
          <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
-         <img class="rounded-3 m-2" src="./img/logo-rss.svg" alt="rss logo" width="40" height="40" />
+         <img class="rounded-3 m-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" alt="rss logo" width="40" height="40" />
          </a>
         `;
 
@@ -128,7 +129,7 @@ addNewRssBtn.addEventListener("click", async function () {
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="./img/logo-rss.svg" width="20" height="20" alt="rss logo" />
+              <img class="me-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" width="20" height="20" alt="rss logo" />
                ${data[0].feed_name}
             </div>
             <div class="btn-group">
