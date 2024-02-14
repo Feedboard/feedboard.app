@@ -366,9 +366,12 @@
                 </h2>
                 <div id="collapseMedium" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body pt-0">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="medium-name">medium.com/</span>
-                      <input id="newMediumName" type="text" class="form-control" placeholder="@username" autocomplete="off" aria-label="Medium name" aria-describedby="medium-name" />
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <span class="input-group-text" id="medium-name">medium.com/</span>
+                        <input id="newMediumName" type="text" class="form-control" placeholder="@username" autocomplete="off" aria-label="Medium name" aria-describedby="medium-name" />
+                      </div>
+                      <div id="mediumErrorHelp" class="form-text text-danger mb-3" hidden>This Medium account doesn't seem to exist.</div>
                     </div>
                     <button id="addNewMedium" class="btn btn-dark btn-sm" disabled name="add-medium-button">Add Medium</button>
                   </div>

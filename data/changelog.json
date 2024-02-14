@@ -1,5 +1,10 @@
 [
   {
+    "date": "14 Jan 24",
+    "title": "Medium feed check",
+    "description": "When adding a new Medium feed, active checks are made to prevent errors."
+  },
+  {
     "date": "12 Jan 24",
     "title": "Reddit resolve to new website",
     "description": "When clicking a Reddit link in a Subreddit you are now redirected to the new Reddit site rather than the old one. This was set in place before due to an outage of the new site."

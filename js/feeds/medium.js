@@ -68,28 +68,30 @@ newMediumName.addEventListener("input", function () {
 });
 
 addNewMediumBtn.addEventListener("click", async function () {
-  closeModal("newFeedModal");
   addNewMediumBtn.disabled = true;
+  if (await isRssLinkValid("https://web-production-09ad.up.railway.app/https://www.medium.com/feed/" + newMediumName.value)) {
+    closeModal("newFeedModal");
+    addNewMediumBtn.disabled = true;
 
-  const { data, error } = await client
-    .from("feeds")
-    .insert([{ feed_name: "medium", feed_type: "medium", feed_options: newMediumName.value, user_id: user_id }])
-    .select();
+    const { data, error } = await client
+      .from("feeds")
+      .insert([{ feed_name: "medium", feed_type: "medium", feed_options: newMediumName.value, user_id: user_id }])
+      .select();
 
-  if (data) {
-    showToast(newMediumName.value + " added to your feed");
-    const feedContainer = document.getElementById("feedContainer");
-    const sidebarContainer = document.getElementById("feedLogoContainer");
-    let feed = "";
-    let sidebar = "";
+    if (data) {
+      showToast(newMediumName.value + " added to your feed");
+      const feedContainer = document.getElementById("feedContainer");
+      const sidebarContainer = document.getElementById("feedLogoContainer");
+      let feed = "";
+      let sidebar = "";
 
-    sidebar += `
+      sidebar += `
          <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}" aria-label="${data[0].feed_options}">
          <img class="rounded-3 m-2 svg-icon" src="./img/logo-medium.svg" alt="medium logo" width="40" height="40" />
          </a>
         `;
 
-    feed += `
+      feed += `
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
@@ -116,17 +118,22 @@ addNewMediumBtn.addEventListener("click", async function () {
           </div>
         </div>
         `;
-    hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
-    scrollToPos(data[0].id);
-    getMediumFeed(data[0].feed_options, data[0].id);
-  }
-
-  newMediumName.value = "";
-
-  if (error) {
-    console.log(error);
+      hideEmpty();
+      feedContainer.innerHTML += feed;
+      sidebarContainer.innerHTML += sidebar;
+      scrollToPos(data[0].id);
+      getMediumFeed(data[0].feed_options, data[0].id);
+    }
+    if (error) {
+      console.log(error);
+    }
+    newMediumName.value = "";
+  } else {
+    addNewMediumBtn.disabled = false;
+    document.getElementById("mediumErrorHelp").hidden = false;
+    setTimeout(() => {
+      document.getElementById("mediumErrorHelp").hidden = true;
+    }, 5000);
   }
   initTooltip();
 });
