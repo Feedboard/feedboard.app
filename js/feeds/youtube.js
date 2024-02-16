@@ -70,30 +70,31 @@ newYoutubeName.addEventListener("input", function () {
 });
 
 addNewYoutubeBtn.addEventListener("click", async function () {
-  closeModal("newFeedModal");
   addNewYoutubeBtn.disabled = true;
 
-  const channelName = await getChannelName(newYoutubeName.value);
+  const channelId = await getChannelId(newYoutubeName.value);
 
-  const { data, error } = await client
-    .from("feeds")
-    .insert([{ feed_name: channelName, feed_type: "youtube", feed_options: newYoutubeName.value, user_id: user_id }])
-    .select();
+  if (channelId) {
+    closeModal("newFeedModal");
+    const { data, error } = await client
+      .from("feeds")
+      .insert([{ feed_name: channelId.title, feed_type: "youtube", feed_options: channelId.id, user_id: user_id }])
+      .select();
 
-  if (data) {
-    showToast(channelName + " added to your feed");
-    const feedContainer = document.getElementById("feedContainer");
-    const sidebarContainer = document.getElementById("feedLogoContainer");
-    let feed = "";
-    let sidebar = "";
+    if (data) {
+      showToast(channelId.title + " added to your feed");
+      const feedContainer = document.getElementById("feedContainer");
+      const sidebarContainer = document.getElementById("feedLogoContainer");
+      let feed = "";
+      let sidebar = "";
 
-    sidebar += `
+      sidebar += `
          <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
          <img class="rounded-3 m-2" src="./img/logo-youtube.svg" alt="youtube logo" width="40" height="40" />
          </a>
         `;
 
-    feed += `
+      feed += `
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
@@ -120,17 +121,24 @@ addNewYoutubeBtn.addEventListener("click", async function () {
           </div>
         </div>
         `;
-    hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
-    scrollToPos(data[0].id);
-    getYoutubeChannel(data[0].feed_options, data[0].id);
-  }
+      hideEmpty();
+      feedContainer.innerHTML += feed;
+      sidebarContainer.innerHTML += sidebar;
+      scrollToPos(data[0].id);
+      getYoutubeChannel(data[0].feed_options, data[0].id);
+    }
 
-  newYoutubeName.value = "";
+    newYoutubeName.value = "";
 
-  if (error) {
-    console.log(error);
+    if (error) {
+      console.log(error);
+    }
+  } else {
+    addNewYoutubeBtn.disabled = false;
+    document.getElementById("youtubeErrorHelp").hidden = false;
+    setTimeout(() => {
+      document.getElementById("youtubeErrorHelp").hidden = true;
+    }, 5000);
   }
   initTooltip();
 });
@@ -150,34 +158,20 @@ async function removeYoutubeChannel(id) {
   }
 }
 
-// Get channel name from id
-async function getChannelName(channelId) {
-  console.log("Getting channel name...");
-  const youtubeRss = "https://web-production-09ad.up.railway.app/https://www.youtube.com/feeds/videos.xml?channel_id=" + channelId;
+async function getChannelId(channelName) {
+  const YTendpoint = "https://feedboard-api-relay-production.up.railway.app/yt/" + channelName;
 
-  try {
-    const response = await fetch(youtubeRss, {
-      headers: {
-        "Access-Control-Allow-Origin": youtubeRss,
-        "Access-Control-Allow-Headers": "content-type",
-      },
-    });
+  const response = await fetch(YTendpoint);
+  const data = await response.json();
+  if (data.pageInfo.totalResults > 0) {
+    const channelId = data.items[0].id;
+    const channelTitle = data.items[0].snippet.title;
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-
-    const text = await response.text();
-    const data = new window.DOMParser().parseFromString(text, "text/xml");
-    const title = data.querySelector("title").textContent;
-
-    if (title) {
-      return title;
-    } else {
-      throw new Error("Title not found");
-    }
-  } catch (error) {
-    console.error("An error occurred:", error);
-    throw error; // Re-throw the error so it can be caught by the caller
+    return {
+      id: channelId,
+      title: channelTitle,
+    };
+  } else {
+    return false;
   }
 }
