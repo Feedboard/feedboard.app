@@ -159,8 +159,7 @@ async function removeYoutubeChannel(id) {
 }
 
 async function getChannelId(channelName) {
-  // const YTendpoint = "https://feedboard-api-relay-production.up.railway.app/yt/" + channelName;
-  const YTendpoint = "https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forHandle=" + channelName + "&key=" + "AIzaSyB6ipGfZmThtiPpyhPTxYPxrqwia9leZLY";
+  const YTendpoint = "https://feedboard-api-relay-production.up.railway.app/yt/" + channelName;
 
   const response = await fetch(YTendpoint);
   const data = await response.json();
