@@ -1,11 +1,16 @@
 [
   {
-    "date": "14 Jan 24",
+    "date": "16 Feb 24",
+    "title": "Add YouTube channel by name",
+    "description": "You can finally add a YouTube channel by name instead of using the channel ID which was hard to find for some users."
+  },
+  {
+    "date": "14 Feb 24",
     "title": "Medium feed check",
     "description": "When adding a new Medium feed, active checks are made to prevent errors."
   },
   {
-    "date": "12 Jan 24",
+    "date": "12 Feb 24",
     "title": "Reddit resolve to new website",
     "description": "When clicking a Reddit link in a Subreddit you are now redirected to the new Reddit site rather than the old one. This was set in place before due to an outage of the new site."
   },
