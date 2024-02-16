@@ -300,7 +300,12 @@
                 <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body pt-0">
                     <div class="mb-3">
-                      <input id="newYoutubeName" type="text" class="form-control" placeholder="Channel ID" autocomplete="off" aria-label="Youtube name" aria-describedby="youtube-name" />
+                      <div class="input-group">
+                        <span class="input-group-text" id="youtube-name">youtube.com/</span>
+                        <input id="newYoutubeName" type="text" class="form-control" placeholder="Channel name" autocomplete="off" aria-label="Youtube channel name" aria-describedby="youtube-name" />
+                      </div>
+                      <div id="youtubeErrorHelp" class="form-text text-danger mb-3" hidden>This YouTube account doesn't seem to exist.</div>
+                      <!-- <div class="form-text">Youtube message</div> -->
                     </div>
                     <button id="addNewYoutube" class="btn btn-dark btn-sm" name="add-youtube" disabled>Add Youtube channel</button>
                   </div>
