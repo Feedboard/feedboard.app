@@ -153,4 +153,3 @@ async function removeRedditFeed(id) {
     sidebarLogo.remove();
   }
 }
-// Update subreddit

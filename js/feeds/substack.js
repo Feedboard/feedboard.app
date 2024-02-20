@@ -1,10 +1,42 @@
 async function getSubstack(substack, id) {
   console.log("Loading Substack for " + substack + "...");
-  window.SubstackFeedWidget = {
-    substackUrl: substack + ".substack.com",
-    posts: 12,
-    hidden: ["image"],
-  };
+  const substackURL = "https://substackapi.com/api/feeds/" + substack + ".substack.com?limit=12&sort=new";
+  const substackFeed = document.getElementById("substack-feed-" + id);
+
+  await fetch(substackURL, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      substackFeed.innerHTML = "";
+      let substackPost = "";
+      data.forEach((el) => {
+        const reactionValue = Object.values(el.reactions)[0];
+        const truncatedContent = el.description.slice(0, 160) + "...";
+        substackPost += `
+        <a href="${el.canonical_url}" class="list-group-item list-group-item-action" target="_blank">
+          <p class="fw-semibold mb-2">${el.title}</p>
+          <p class="text-secondary small mb-2">${truncatedContent}</p>
+          <div class="d-flex flex-row">
+          <p class="text-uppercase text-secondary small me-3">${el.publishedBylines[0].name}</p>
+          <p class="text-uppercase text-secondary small me-3">${el.post_date}</p>
+            <div class="d-flex flex-row align-items-center">
+              <img src="./img/love.svg" width="16" height="16">
+              <p class="text-uppercase text-secondary small me-3 ms-1">${reactionValue}</p>
+            </div>
+          </div>
+        </a>
+        `;
+      });
+      substackPost += `
+      <div class="bg-dark-subtle py-4 px- text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>
+      `;
+      substackFeed.innerHTML = substackPost;
+    });
 }
 
 // Add new substack
@@ -16,30 +48,30 @@ newSubstackName.addEventListener("input", function () {
 });
 
 addNewSubstackBtn.addEventListener("click", async function () {
-  closeModal("newFeedModal");
   addNewSubstackBtn.disabled = true;
 
-  const { data, error } = await client
-    .from("feeds")
-    .insert([{ feed_name: "substack", feed_type: "substack", feed_options: newSubstackName.value, user_id: user_id }])
-    .select();
+  if (await isSubstackValid(newSubstackName.value)) {
+    closeModal("newFeedModal");
 
-  if (data) {
-    showToast(newSubstackName.value + " added to your feed");
-    addNewSubstackBtn.disabled = true;
-    newSubstackName.disabled = true;
-    const feedContainer = document.getElementById("feedContainer");
-    const sidebarContainer = document.getElementById("feedLogoContainer");
-    let feed = "";
-    let sidebar = "";
+    const { data, error } = await client
+      .from("feeds")
+      .insert([{ feed_name: "substack", feed_type: "substack", feed_options: newSubstackName.value, user_id: user_id }])
+      .select();
 
-    sidebar += `
+    if (data) {
+      showToast(newSubstackName.value + " added to your feed");
+      const feedContainer = document.getElementById("feedContainer");
+      const sidebarContainer = document.getElementById("feedLogoContainer");
+      let feed = "";
+      let sidebar = "";
+
+      sidebar += `
          <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}" aria-label="${data[0].feed_options}">
          <img class="rounded-3 m-2" src="./img/logo-substack.svg" alt="substack logo" width="40" height="40" />
          </a>
         `;
 
-    feed += `
+      feed += `
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
@@ -56,7 +88,7 @@ addNewSubstackBtn.addEventListener("click", async function () {
               </ul>
             </div>
           </div>
-          <div id="substack-feed-embed" class="feed-body">
+          <div id="substack-feed-${data[0].id}" class="list-group list-group-flush feed-body">
             <div class="p-2 placeholder-glow">
               <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
               <span class="placeholder col-7 bg-secondary"></span>
@@ -66,23 +98,24 @@ addNewSubstackBtn.addEventListener("click", async function () {
           </div>
         </div>
         `;
-    hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
-    scrollToPos(data[0].id);
+      hideEmpty();
+      feedContainer.innerHTML += feed;
+      sidebarContainer.innerHTML += sidebar;
+      scrollToPos(data[0].id);
+      getSubstack(data[0].feed_options, data[0].id);
+    }
 
-    // Inject SubstackAPI script
-    var script = document.createElement("script");
-    script.src = "https://substackapi.com/embeds/feed.js";
-    document.body.appendChild(script);
+    newSubstackName.value = "";
 
-    getSubstack(data[0].feed_options);
-  }
-
-  newSubstackName.value = "";
-
-  if (error) {
-    console.log(error);
+    if (error) {
+      console.log(error);
+    }
+  } else {
+    addNewSubstackBtn.disabled = false;
+    document.getElementById("substackErrorHelp").hidden = false;
+    setTimeout(() => {
+      document.getElementById("substackErrorHelp").hidden = true;
+    }, 5000);
   }
   initTooltip();
 });
@@ -95,11 +128,30 @@ async function removeSubstack(id) {
   } else {
     console.log("Deleted");
     showToast("Feed deleted");
-    addNewSubstackBtn.disabled = false;
-    newSubstackName.disabled = false;
     let feedContainer = document.getElementById(id);
     let sidebarLogo = document.getElementById("sidebarLogo-" + id);
     feedContainer.remove();
     sidebarLogo.remove();
+  }
+}
+
+// Check if Substack is valid
+async function isSubstackValid(substackName) {
+  const substackURL = "https://substackapi.com/api/feeds/" + substackName + ".substack.com?limit=12&sort=new";
+  try {
+    const response = await fetch(substackURL, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+
+    if (data.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
   }
 }

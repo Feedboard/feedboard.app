@@ -89,6 +89,7 @@ async function loadFeed() {
         }, 1);
       }
 
+      // HackerNews
       if (item.feed_type == "hackernews") {
         addHackerNewsBtn.disabled = true;
         sidebar += `
@@ -128,6 +129,7 @@ async function loadFeed() {
         }, 1);
       }
 
+      // ProductHunt
       if (item.feed_type == "producthunt") {
         addProductHuntBtn.disabled = true;
         sidebar += `
@@ -168,8 +170,9 @@ async function loadFeed() {
         }, 1);
       }
 
+      // Substack
       if (item.feed_type == "substack") {
-        addNewSubstackBtn.disabled = true;
+        // addNewSubstackBtn.disabled = true;
         sidebar += `
          <a id="sidebarLogo-${item.id}" href="#${item.id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${item.feed_options}" aria-label="${item.feed_options}">
          <img class="rounded-3 m-2" src="./img/logo-substack.svg" alt="substack logo" width="40" height="40" />
@@ -193,7 +196,7 @@ async function loadFeed() {
               </ul>
             </div>
           </div>
-          <div id="substack-feed-embed" class="feed-body">
+          <div id="substack-feed-${item.id}" class="list-group list-group-flush feed-body">
             <div class="p-2 placeholder-glow">
               <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
               <span class="placeholder col-7 bg-secondary"></span>
@@ -204,15 +207,11 @@ async function loadFeed() {
         </div>
         `;
         setTimeout(async function () {
-          // Inject SubstackAPI script
-          var script = document.createElement("script");
-          script.src = "https://substackapi.com/embeds/feed.js";
-          document.body.appendChild(script);
-
           await getSubstack(item.feed_options, item.id);
         }, 1);
       }
 
+      // Unsplash
       if (item.feed_type == "unsplash") {
         addUnsplashBtn.disabled = true;
         sidebar += `

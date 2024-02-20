@@ -250,16 +250,20 @@
                       <img class="me-3 rounded-3" src="./img/logo-substack.svg" width="45" height="45" alt="substack logo" />
                       <div>
                         <p class="fw-semibold">Substack</p>
-                        <p class="text-secondary small">Get a feed from your favourite newsletter</p>
+                        <p class="text-secondary small">Get a feed from your favourite newsletter.</p>
                       </div>
                     </div>
                   </button>
                 </h2>
                 <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                   <div class="accordion-body pt-0">
-                    <div class="input-group mb-3">
-                      <input id="newSubstackName" type="text" class="form-control" placeholder="Substack name" autocomplete="off" aria-label="Substack name" aria-describedby="substack-name" />
-                      <span class="input-group-text" id="substack-name">.substack.com</span>
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <input id="newSubstackName" type="text" class="form-control" placeholder="Substack name" autocomplete="off" aria-label="Substack name" aria-describedby="substack-name" />
+                        <span class="input-group-text" id="substack-name">.substack.com</span>
+                      </div>
+                      <div id="substackErrorHelp" class="form-text text-danger" hidden>This Substack account doesn't seem to exist.</div>
+                      <div class="form-text text-secondary mb-3">Substack is powered by <a href="https://substackapi.com/" target="_blank">substackapi</a></div>
                     </div>
                     <button id="addNewSubstack" class="btn btn-dark btn-sm" name="add-substack" disabled>Add Substack</button>
                   </div>
