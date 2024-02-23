@@ -8,9 +8,166 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <h1 id="title"></h1>
-    <div id="feed-genericRSS"></div>
-    <script src="./js/feeds/rss.js"></script>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="input-group mb-3">
+            <input id="RSSlink" type="text" class="form-control" placeholder="RSS link" />
+            <button id="fetchRSS" class="btn btn-primary" type="button">Fetch</button>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <h3>Old parser</h3>
+              <div id="old-feed-output" class="list-group list-group-flush feed-body"></div>
+            </div>
+            <div class="col-md-6">
+              <h3>New parser</h3>
+              <div id="new-feed-output" class="list-group list-group-flush feed-body"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h2>Quicklinks</h2>
+          <p class="small">https://www.thebioneer.com/feed/rss/</p>
+          <p class="small">https://www.outerbridge.blog/1/feed</p>
+          <p class="small">https://fs.blog/feed/<span class="badge text-bg-danger">Blocked</span></p>
+          <p class="small">https://stephanango.com/feed.xml</p>
+          <p class="small">https://every.to/superorganizers/feed.xml</p>
+          <p class="small">http://feeds.feedburner.com/scotthyoung/HAHx<span class="badge text-bg-danger">403</span></p>
+          <p class="small">https://www.eleanorkonik.com/blog/rss/</p>
+          <p class="small">https://www.yearzero.io/blog.rss</p>
+          <p class="small">https://news.mit.edu/topic/mitartificial-intelligence2-rss.xml</p>
+          <p class="small">http://markmanson.net/feed</p>
+          <p class="small">https://alyjuma.com/rss/</p>
+          <p class="small">https://gainweightjournal.com/feed/</p>
+          <p class="small">https://collectiveintelligence.media/rss</p>
+          <p class="small">https://kotaku.com/rss</p>
+          <p class="small">https://theeudaimon.com/rss</p>
+          <p class="small">https://tomcritchlow.com/feed</p>
+          <p class="small">https://subconscious.substack.com/feed</p>
+          <p class="small">https://thinkstack.club/rss/</p>
+          <p class="small">https://singularityhub.com/feed/</p>
+          <hr />
+          <p class="small">https://www.dailytelegraph.com.au/news/national/rss</p>
+          <p class="small">https://www.dailytelegraph.com.au/news/national/rss</p>
+          <p class="small">https://www.ecodibergamo.it/feeds/latesthp/268/</p>
+          <p class="small">https://www.repubblica.it/rss/tecnologia/rss2.0.xml</p>
+          <p class="small">https://www.dailymail.co.uk/articles.rss</p>
+          <p class="small">https://www.coindesk.com/arc/outboundfeeds/rss/</p>
+          <p class="small">https://cointelegraph.com/rss<span class="badge text-bg-danger">403</span></p>
+          <p class="small">https://news.bitcoin.com/feed</p>
+          <p class="small">https://decrypt.co/feed</p>
+          <p class="small">https://www.investing.com/rss/news.rss</p>
+          <p class="small">https://finance.yahoo.com/news/rssindex/</p>
+          <p class="small">https://www.cnbc.com/id/10000664/device/rss/rss.html</p>
+          <p class="small">https://feeds.bbci.co.uk/news/rss.xml</p>
+          <p class="small">https://feeds.feedburner.com/TechCrunch/<span class="badge text-bg-danger">Error</span></p>
+          <p class="small">https://www.forbes.com/innovation/feed/</p>
+          <p class="small">https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml</p>
+          <p class="small">http://rss.cnn.com/rss/edition.rss<span class="badge text-bg-danger">403</span></p>
+          <p class="small">https://feeds.feedburner.com/TEDTalks_video<span class="badge text-bg-danger">Error</span></p>
+          <p class="small">https://www.wired.com/feed/</p>
+          <p class="small">https://www.theguardian.com/uk/rss</p>
+          <p class="small">https://feeds.a.dj.com/rss/RSSWorldNews.xml</p>
+          <p class="small">https://www.technologyreview.com/feed/</p>
+          <p class="small">https://www.espn.com/espn/rss/news</p>
+          <p class="small">https://www.vox.com/rss/index.xml</p>
+          <p class="small">www.theverge.com/rss/index.xml</p>
+        </div>
+      </div>
+    </div>
+    <script src="./js/rss-parser.min.js"></script>
     <script src="./js/utils.js"></script>
+    <script>
+      const actionBtn = document.getElementById("fetchRSS");
+      const inputRSS = document.getElementById("RSSlink");
+      const rssURL = "https://web-production-09ad.up.railway.app/";
+      const oldFeedOut = document.getElementById("old-feed-output");
+      const newFeedOut = document.getElementById("new-feed-output");
+
+      async function oldParser() {
+        await fetch(rssURL + inputRSS.value, {
+          headers: {
+            "x-request-url": rssURL,
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "content-type",
+            "cross-origin-resource-policy": "same-origin",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+          },
+        })
+          .then((response) => response.text())
+          .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
+          .then((data) => {
+            console.log(data);
+
+            const entries = data.querySelectorAll("item");
+            oldFeedOut.innerHTML = "";
+            let entry = "";
+
+            entries.forEach((el) => {
+              let title = el.querySelector("title").textContent;
+              let link = el.querySelector("link").innerHTML;
+              let description;
+              if (el.querySelector("description")) {
+                description = el.querySelector("description").textContent;
+                strippedContent = description.replace(/<[^>]*>/g, "");
+                truncatedContent = strippedContent.slice(0, 160) + "...";
+              }
+              let enclosure;
+              if (el.querySelector("enclosure")) {
+                enclosure = el.querySelector("enclosure").getAttribute("url");
+              }
+              let mediaContent;
+              if (el.querySelector("content")) {
+                mediaContent = el.querySelector("content").getAttribute("url");
+              }
+
+              let pubDate;
+              if (el.querySelector("pubDate")) {
+                pubDate = convertHnDate(el.querySelector("pubDate").innerHTML);
+              }
+              entry += `
+              <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
+              <p class="fw-semibold">${title}</p>
+              ${enclosure ? `<img class="img-fluid rounded-3" src="${enclosure}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+              ${mediaContent ? `<img class="img-fluid rounded-3" src="${mediaContent}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+              ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
+              ${pubDate ? `<p class="text-secondary small">${pubDate}</p>` : ""}
+              </a>
+              `;
+            });
+            oldFeedOut.innerHTML = entry;
+          });
+      }
+      async function newParser() {
+        let parser = new RSSParser();
+        newFeedOut.innerHTML = "";
+
+        parser.parseURL(rssURL + inputRSS.value, function (err, feed) {
+          if (err) throw err;
+          console.log(feed.title);
+          let output = "";
+
+          feed.items.forEach(function (entry) {
+            // console.log(entry.title + ":" + entry.link);
+            strippedContent = entry.content.replace(/<[^>]*>/g, "");
+            truncatedContent = strippedContent.slice(0, 160) + "...";
+            output += `
+              <a href="${entry.link}" class="list-group-item list-group-item-action" target="_blank">
+              <p class="fw-semibold">${entry.title}</p>
+              ${entry.content ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
+              ${entry.pubDate ? `<p class="text-secondary small">${entry.pubDate}</p>` : ""}
+              </a>
+              `;
+          });
+          newFeedOut.innerHTML = output;
+        });
+      }
+
+      actionBtn.addEventListener("click", async function () {
+        await newParser();
+        await oldParser();
+      });
+    </script>
   </body>
 </html>
