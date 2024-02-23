@@ -35,7 +35,8 @@ async function getGenericRss(link, id) {
         let description;
         if (el.querySelector("description")) {
           description = el.querySelector("description").textContent;
-          truncatedContent = description.slice(0, 160) + "...";
+          strippedContent = description.replace(/<[^>]*>/g, "");
+          truncatedContent = strippedContent.slice(0, 160) + "...";
         }
         let enclosure;
         if (el.querySelector("enclosure")) {
@@ -63,32 +64,6 @@ async function getGenericRss(link, id) {
       feedGenericRSS.innerHTML = entry;
     });
 }
-
-// getGenericRSS("https://hnrss.org/newest", 1);
-// getGenericRSS("https://www.dailytelegraph.com.au/news/national/rss", 1);
-// getGenericRSS("https://www.ecodibergamo.it/feeds/latesthp/268/", 1);
-// getGenericRSS("https://www.repubblica.it/rss/tecnologia/rss2.0.xml", 1);
-// getGenericRSS("https://www.dailymail.co.uk/articles.rss", 1);
-// getGenericRSS("https://www.coindesk.com/arc/outboundfeeds/rss/", 1);
-// getGenericRSS("https://cointelegraph.com/rss", 1); //Error
-// getGenericRSS("https://news.bitcoin.com/feed", 1); // Formatting image error
-// getGenericRSS("https://decrypt.co/feed", 1);
-// getGenericRSS("https://www.investing.com/rss/news.rss", 1);
-// getGenericRSS("https://finance.yahoo.com/news/rssindex/", 1);
-// getGenericRSS("https://www.cnbc.com/id/10000664/device/rss/rss.html", 1);
-// getGenericRSS("https://feeds.bbci.co.uk/news/rss.xml", 1);
-// getGenericRSS("https://feeds.feedburner.com/TechCrunch/", 1); //Error
-// getGenericRSS("https://www.forbes.com/innovation/feed/", 1);
-// getGenericRSS("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml", 1);
-// getGenericRSS("http://rss.cnn.com/rss/edition.rss", 1); //Error
-// getGenericRSS("https://feeds.feedburner.com/TEDTalks_video", 1); //Error
-// getGenericRSS("https://www.wired.com/feed/", 1); // Could be improved with thumbnails
-// getGenericRSS("https://www.theguardian.com/uk/rss", 1);
-// getGenericRSS("https://feeds.a.dj.com/rss/RSSWorldNews.xml", 1);
-// getGenericRSS("https://www.technologyreview.com/feed/", 1);
-// getGenericRSS("https://www.espn.com/espn/rss/news", 1);
-// getGenericRSS("https://www.vox.com/rss/index.xml", 1);
-// getGenericRSS("", 1);
 
 // Add RSS Feed
 const addNewRssBtn = document.getElementById("addNewRssBtn");
