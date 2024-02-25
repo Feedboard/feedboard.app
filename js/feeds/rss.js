@@ -12,7 +12,15 @@ async function getGenericRss(link, id) {
     .then((response) => response.text())
     .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
     .then((data) => {
-      const entries = data.querySelectorAll("item");
+      let entries;
+
+      if (data.querySelectorAll("item").length > 0) {
+        entries = data.querySelectorAll("item");
+      }
+      if (data.querySelectorAll("entry").length > 0) {
+        entries = data.querySelectorAll("entry");
+      }
+
       feedGenericRSS.innerHTML = "";
       let entry = "";
 
@@ -45,11 +53,32 @@ async function getGenericRss(link, id) {
         let mediaContent;
         if (el.querySelector("content")) {
           mediaContent = el.querySelector("content").getAttribute("url");
+          if (!mediaContent) {
+            description = el.querySelector("content").textContent;
+            strippedContent = description.replace(/<[^>]*>/g, "");
+            truncatedContent = strippedContent.slice(0, 160) + "...";
+          }
         }
 
+        let published;
+        let updated;
         let pubDate;
-        if (el.querySelector("pubDate")) {
+
+        let elementProcessed = false;
+
+        if (el.querySelector("published")) {
+          published = convertHnDate(el.querySelector("published").innerHTML);
+          elementProcessed = true;
+        }
+
+        if (!elementProcessed && el.querySelector("updated")) {
+          updated = convertHnDate(el.querySelector("updated").innerHTML);
+          elementProcessed = true;
+        }
+
+        if (!elementProcessed && el.querySelector("pubDate")) {
           pubDate = convertHnDate(el.querySelector("pubDate").innerHTML);
+          elementProcessed = true;
         }
         entry += `
               <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
@@ -58,6 +87,8 @@ async function getGenericRss(link, id) {
               ${mediaContent ? `<img class="img-fluid rounded-3" src="${mediaContent}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
               ${pubDate ? `<p class="text-secondary small">${pubDate}</p>` : ""}
+              ${published ? `<p class="text-secondary small">${published}</p>` : ""}
+              ${updated ? `<p class="text-secondary small">${updated}</p>` : ""}
               </a>
               `;
       });
@@ -169,7 +200,9 @@ async function isRssLinkValid(rssLink) {
     const response = await fetch("https://web-production-09ad.up.railway.app/" + rssLink);
     const text = await response.text();
     // Check if the response is in a valid RSS format
-    if (response.ok && text.includes("<rss") && text.includes("</rss>")) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text, "text/xml");
+    if (xmlDoc.getElementsByTagName("parsererror").length === 0) {
       return true;
     } else {
       return false;
@@ -203,8 +236,11 @@ async function getRssTitle(link) {
       rssTitle = data.querySelector("channel").querySelector("title").textContent;
       formattedRssTitle = rssTitle.toString();
       return formattedRssTitle;
-    } else {
-      throw new Error("No channel found in the XML data");
+    }
+    if (data.querySelector("title")) {
+      rssTitle = data.querySelector("feed").querySelector("title").textContent;
+      formattedRssTitle = rssTitle.toString();
+      return formattedRssTitle;
     }
   } catch (error) {
     console.error("Error fetching or parsing RSS data:", error);
