@@ -82,9 +82,9 @@ async function getGenericRss(link, id) {
         }
         entry += `
               <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              <p class="fw-semibold">${title}</p>
               ${enclosure ? `<img class="img-fluid rounded-3" src="${enclosure}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               ${mediaContent ? `<img class="img-fluid rounded-3" src="${mediaContent}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+              <p class="fw-semibold">${title}</p>
               ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
               ${pubDate ? `<p class="text-secondary small">${pubDate}</p>` : ""}
               ${published ? `<p class="text-secondary small">${published}</p>` : ""}
