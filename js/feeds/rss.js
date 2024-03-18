@@ -39,7 +39,14 @@ async function getGenericRss(link, id) {
 
       entries.forEach((el) => {
         let title = el.querySelector("title").textContent;
-        let link = el.querySelector("link").innerHTML;
+
+        let link;
+        if (el.querySelector("link")) {
+          link = el.querySelector("link").innerHTML;
+        }
+        if (el.querySelector("id")) {
+          link = el.querySelector("id").innerHTML;
+        }
         let description;
         if (el.querySelector("description")) {
           description = el.querySelector("description").textContent;
