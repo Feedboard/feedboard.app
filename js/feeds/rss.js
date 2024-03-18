@@ -81,15 +81,22 @@ async function getGenericRss(link, id) {
           elementProcessed = true;
         }
         entry += `
-              <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
+              <div class="list-group-item list-group-item-action">
+              <a href="${link}" class="text-body text-decoration-none" target="_blank">
               ${enclosure ? `<img class="img-fluid rounded-3" src="${enclosure}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               ${mediaContent ? `<img class="img-fluid rounded-3" src="${mediaContent}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               <p class="fw-semibold">${title}</p>
               ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
+              </a>
+              <div class="d-flex flex-row justify-content-between align-items-center">
               ${pubDate ? `<p class="text-secondary small">${pubDate}</p>` : ""}
               ${published ? `<p class="text-secondary small">${published}</p>` : ""}
               ${updated ? `<p class="text-secondary small">${updated}</p>` : ""}
-              </a>
+              <button class="btn p-0 border-0 text-secondary" data-bm-title="${title}" data-bm-link="${link}" onclick="bookmarkThis(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
+              </button>
+              </div>
+              </div>
               `;
       });
       feedGenericRSS.innerHTML = entry;
