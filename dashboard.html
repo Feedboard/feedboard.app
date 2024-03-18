@@ -546,7 +546,7 @@
     <!-- Bookmarks Modal -->
     <div class="modal fade" id="bookmarkModal" tabindex="-1" aria-labelledby="bookmarkModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
+        <div class="modal-content h-100">
           <div class="modal-header bg-body-secondary">
             <h1 class="modal-title fs-5" id="exampleModalLabel">My bookmarks</h1>
             <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close" name="close-modal">
@@ -554,10 +554,9 @@
             </button>
           </div>
           <div id="bookmarkBody" class="modal-body p-3">
-            <p>
-              You don't have any bookmarks yet.<br />
-              Bookmark some articles to save them here
-            </p>
+            <div id="spinnerContainer" class="w-100 h-100 d-flex justify-content-center align-items-center">
+              <img class="svg-icon" src="./img/spinner.svg" width="24" height="24" alt="loading spinner" />
+            </div>
           </div>
         </div>
       </div>
