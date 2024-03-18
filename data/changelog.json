@@ -1,5 +1,10 @@
 [
   {
+    "date": "18 Mar 24",
+    "title": "RSS links fixes",
+    "description": "Fixed a small bug related to RSS links."
+  },
+  {
     "date": "25 Feb 24",
     "title": "More RSS improvements",
     "description": "Added extra redundancy and different RSS format to support as many as we can."
