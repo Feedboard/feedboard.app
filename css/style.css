@@ -249,6 +249,12 @@ BOOKMARKS
 .btn-bookmark:hover {
   color: #ff640a;
 }
+[data-bs-theme="dark"] .btn-bookmark {
+  color: #d6dce380;
+}
+[data-bs-theme="dark"] .btn-bookmark:hover {
+  color: #ff640a;
+}
 
 .btn-delete-bookmark {
   opacity: 0;
