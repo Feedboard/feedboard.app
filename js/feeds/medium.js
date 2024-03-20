@@ -96,7 +96,7 @@ addNewMediumBtn.addEventListener("click", async function () {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2 svg-icon" src="./img/logo-medium.svg" width="20" height="20" alt="medium logo" />
-              <p id="mediumName">${data[0].feed_options}</p>
+              <p id="mediumName" class="feed-title">${data[0].feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">

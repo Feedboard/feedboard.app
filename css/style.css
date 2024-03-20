@@ -137,6 +137,12 @@ FEED
   top: 0;
   z-index: 1000;
 }
+.feed-title {
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .feeds-container {
   width: 100%;
