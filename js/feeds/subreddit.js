@@ -49,12 +49,19 @@ async function getRedditFeed(subreddit, id) {
 
           let name = el.querySelector("name").textContent;
           entry += `
-            <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
+          <div class="list-group-item list-group-item-action">
+            <a href="${link}" class="text-body text-decoration-none" target="_blank">
               <p class="fw-semibold mb-2">${title}</p>
               ${imageUrl ? `<img class="img-fluid rounded-3" src="${imageUrl}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               <p class="text-secondary small">${truncatedContent}</p>
-              <p class="text-secondary small">${name}</p>
             </a>
+            <div class="d-flex flex-row justify-content-between align-items-center">
+              <p class="text-secondary small">${name}</p>
+              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${title}" data-bm-link="${link}" onclick="bookmarkThis(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
+              </button>
+            </div>
+            </div>
               `;
         });
         entry += `
