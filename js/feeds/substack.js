@@ -16,18 +16,25 @@ async function getSubstack(substack, id) {
         const reactionValue = Object.values(el.reactions)[0];
         const truncatedContent = el.description.slice(0, 160) + "...";
         substackPost += `
-        <a href="${el.canonical_url}" class="list-group-item list-group-item-action" target="_blank">
+        <div class="list-group-item list-group-item-action">
+        <a href="${el.canonical_url}" class="text-body text-decoration-none" target="_blank">
           <p class="fw-semibold mb-2">${el.title}</p>
           <p class="text-secondary small mb-2">${truncatedContent}</p>
+        </a>
+        <div class="d-flex flex-row justify-content-between align-item-center">
           <div class="d-flex flex-row">
-          <p class="text-uppercase text-secondary small me-3">${el.publishedBylines[0].name}</p>
-          <p class="text-uppercase text-secondary small me-3">${el.post_date}</p>
+            <p class="text-uppercase text-secondary small me-3">${el.publishedBylines[0].name}</p>
+            <p class="text-uppercase text-secondary small me-3">${el.post_date}</p>
             <div class="d-flex flex-row align-items-center">
               <img src="./img/love.svg" width="16" height="16">
               <p class="text-uppercase text-secondary small me-3 ms-1">${reactionValue}</p>
             </div>
           </div>
-        </a>
+          <button class="btn btn-bookmark p-0 border-0" data-bm-title="${el.title}" data-bm-link="${el.canonical_url}" onclick="bookmarkThis(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
+            </button>
+          </div>
+        </div>
         `;
       });
       substackPost += `
