@@ -57,7 +57,7 @@ async function getRedditFeed(subreddit, id) {
             </a>
             <div class="d-flex flex-row justify-content-between align-items-center">
               <p class="text-secondary small">${name}</p>
-              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${title}" data-bm-link="${link}" onclick="bookmarkThis(this)">
+              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${title}" data-bm-link="${link}" data-bm-type="reddit" onclick="bookmarkThis(this)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
               </button>
             </div>
