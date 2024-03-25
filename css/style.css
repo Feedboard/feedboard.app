@@ -137,6 +137,12 @@ FEED
   top: 0;
   z-index: 1000;
 }
+.feed-title {
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .feeds-container {
   width: 100%;
@@ -238,6 +244,33 @@ PLACEHOLDER
 
 .placeholder {
   background-color: #cecece !important;
+}
+
+/* =================================================================
+BOOKMARKS
+================================================================= */
+.btn-bookmark {
+  color: #21252980;
+}
+.btn-bookmark:hover {
+  color: #ff640a;
+}
+[data-bs-theme="dark"] .btn-bookmark {
+  color: #d6dce380;
+}
+[data-bs-theme="dark"] .btn-bookmark:hover {
+  color: #ff640a;
+}
+
+.btn-delete-bookmark {
+  opacity: 0;
+  transition: all 0.4s ease-out;
+}
+.list-group-item:hover .btn-delete-bookmark {
+  opacity: 1;
+}
+.btn-delete-bookmark:hover {
+  opacity: 1;
 }
 
 /* =================================================================

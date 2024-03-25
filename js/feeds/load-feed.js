@@ -62,7 +62,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-reddit.svg" width="20" height="20" alt="reddit logo" />
-              <p id="subredditName">r/${item.feed_options}</p>
+              <p id="subredditName" class="feed-title">r/${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -184,7 +184,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-substack.svg" width="20" height="20" alt="substack logo" />
-              <p class="text-capitalize">${item.feed_options}</p>
+              <p class="text-capitalize feed-title">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -265,7 +265,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-youtube.svg" width="20" height="20" alt="youtube logo" />
-              <p class="text-capitalize">${item.feed_name}</p>
+              <p class="text-capitalize feed-title">${item.feed_name}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -306,7 +306,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-telegram.svg" width="20" height="20" alt="telegram logo" />
-              <p class="text-capitalize">${item.feed_options}</p>
+              <p class="text-capitalize feed-title">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -347,7 +347,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="pinterest logo" />
-              <p class="text-capitalize">${item.feed_options}</p>
+              <p class="text-capitalize feed-title">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -388,7 +388,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="pinterest logo" />
-              <p class="text-capitalize">${item.feed_options}</p>
+              <p class="text-capitalize feed-title">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -469,7 +469,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2 svg-icon" src="./img/logo-medium.svg" width="20" height="20" alt="medium logo" />
-              <p id="mediumName">${item.feed_options}</p>
+              <p id="mediumName" class="feed-title">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -509,7 +509,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-behance.svg" width="20" height="20" alt="Behance logo" />
-              <p id="behanceName">${item.feed_options}</p>
+              <p id="behanceName" class="feed-title">${item.feed_options}</p>
             </div>
             <div class="btn-group">
               <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -550,7 +550,7 @@ async function loadFeed() {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" width="20" height="20" alt="rss logo" />
-              <p id="">${item.feed_name}</p>
+              <p id="" class="feed-title">${item.feed_name}</p>
             </div>
             <div class="btn-group">
               <button type="button" name="more" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">

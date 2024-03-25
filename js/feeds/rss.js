@@ -39,7 +39,15 @@ async function getGenericRss(link, id) {
 
       entries.forEach((el) => {
         let title = el.querySelector("title").textContent;
-        let link = el.querySelector("link").innerHTML;
+
+        let link;
+        if (el.querySelector("link")) {
+          link = el.querySelector("link").innerHTML;
+        }
+        if (el.querySelector("id")) {
+          link = el.querySelector("id").innerHTML;
+        }
+
         let description;
         if (el.querySelector("description")) {
           description = el.querySelector("description").textContent;
@@ -81,17 +89,29 @@ async function getGenericRss(link, id) {
           elementProcessed = true;
         }
         entry += `
-              <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              <p class="fw-semibold">${title}</p>
+              <div class="list-group-item list-group-item-action">
+              <a href="${link}" class="text-body text-decoration-none" target="_blank">
               ${enclosure ? `<img class="img-fluid rounded-3" src="${enclosure}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
               ${mediaContent ? `<img class="img-fluid rounded-3" src="${mediaContent}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+              <p class="fw-semibold">${title}</p>
               ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
+              </a>
+              <div class="d-flex flex-row justify-content-between align-items-center">
               ${pubDate ? `<p class="text-secondary small">${pubDate}</p>` : ""}
               ${published ? `<p class="text-secondary small">${published}</p>` : ""}
               ${updated ? `<p class="text-secondary small">${updated}</p>` : ""}
-              </a>
+              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${title}" data-bm-link="${link}" data-bm-type="rss" onclick="bookmarkThis(this)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
+              </button>
+              </div>
+              </div>
               `;
       });
+      entry += `
+      <div class="bg-dark-subtle py-4 px- text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>
+      `;
       feedGenericRSS.innerHTML = entry;
     });
 }
@@ -136,7 +156,7 @@ addNewRssBtn.addEventListener("click", async function () {
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" width="20" height="20" alt="rss logo" />
-               ${data[0].feed_name}
+               <p class="feed-title">${data[0].feed_name}<p>
             </div>
             <div class="btn-group">
               <button type="button" name="options" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
