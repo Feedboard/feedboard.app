@@ -26,7 +26,7 @@ async function bookmarkThis(el) {
 // Get my bookmarks
 bookmarkBtn.addEventListener("click", async function () {
   console.log("Loading bookmarks...");
-  const { data, error } = await client.from("bookmarks").select("*").eq("user_id", user_id).order("id", { ascending: true });
+  const { data, error } = await client.from("bookmarks").select("*").eq("user_id", user_id).order("created_at", { ascending: false });
 
   if (data) {
     const bookmarkBody = document.getElementById("bookmarkBody");
