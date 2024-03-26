@@ -216,16 +216,49 @@ async function removeRssFeed(id) {
 }
 
 // Get feed name to rename
+const modalFeedNameInput = document.getElementById("modalFeedNameInput");
+
 function getFeedName(id, feedName) {
+  modalFeedNameInput.value = feedName;
+  document.getElementById("modalFeedId").value = id;
+  document.getElementById("modalFeedCurrentName").value = feedName;
   let renameModal = document.getElementById("renameModal");
   let modal = new bootstrap.Modal(renameModal);
   modal.show();
 }
 
+modalFeedNameInput.addEventListener("input", function (event) {
+  const inputValue = event.target.value;
+  const modalFeedCurrentName = document.getElementById("modalFeedCurrentName").value;
+  if (inputValue !== modalFeedCurrentName) {
+    modalFeedNameSaveBtn.disabled = false;
+  } else {
+    modalFeedNameSaveBtn.disabled = true;
+  }
+});
+
 // Rename RSS Feed
-async function renameRssFeed(id, newName) {
-  const { data, error } = await client.from("feeds").update({ feed_name: newName }).eq("id", id).select();
-}
+const modalFeedNameSaveBtn = document.getElementById("modalFeedNameSaveBtn");
+
+modalFeedNameSaveBtn.addEventListener("click", async function (event) {
+  event.preventDefault();
+  let newName = modalFeedNameInput.value;
+  let feedId = document.getElementById("modalFeedId").value;
+  console.log(newName, feedId);
+  const { data, error } = await client.from("feeds").update({ feed_name: newName }).eq("id", feedId).select();
+  if (data) {
+    console.log(data);
+    closeModal("renameModal");
+    showToast("Feed renamed");
+    // Update feed header
+    let feedHeader = document.getElementById(feedId);
+    let feedTitleElement = feedHeader.querySelector(".feed-title");
+    feedTitleElement.textContent = newName;
+  }
+  if (error) {
+    console.log(error);
+  }
+});
 
 // Check RSS feed validity
 async function isRssLinkValid(rssLink) {
