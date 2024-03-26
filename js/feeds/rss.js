@@ -165,6 +165,7 @@ addNewRssBtn.addEventListener("click", async function () {
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getGenericRss(${data[0].id})"><button class="dropdown-item" type="button" name="reload"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeRssFeed(${data[0].id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getFeedName(${data[0].id},${data[0].feed_name})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/edit.svg" width="20" height="20" />Rename</button></li>
               </ul>
             </div>
           </div>
@@ -212,6 +213,18 @@ async function removeRssFeed(id) {
     feedContainer.remove();
     sidebarLogo.remove();
   }
+}
+
+// Get feed name to rename
+function getFeedName(id, feedName) {
+  let renameModal = document.getElementById("renameModal");
+  let modal = new bootstrap.Modal(renameModal);
+  modal.show();
+}
+
+// Rename RSS Feed
+async function renameRssFeed(id, newName) {
+  const { data, error } = await client.from("feeds").update({ feed_name: newName }).eq("id", id).select();
 }
 
 // Check RSS feed validity
