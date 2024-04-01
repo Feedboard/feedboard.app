@@ -165,6 +165,7 @@ addNewRssBtn.addEventListener("click", async function () {
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getGenericRss(${data[0].id})"><button class="dropdown-item" type="button" name="reload"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeRssFeed(${data[0].id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getFeedName(${data[0].id},${data[0].feed_name})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/edit.svg" width="20" height="20" />Rename</button></li>
               </ul>
             </div>
           </div>
@@ -213,6 +214,51 @@ async function removeRssFeed(id) {
     sidebarLogo.remove();
   }
 }
+
+// Get feed name to rename
+const modalFeedNameInput = document.getElementById("modalFeedNameInput");
+
+function getFeedName(id, feedName) {
+  modalFeedNameInput.value = feedName;
+  document.getElementById("modalFeedId").value = id;
+  document.getElementById("modalFeedCurrentName").value = feedName;
+  let renameModal = document.getElementById("renameModal");
+  let modal = new bootstrap.Modal(renameModal);
+  modal.show();
+}
+
+modalFeedNameInput.addEventListener("input", function (event) {
+  const inputValue = event.target.value;
+  const modalFeedCurrentName = document.getElementById("modalFeedCurrentName").value;
+  if (inputValue !== modalFeedCurrentName) {
+    modalFeedNameSaveBtn.disabled = false;
+  } else {
+    modalFeedNameSaveBtn.disabled = true;
+  }
+});
+
+// Rename RSS Feed
+const modalFeedNameSaveBtn = document.getElementById("modalFeedNameSaveBtn");
+
+modalFeedNameSaveBtn.addEventListener("click", async function (event) {
+  event.preventDefault();
+  let newName = modalFeedNameInput.value;
+  let feedId = document.getElementById("modalFeedId").value;
+  console.log(newName, feedId);
+  const { data, error } = await client.from("feeds").update({ feed_name: newName }).eq("id", feedId).select();
+  if (data) {
+    console.log(data);
+    closeModal("renameModal");
+    showToast("Feed renamed");
+    // Update feed header
+    let feedHeader = document.getElementById(feedId);
+    let feedTitleElement = feedHeader.querySelector(".feed-title");
+    feedTitleElement.textContent = newName;
+  }
+  if (error) {
+    console.log(error);
+  }
+});
 
 // Check RSS feed validity
 async function isRssLinkValid(rssLink) {
