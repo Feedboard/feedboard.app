@@ -47,7 +47,12 @@ async function getRedditFeed(subreddit, id) {
             imageUrl = image.getAttribute("url");
           }
 
-          let name = el.querySelector("name").textContent;
+          let name;
+          if (el.querySelector("name")) {
+            name = el.querySelector("name").textContent;
+          } else {
+            name = "";
+          }
           entry += `
           <div class="list-group-item list-group-item-action">
             <a href="${link}" class="text-body text-decoration-none" target="_blank">
