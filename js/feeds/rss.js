@@ -12,7 +12,7 @@ async function getGenericRss(link, id) {
     .then((response) => response.text())
     .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
     .then((data) => {
-      let entries;
+      let entries = 0;
 
       if (data.querySelectorAll("item").length > 0) {
         entries = data.querySelectorAll("item");
