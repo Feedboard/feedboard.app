@@ -32,7 +32,7 @@ async function loadFeed() {
   await checkSession();
   const { data, error } = await client.from("feeds").select("*").eq("user_id", user_id).order("id", { ascending: true });
 
-  if (data == "") {
+  if (data == "" || data == null) {
     console.log("Feed is empty");
     empty = `
     <div class="d-flex flex-column align-items-center">
