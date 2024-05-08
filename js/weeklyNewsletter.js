@@ -1,6 +1,7 @@
 const weeklyEmailSwitch = document.getElementById("weeklyEmailSwitch");
 
-await getEmailState(user_id);
+checkSession();
+getEmailState(user_id);
 
 async function getEmailState(user_id) {
   const { data, error } = await client.from("settings").select("*").eq("user_id", user_id);
