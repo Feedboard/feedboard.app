@@ -170,7 +170,7 @@
     <div id="main-container" class="d-flex flex-row">
       <!-- Start of sidebar -->
       <div id="sidebar" class="d-flex flex-column align-items-center bg-body-tertiary border-end">
-        <a class="d-flex justify-content-center mb-2 sidebar-add-new bg-body-secondary border-secondary" href="" data-bs-toggle="modal" data-bs-target="#newFeedModal" aria-label="add-new-feed">
+        <a id="addNewFeedBtn" class="d-flex justify-content-center mb-2 sidebar-add-new bg-body-secondary border-secondary" href="" data-bs-toggle="modal" data-bs-target="#newFeedModal" aria-label="add-new-feed">
           <img class="svg-icon" src="./img/plus.svg" width="24" height="24" alt="add-new" />
         </a>
         <div id="feedLogoContainer" class="d-flex flex-column align-items-center"></div>
@@ -188,344 +188,368 @@
     <div class="modal fade" id="newFeedModal" tabindex="-1" aria-labelledby="newFeedModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
-          <div class="modal-header bg-body-secondary">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Add new feed</h1>
-            <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close" name="close-modal">
-              <img class="svg-icon" src="./img/x.svg" width="16" height="16" alt="close-icon" />
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="accordion accordion-flush" id="accordionExample">
-              <!-- Subreddit -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubreddit" aria-expanded="false" aria-controls="collapseOne" name="subreddit-feed-maker">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-reddit.svg" width="45" height="45" alt="logo-reddit" />
-                      <div>
-                        <p class="fw-semibold">Subreddit</p>
-                        <p class="text-secondary small">Get a feed of the latest post from a subreddit</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseSubreddit" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="subreddit-name">r/</span>
-                      <input id="newSubredditName" type="text" class="form-control" placeholder="Subreddit name" autocomplete="off" aria-label="Subreddit name" aria-describedby="subreddit-name" />
-                    </div>
-                    <button id="addNewSubreddit" class="btn btn-dark btn-sm" disabled name="add-subreddit-button">Add subreddit</button>
-                  </div>
-                </div>
-              </div>
-              <!-- HackerNews -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHackerNews" aria-expanded="false" aria-controls="collapseTwo" name="hacker-news-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-hackernews.svg" width="45" height="45" alt="hackernews logo" />
-                      <div>
-                        <p class="fw-semibold">Hacker News</p>
-                        <p class="text-secondary small">Get a feed of the latest news from HackerNews</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseHackerNews" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <button id="addHackerNews" class="btn btn-dark btn-sm" name="add-hackernews-button">Add HackerNews</button>
-                  </div>
-                </div>
-              </div>
-              <!-- ProductHunt -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" name="producthunt-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-product-hunt.svg" width="45" height="45" alt="producthunt logo" />
-                      <div>
-                        <p class="fw-semibold">ProductHunt</p>
-                        <p class="text-secondary small">Get a list of today's new launch</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <button id="addProductHunt" class="btn btn-dark btn-sm" name="add-producthunt">Add ProductHunt</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Substack -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree" name="substack-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-substack.svg" width="45" height="45" alt="substack logo" />
-                      <div>
-                        <div class="d-flex">
-                          <p class="fw-semibold">Substack</p>
-                        </div>
-                        <p class="text-secondary small">Get a feed from your favourite newsletter.</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="mb-3">
-                      <div class="input-group">
-                        <input id="newSubstackName" type="text" class="form-control" placeholder="Substack name" autocomplete="off" aria-label="Substack name" aria-describedby="substack-name" />
-                        <span class="input-group-text" id="substack-name">.substack.com</span>
-                      </div>
-                      <div id="substackErrorHelp" class="form-text text-danger" hidden>This Substack account doesn't seem to exist.</div>
-                      <div class="form-text text-secondary mb-3">Substack is powered by <a href="https://substackapi.com/" target="_blank">substackapi</a></div>
-                    </div>
-                    <button id="addNewSubstack" class="btn btn-dark btn-sm" name="add-substack" disabled>Add Substack</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Unsplash -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree" name="unsplash-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-unsplash.svg" width="45" height="45" alt="unsplash logo" />
-                      <div>
-                        <p class="fw-semibold">Unsplash</p>
-                        <p class="text-secondary small">Every day new photos from Unsplash</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <button id="addUnsplash" class="btn btn-dark btn-sm" name="add-unsplash">Add Unsplash</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Youtube -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" name="youtube-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-youtube.svg" width="45" height="45" alt="youtube logo" />
-                      <div>
-                        <div class="d-flex">
-                          <p class="fw-semibold">Youtube</p>
-                        </div>
-                        <p class="text-secondary small">Get a feed from a Youtube channel</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="mb-3">
-                      <div class="input-group">
-                        <span class="input-group-text" id="youtube-name">youtube.com/</span>
-                        <input id="newYoutubeName" type="text" class="form-control" placeholder="Channel name" autocomplete="off" aria-label="Youtube channel name" aria-describedby="youtube-name" />
-                      </div>
-                      <div id="youtubeErrorHelp" class="form-text text-danger mb-3" hidden>This YouTube account doesn't seem to exist.</div>
-                      <!-- <div class="form-text">Youtube message</div> -->
-                    </div>
-                    <button id="addNewYoutube" class="btn btn-dark btn-sm" name="add-youtube" disabled>Add Youtube channel</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Telegram -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTelegram" aria-expanded="false" aria-controls="collapseOne" name="telegram-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="telegram logo" />
-                      <div>
-                        <p class="fw-semibold">Telegram channel</p>
-                        <p class="text-secondary small">Get a feed from a public Telegram channel</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseTelegram" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="mb-3">
-                      <div class="input-group">
-                        <span class="input-group-text" id="telegram-name">t.me/</span>
-                        <input id="newTelegramChannelName" type="text" class="form-control" placeholder="Telegram channel" autocomplete="off" aria-label="Telegram channel name" aria-describedby="telegram-name" />
-                      </div>
-                      <div class="form-text">Make sure the Telegram channel is public</div>
-                    </div>
-                    <button id="addNewTelegramChannel" class="btn btn-dark btn-sm" name="add-telegram" disabled>Add Telegram channel</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Coingecko Top 100 -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCoingeckoTop" aria-expanded="false" aria-controls="collapseTwo" name="coingecko-top-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="coingecko logo" />
-                      <div>
-                        <p class="fw-semibold">Coingecko Top 100</p>
-                        <p class="text-secondary small">Get price info for the top 100 cryptocurrencies</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseCoingeckoTop" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <button id="addCoingeckoTop" class="btn btn-dark btn-sm" name="add-coingecko-button">Add Coingecko Top 100</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Medium -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseOne" name="medium-feed-maker">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3 svg-icon" src="./img/logo-medium.svg" width="45" height="45" alt="logo-medium" />
-                      <div>
-                        <p class="fw-semibold">Medium</p>
-                        <p class="text-secondary small">Get a Medium publication feed</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseMedium" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="mb-3">
-                      <div class="input-group">
-                        <span class="input-group-text" id="medium-name">medium.com/</span>
-                        <input id="newMediumName" type="text" class="form-control" placeholder="@username" autocomplete="off" aria-label="Medium name" aria-describedby="medium-name" />
-                      </div>
-                      <div id="mediumErrorHelp" class="form-text text-danger mb-3" hidden>This Medium account doesn't seem to exist.</div>
-                    </div>
-                    <button id="addNewMedium" class="btn btn-dark btn-sm" disabled name="add-medium-button">Add Medium</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Behance -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBehance" aria-expanded="false" aria-controls="collapseOne" name="behance-feed-maker">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-behance.svg" width="45" height="45" alt="logo-behance" />
-                      <div>
-                        <p class="fw-semibold">Behance</p>
-                        <p class="text-secondary small">Get a Behance user feed</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseBehance" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="behance-name">behance.net/</span>
-                      <input id="newBehanceName" type="text" class="form-control" placeholder="username" autocomplete="off" aria-label="Behance name" aria-describedby="behance-name" />
-                    </div>
-                    <button id="addNewBehance" class="btn btn-dark btn-sm" disabled name="add-behance-button">Add Behance</button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Pinterest account -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestAccount" aria-expanded="false" aria-controls="collapseOne" name="pinterest-feed">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="pinterest logo" />
-                      <div>
-                        <div class="d-flex">
-                          <p class="fw-semibold">Pinterest account</p>
-                          <span class="badge rounded-pill text-warning-subtle bg-warning ms-2">Beta</span>
-                        </div>
-                        <p class="text-secondary small">Get a feed of all pins from a Pinterest account.</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapsePinterestAccount" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="pinterest-account-name">pinterest.com/</span>
-                      <input id="newPinterestAccountName" type="text" class="form-control" placeholder="Pinterest username" autocomplete="off" aria-label="Pinterest account name" aria-describedby="pinterest-account-name" />
-                    </div>
-                    <button id="addNewPinterestAccount" class="btn btn-dark btn-sm" name="add-pinterest" disabled>Add Pinterest account</button>
-                  </div>
-                </div>
-              </div>
-              <!-- Pinterest board -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestBoard" aria-expanded="false" aria-controls="collapseOne" name="pinterest-board">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="pinterest logo" />
-                      <div>
-                        <div class="d-flex">
-                          <p class="fw-semibold">Pinterest board</p>
-                          <span class="badge rounded-pill text-warning-subtle bg-warning ms-2">Beta</span>
-                        </div>
-                        <p class="text-secondary small">Get a feed of all pins from a Pinterest board.</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapsePinterestBoard" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="pinterest-board-name">pinterest.com/</span>
-                      <input id="newPinterestBoardName" type="text" class="form-control" placeholder="username/boardName" autocomplete="off" aria-label="Pinterest board name" aria-describedby="pinterest-board-name" />
-                    </div>
-                    <button id="addNewPinterestBoard" class="btn btn-dark btn-sm" name="add-pinterest-board" disabled>Add Pinterest board</button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Generic RSS Feed -->
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGenericRss" aria-expanded="false" aria-controls="collapseGenericRss" name="generic-rss">
-                    <div class="d-flex flex-row">
-                      <img class="me-3 rounded-3" src="./img/logo-rss.svg" width="45" height="45" alt="rss logo" />
-                      <div>
-                        <div class="d-flex">
-                          <p class="fw-semibold">RSS Feed</p>
-                        </div>
-                        <p class="text-secondary small">Get a feed from any RSS enabled website</p>
-                      </div>
-                    </div>
-                  </button>
-                </h2>
-                <div id="collapseGenericRss" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                  <div class="accordion-body pt-0">
-                    <div class="mb-3">
-                      <input id="newRssFeed" type="text" class="form-control" placeholder="RSS Feed URL" autocomplete="off" aria-label="RSS name" aria-describedby="rss-name" />
-                      <div id="rssErrorHelp" class="form-text text-danger" hidden>This url doesn't seem to have any RSS</div>
-                    </div>
-                    <button id="addNewRssBtn" class="btn btn-dark btn-sm" name="add-rss" disabled>Add RSS Feed</button>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Coming soon -->
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item opacity-75">
-                  <div class="d-flex flex-row">
-                    <img class="me-3 rounded-3" src="./img/logo-techcrunch.svg" width="45" height="45" alt="techcrunch logo" />
-                    <div class="w-100 d-flex justify-content-between align-items-center">
-                      <div>
-                        <p class="fw-semibold">TechCrunch</p>
-                        <p class="text-secondary small">Get the latest TechCrunch news</p>
-                      </div>
-                      <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
-                    </div>
-                  </div>
+          <div class="modal-header bg-body-secondary flex-column pb-0">
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Add new feed</h1>
+              <button type="button" class="btn py-0 px-2" data-bs-dismiss="modal" aria-label="Close" name="close-modal">
+                <img class="svg-icon" src="./img/x.svg" width="16" height="16" alt="close-icon" />
+              </button>
+            </div>
+            <div class="w-100 d-flex mt-3">
+              <ul class="nav nav-tabs" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link text-body active" id="pills-popular-tab" data-bs-toggle="pill" data-bs-target="#pills-popular" type="button" role="tab" aria-controls="pills-popular" aria-selected="true">Popular</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link text-body" id="pills-news-tab" data-bs-toggle="pill" data-bs-target="#pills-news" type="button" role="tab" aria-controls="pills-news" aria-selected="false">News</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link text-body" id="pills-tech-tab" data-bs-toggle="pill" data-bs-target="#pills-tech" type="button" role="tab" aria-controls="pills-tech" aria-selected="false">Tech</button>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="modal-footer"></div>
+          <div class="modal-body">
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab" tabindex="0">
+                <div class="accordion accordion-flush" id="accordionExample">
+                  <!-- Subreddit -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubreddit" aria-expanded="false" aria-controls="collapseOne" name="subreddit-feed-maker">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-reddit.svg" width="45" height="45" alt="logo-reddit" />
+                          <div>
+                            <p class="fw-semibold">Subreddit</p>
+                            <p class="text-secondary small">Get a feed of the latest post from a subreddit</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseSubreddit" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="subreddit-name">r/</span>
+                          <input id="newSubredditName" type="text" class="form-control" placeholder="Subreddit name" autocomplete="off" aria-label="Subreddit name" aria-describedby="subreddit-name" />
+                        </div>
+                        <button id="addNewSubreddit" class="btn btn-dark btn-sm" disabled name="add-subreddit-button">Add subreddit</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- HackerNews -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHackerNews" aria-expanded="false" aria-controls="collapseTwo" name="hacker-news-feed">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-hackernews.svg" width="45" height="45" alt="hackernews logo" />
+                          <div>
+                            <p class="fw-semibold">Hacker News</p>
+                            <p class="text-secondary small">Get a feed of the latest news from HackerNews</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseHackerNews" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <button id="addHackerNews" class="btn btn-dark btn-sm" name="add-hackernews-button">Add HackerNews</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ProductHunt -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" name="producthunt-feed">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-product-hunt.svg" width="45" height="45" alt="producthunt logo" />
+                          <div>
+                            <p class="fw-semibold">ProductHunt</p>
+                            <p class="text-secondary small">Get a list of today's new launch</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <button id="addProductHunt" class="btn btn-dark btn-sm" name="add-producthunt">Add ProductHunt</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Substack -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree" name="substack-feed">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-substack.svg" width="45" height="45" alt="substack logo" />
+                          <div>
+                            <div class="d-flex">
+                              <p class="fw-semibold">Substack</p>
+                            </div>
+                            <p class="text-secondary small">Get a feed from your favourite newsletter.</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="mb-3">
+                          <div class="input-group">
+                            <input id="newSubstackName" type="text" class="form-control" placeholder="Substack name" autocomplete="off" aria-label="Substack name" aria-describedby="substack-name" />
+                            <span class="input-group-text" id="substack-name">.substack.com</span>
+                          </div>
+                          <div id="substackErrorHelp" class="form-text text-danger" hidden>This Substack account doesn't seem to exist.</div>
+                          <div class="form-text text-secondary mb-3">Substack is powered by <a href="https://substackapi.com/" target="_blank">substackapi</a></div>
+                        </div>
+                        <button id="addNewSubstack" class="btn btn-dark btn-sm" name="add-substack" disabled>Add Substack</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Unsplash -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree" name="unsplash-feed">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-unsplash.svg" width="45" height="45" alt="unsplash logo" />
+                          <div>
+                            <p class="fw-semibold">Unsplash</p>
+                            <p class="text-secondary small">Every day new photos from Unsplash</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <button id="addUnsplash" class="btn btn-dark btn-sm" name="add-unsplash">Add Unsplash</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Youtube -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix" name="youtube-feed">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-youtube.svg" width="45" height="45" alt="youtube logo" />
+                          <div>
+                            <div class="d-flex">
+                              <p class="fw-semibold">Youtube</p>
+                            </div>
+                            <p class="text-secondary small">Get a feed from a Youtube channel</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="mb-3">
+                          <div class="input-group">
+                            <span class="input-group-text" id="youtube-name">youtube.com/</span>
+                            <input id="newYoutubeName" type="text" class="form-control" placeholder="Channel name" autocomplete="off" aria-label="Youtube channel name" aria-describedby="youtube-name" />
+                          </div>
+                          <div id="youtubeErrorHelp" class="form-text text-danger mb-3" hidden>This YouTube account doesn't seem to exist.</div>
+                          <!-- <div class="form-text">Youtube message</div> -->
+                        </div>
+                        <button id="addNewYoutube" class="btn btn-dark btn-sm" name="add-youtube" disabled>Add Youtube channel</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Telegram -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTelegram" aria-expanded="false" aria-controls="collapseOne" name="telegram-feed">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-telegram.svg" width="45" height="45" alt="telegram logo" />
+                          <div>
+                            <p class="fw-semibold">Telegram channel</p>
+                            <p class="text-secondary small">Get a feed from a public Telegram channel</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseTelegram" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="mb-3">
+                          <div class="input-group">
+                            <span class="input-group-text" id="telegram-name">t.me/</span>
+                            <input id="newTelegramChannelName" type="text" class="form-control" placeholder="Telegram channel" autocomplete="off" aria-label="Telegram channel name" aria-describedby="telegram-name" />
+                          </div>
+                          <div class="form-text">Make sure the Telegram channel is public</div>
+                        </div>
+                        <button id="addNewTelegramChannel" class="btn btn-dark btn-sm" name="add-telegram" disabled>Add Telegram channel</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Coingecko Top 100 -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCoingeckoTop" aria-expanded="false" aria-controls="collapseTwo" name="coingecko-top-feed">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-coingecko.svg" width="45" height="45" alt="coingecko logo" />
+                          <div>
+                            <p class="fw-semibold">Coingecko Top 100</p>
+                            <p class="text-secondary small">Get price info for the top 100 cryptocurrencies</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseCoingeckoTop" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <button id="addCoingeckoTop" class="btn btn-dark btn-sm" name="add-coingecko-button">Add Coingecko Top 100</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Medium -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedium" aria-expanded="false" aria-controls="collapseOne" name="medium-feed-maker">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3 svg-icon" src="./img/logo-medium.svg" width="45" height="45" alt="logo-medium" />
+                          <div>
+                            <p class="fw-semibold">Medium</p>
+                            <p class="text-secondary small">Get a Medium publication feed</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseMedium" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="mb-3">
+                          <div class="input-group">
+                            <span class="input-group-text" id="medium-name">medium.com/</span>
+                            <input id="newMediumName" type="text" class="form-control" placeholder="@username" autocomplete="off" aria-label="Medium name" aria-describedby="medium-name" />
+                          </div>
+                          <div id="mediumErrorHelp" class="form-text text-danger mb-3" hidden>This Medium account doesn't seem to exist.</div>
+                        </div>
+                        <button id="addNewMedium" class="btn btn-dark btn-sm" disabled name="add-medium-button">Add Medium</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Behance -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBehance" aria-expanded="false" aria-controls="collapseOne" name="behance-feed-maker">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-behance.svg" width="45" height="45" alt="logo-behance" />
+                          <div>
+                            <p class="fw-semibold">Behance</p>
+                            <p class="text-secondary small">Get a Behance user feed</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseBehance" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="behance-name">behance.net/</span>
+                          <input id="newBehanceName" type="text" class="form-control" placeholder="username" autocomplete="off" aria-label="Behance name" aria-describedby="behance-name" />
+                        </div>
+                        <button id="addNewBehance" class="btn btn-dark btn-sm" disabled name="add-behance-button">Add Behance</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Pinterest account -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestAccount" aria-expanded="false" aria-controls="collapseOne" name="pinterest-feed">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="pinterest logo" />
+                          <div>
+                            <div class="d-flex">
+                              <p class="fw-semibold">Pinterest account</p>
+                              <span class="badge rounded-pill text-warning-subtle bg-warning ms-2">Beta</span>
+                            </div>
+                            <p class="text-secondary small">Get a feed of all pins from a Pinterest account.</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapsePinterestAccount" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="pinterest-account-name">pinterest.com/</span>
+                          <input id="newPinterestAccountName" type="text" class="form-control" placeholder="Pinterest username" autocomplete="off" aria-label="Pinterest account name" aria-describedby="pinterest-account-name" />
+                        </div>
+                        <button id="addNewPinterestAccount" class="btn btn-dark btn-sm" name="add-pinterest" disabled>Add Pinterest account</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Pinterest board -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePinterestBoard" aria-expanded="false" aria-controls="collapseOne" name="pinterest-board">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-pinterest.svg" width="45" height="45" alt="pinterest logo" />
+                          <div>
+                            <div class="d-flex">
+                              <p class="fw-semibold">Pinterest board</p>
+                              <span class="badge rounded-pill text-warning-subtle bg-warning ms-2">Beta</span>
+                            </div>
+                            <p class="text-secondary small">Get a feed of all pins from a Pinterest board.</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapsePinterestBoard" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text" id="pinterest-board-name">pinterest.com/</span>
+                          <input id="newPinterestBoardName" type="text" class="form-control" placeholder="username/boardName" autocomplete="off" aria-label="Pinterest board name" aria-describedby="pinterest-board-name" />
+                        </div>
+                        <button id="addNewPinterestBoard" class="btn btn-dark btn-sm" name="add-pinterest-board" disabled>Add Pinterest board</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Generic RSS Feed -->
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGenericRss" aria-expanded="false" aria-controls="collapseGenericRss" name="generic-rss">
+                        <div class="d-flex flex-row">
+                          <img class="me-3 rounded-3" src="./img/logo-rss.svg" width="45" height="45" alt="rss logo" />
+                          <div>
+                            <div class="d-flex">
+                              <p class="fw-semibold">RSS Feed</p>
+                            </div>
+                            <p class="text-secondary small">Get a feed from any RSS enabled website</p>
+                          </div>
+                        </div>
+                      </button>
+                    </h2>
+                    <div id="collapseGenericRss" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <div class="accordion-body pt-0">
+                        <div class="mb-3">
+                          <input id="newRssFeed" type="text" class="form-control" placeholder="RSS Feed URL" autocomplete="off" aria-label="RSS name" aria-describedby="rss-name" />
+                          <div id="rssErrorHelp" class="form-text text-danger" hidden>This url doesn't seem to have any RSS</div>
+                        </div>
+                        <button id="addNewRssBtn" class="btn btn-dark btn-sm" name="add-rss" disabled>Add RSS Feed</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Coming soon -->
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item opacity-75">
+                      <div class="d-flex flex-row">
+                        <img class="me-3 rounded-3" src="./img/logo-techcrunch.svg" width="45" height="45" alt="techcrunch logo" />
+                        <div class="w-100 d-flex justify-content-between align-items-center">
+                          <div>
+                            <p class="fw-semibold">TechCrunch</p>
+                            <p class="text-secondary small">Get the latest TechCrunch news</p>
+                          </div>
+                          <span class="badge rounded-pill text-secondary bg-secondary-subtle">Coming soon</span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="pills-news" role="tabpanel" aria-labelledby="pills-news-tab" tabindex="0">
+                <ul id="tab-list-news" class="list-group list-group-flush"></ul>
+              </div>
+              <div class="tab-pane fade" id="pills-tech" role="tabpanel" aria-labelledby="pills-tech-tab" tabindex="0">
+                <ul id="tab-list-tech" class="list-group list-group-flush"></ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -640,6 +664,7 @@
     <script src="./js/utils.js?v=1.0"></script>
     <script src="./js/logout.js?v=1.0"></script>
     <script src="./js/changelog.js?v=1.0"></script>
+    <script src="./js/list-feeds.js?v=1.0"></script>
     <script src="./js/weeklyNewsletter.js?v=1.0"></script>
     <script src="./js/smart-reloader.js?v=1.0"></script>
     <script src="./js/feeds/bookmark-feed.js?v=1.0"></script>

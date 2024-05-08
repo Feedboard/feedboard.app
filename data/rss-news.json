@@ -1,0 +1,50 @@
+[
+  {
+    "icon": "logo-nyt",
+    "name": "NYT - Home Page",
+    "sub": "",
+    "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+  },
+  {
+    "icon": "logo-forbes",
+    "name": "Forbes",
+    "sub": "",
+    "url": "https://www.forbes.com/real-time/feed2/"
+  },
+  {
+    "icon": "logo-huffpost",
+    "name": "Huffpost - US News",
+    "sub": "",
+    "url": "https://chaski.huffpost.com/us/auto/vertical/us-news"
+  },
+  {
+    "icon": "logo-wsj",
+    "name": "Wall Street Journal - World News",
+    "sub": "",
+    "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
+  },
+  {
+    "icon": "logo-cnn",
+    "name": "CNN Money",
+    "sub": "",
+    "url": "http://rss.cnn.com/rss/money_topstories.rss"
+  },
+  {
+    "icon": "logo-yahoo",
+    "name": "Yahoo News",
+    "sub": "",
+    "url": "http://news.yahoo.com/rss"
+  },
+  {
+    "icon": "logo-dailymail",
+    "name": "Daily Mail",
+    "sub": "",
+    "url": "https://www.dailymail.co.uk/articles.rss"
+  },
+  {
+    "icon": "logo_old",
+    "name": "VICE News",
+    "sub": "",
+    "url": "https://www.vice.com/en/rss/section/news"
+  }
+]
