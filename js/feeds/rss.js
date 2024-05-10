@@ -24,7 +24,7 @@ async function getGenericRss(link, id) {
       feedGenericRSS.innerHTML = "";
       let entry = "";
 
-      if (entries.length <= 0) {
+      if (entries.length <= 0 || !entries) {
         console.log("not ok");
         entry += `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
