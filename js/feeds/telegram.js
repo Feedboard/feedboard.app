@@ -142,7 +142,11 @@ async function removeTelegramFeed(id) {
     showToast("Feed deleted");
     let feedContainer = document.getElementById(id);
     let sidebarLogo = document.getElementById("sidebarLogo-" + id);
-    feedContainer.remove();
-    sidebarLogo.remove();
+    if (feedContainer) {
+      feedContainer.remove();
+    }
+    if (sidebarLogo) {
+      sidebarLogo.remove();
+    }
   }
 }
