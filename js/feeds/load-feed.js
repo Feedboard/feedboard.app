@@ -43,7 +43,7 @@ async function loadFeed() {
     document.getElementById("spinnerContainer").innerHTML = empty;
   }
 
-  if (data.length > 0) {
+  if (data && data.length > 0) {
     const feedContainer = document.getElementById("feedContainer");
     const sidebarContainer = document.getElementById("feedLogoContainer");
     let feed = "";
