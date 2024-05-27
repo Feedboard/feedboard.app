@@ -300,12 +300,12 @@ async function getRssTitle(link) {
     const data = new window.DOMParser().parseFromString(str, "text/xml");
 
     let rssTitle;
-    if (data.querySelector("channel")) {
+    if (data && data.querySelector("channel")) {
       rssTitle = data.querySelector("channel").querySelector("title").textContent;
       formattedRssTitle = rssTitle.toString();
       return formattedRssTitle;
     }
-    if (data.querySelector("title")) {
+    if (data && data.querySelector("feed")) {
       rssTitle = data.querySelector("feed").querySelector("title").textContent;
       formattedRssTitle = rssTitle.toString();
       return formattedRssTitle;
