@@ -21,7 +21,9 @@ async function getGenericRss(link, id) {
         entries = data.querySelectorAll("entry");
       }
 
-      feedGenericRSS.innerHTML = "";
+      if (feedGenericRSS) {
+        feedGenericRSS.innerHTML = "";
+      }
       let entry = "";
 
       if (entries.length <= 0 || !entries) {
