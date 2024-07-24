@@ -3,121 +3,97 @@ async function getGenericRss(link, id) {
   const rssURL = "https://web-production-09ad.up.railway.app/" + link;
   const feedGenericRSS = document.getElementById("feed-genericRSS-" + id);
 
-  await fetch(rssURL, {
-    headers: {
-      "Access-Control-Allow-Origin": rssURL,
-      "Access-Control-Allow-Headers": "content-type",
-    },
-  })
-    .then((response) => response.text())
-    .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then((data) => {
-      let entries = 0;
+  if (feedGenericRSS) {
+    feedGenericRSS.innerHTML = '<div class="p-2">Loading...</div>';
+  }
 
-      if (data.querySelectorAll("item").length > 0) {
-        entries = data.querySelectorAll("item");
-      }
-      if (data.querySelectorAll("entry").length > 0) {
-        entries = data.querySelectorAll("entry");
-      }
+  try {
+    const response = await fetch(rssURL, {
+      headers: {
+        "Access-Control-Allow-Origin": rssURL,
+        "Access-Control-Allow-Headers": "content-type",
+      },
+    });
 
-      if (feedGenericRSS) {
-        feedGenericRSS.innerHTML = "";
-      }
-      let entry = "";
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-      if (entries.length <= 0 || !entries) {
-        console.log("not ok");
-        entry += `
+    const str = await response.text();
+    const data = new window.DOMParser().parseFromString(str, "text/xml");
+
+    let entries = data.querySelectorAll("item").length > 0 ? data.querySelectorAll("item") : data.querySelectorAll("entry");
+
+    if (feedGenericRSS) {
+      feedGenericRSS.innerHTML = "";
+    }
+
+    if (entries.length === 0) {
+      feedGenericRSS.innerHTML = `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
           <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" alt="warning icon" />
           <div>
             This link seems to be invalid or the website doesn't have any RSS feed.
           </div>
         </div>
-              `;
-        feedGenericRSS.innerHTML = entry;
-      }
+      `;
+      return;
+    }
 
-      entries.forEach((el) => {
-        let title = el.querySelector("title").textContent;
+    let entryHTML = "";
 
-        let link;
-        if (el.querySelector("link")) {
-          link = el.querySelector("link").innerHTML;
-        }
-        if (el.querySelector("id")) {
-          link = el.querySelector("id").innerHTML;
-        }
+    entries.forEach((el) => {
+      let title = el.querySelector("title")?.textContent || "No Title";
+      let link = el.querySelector("link")?.innerHTML || el.querySelector("id")?.innerHTML || "#";
+      let description = el.querySelector("description")?.textContent || el.querySelector("content")?.textContent || "";
+      let strippedContent = description.replace(/<[^>]*>/g, "");
+      let truncatedContent = strippedContent.slice(0, 160) + "...";
+      let enclosure = el.querySelector("enclosure")?.getAttribute("url");
+      let mediaContent = el.querySelector("content")?.getAttribute("url");
 
-        let description;
-        if (el.querySelector("description")) {
-          description = el.querySelector("description").textContent;
-          strippedContent = description.replace(/<[^>]*>/g, "");
-          truncatedContent = strippedContent.slice(0, 160) + "...";
-        }
-        let enclosure;
-        if (el.querySelector("enclosure")) {
-          enclosure = el.querySelector("enclosure").getAttribute("url");
-        }
-        let mediaContent;
-        if (el.querySelector("content")) {
-          mediaContent = el.querySelector("content").getAttribute("url");
-          if (!mediaContent) {
-            description = el.querySelector("content").textContent;
-            strippedContent = description.replace(/<[^>]*>/g, "");
-            truncatedContent = strippedContent.slice(0, 160) + "...";
-          }
-        }
+      let dateElement = el.querySelector("published") || el.querySelector("updated") || el.querySelector("pubDate");
+      let date = dateElement ? convertHnDate(dateElement.innerHTML) : "";
 
-        let published;
-        let updated;
-        let pubDate;
+      entryHTML += `
+        <div class="list-group-item list-group-item-action">
+          <a href="${link}" class="text-body text-decoration-none" target="_blank">
+            ${enclosure || mediaContent ? `<img class="img-fluid rounded-3" src="${enclosure || mediaContent}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+            <p class="fw-semibold">${title}</p>
+            ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
+          </a>
+          <div class="d-flex flex-row justify-content-between align-items-center">
+            ${date ? `<p class="text-secondary small">${date}</p>` : ""}
+            <button class="btn btn-bookmark p-0 border-0" data-bm-title="${title}" data-bm-link="${link}" data-bm-type="rss" onclick="bookmarkThis(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
+            </button>
+          </div>
+        </div>
+      `;
+    });
 
-        let elementProcessed = false;
-
-        if (el.querySelector("published")) {
-          published = convertHnDate(el.querySelector("published").innerHTML);
-          elementProcessed = true;
-        }
-
-        if (!elementProcessed && el.querySelector("updated")) {
-          updated = convertHnDate(el.querySelector("updated").innerHTML);
-          elementProcessed = true;
-        }
-
-        if (!elementProcessed && el.querySelector("pubDate")) {
-          pubDate = convertHnDate(el.querySelector("pubDate").innerHTML);
-          elementProcessed = true;
-        }
-        entry += `
-              <div class="list-group-item list-group-item-action">
-              <a href="${link}" class="text-body text-decoration-none" target="_blank">
-              ${enclosure ? `<img class="img-fluid rounded-3" src="${enclosure}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
-              ${mediaContent ? `<img class="img-fluid rounded-3" src="${mediaContent}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
-              <p class="fw-semibold">${title}</p>
-              ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
-              </a>
-              <div class="d-flex flex-row justify-content-between align-items-center">
-              ${pubDate ? `<p class="text-secondary small">${pubDate}</p>` : ""}
-              ${published ? `<p class="text-secondary small">${published}</p>` : ""}
-              ${updated ? `<p class="text-secondary small">${updated}</p>` : ""}
-              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${title}" data-bm-link="${link}" data-bm-type="rss" onclick="bookmarkThis(this)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
-              </button>
-              </div>
-              </div>
-              `;
-      });
-      entry += `
+    entryHTML += `
       <div class="bg-dark-subtle py-4 px- text-center">
         <p class="text-secondary small">You reached the end of the feed</p>
       </div>
-      `;
-      feedGenericRSS.innerHTML = entry;
-    });
-}
+    `;
 
+    if (feedGenericRSS) {
+      feedGenericRSS.innerHTML = entryHTML;
+    }
+  } catch (error) {
+    console.error("Error fetching or parsing RSS:", error);
+    if (feedGenericRSS) {
+      feedGenericRSS.innerHTML = `
+        <div class="alert alert-danger d-flex align-items-center border-0 rounded-0 p-2" role="alert">
+          <img class="me-2" src="./img/error.svg" width="20" height="20" alt="error icon" />
+          <div>
+            Failed to load RSS feed: ${error.message}
+          </div>
+        </div>
+      `;
+    }
+  }
+}
 // Add RSS Feed
 const addNewRssBtn = document.getElementById("addNewRssBtn");
 const newRssFeed = document.getElementById("newRssFeed");
@@ -203,17 +179,22 @@ addNewRssBtn.addEventListener("click", async function () {
 
 // Remove RSS feed
 async function removeRssFeed(id) {
-  const { error } = await client.from("feeds").delete().eq("id", id);
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Deleted");
-    showToast("Feed deleted");
+  try {
+    const { error } = await client.from("feeds").delete().eq("id", id);
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Deleted");
+      showToast("Feed deleted");
 
-    let feedContainer = document.getElementById(id);
-    let sidebarLogo = document.getElementById("sidebarLogo-" + id);
-    feedContainer.remove();
-    sidebarLogo.remove();
+      let feedContainer = document.getElementById(id);
+      let sidebarLogo = document.getElementById("sidebarLogo-" + id);
+      if (feedContainer) feedContainer.remove();
+      if (sidebarLogo) sidebarLogo.remove();
+    }
+  } catch (error) {
+    console.log("Error removing feed: ", error);
+    showToast("Failed to delete feed: " + error.message);
   }
 }
 
@@ -266,15 +247,22 @@ modalFeedNameSaveBtn.addEventListener("click", async function (event) {
 async function isRssLinkValid(rssLink) {
   try {
     const response = await fetch("https://web-production-09ad.up.railway.app/" + rssLink);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const text = await response.text();
     // Check if the response is in a valid RSS format
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(text, "text/xml");
-    if (xmlDoc.getElementsByTagName("parsererror").length === 0) {
-      return true;
-    } else {
+    // Check for parse errors
+    const parseError = xmlDoc.querySelector("parsererror");
+    if (parseError) {
+      console.error("XML parse error:", parseError.textContent);
       return false;
     }
+    // Check for RSS-specific elements
+    const hasRssElements = xmlDoc.querySelector("rss") || xmlDoc.querySelector("feed");
+    return !!hasRssElements;
   } catch (error) {
     // An error occurred during the fetch (e.g., network error)
     console.error("Error checking RSS link:", error);
@@ -295,6 +283,10 @@ async function getRssTitle(link) {
         "Access-Control-Allow-Headers": "content-type",
       },
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
     const str = await response.text();
     const data = new window.DOMParser().parseFromString(str, "text/xml");
