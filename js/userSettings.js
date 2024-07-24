@@ -9,6 +9,7 @@ async function checkSession() {
   } else {
     user_email = data.session.user.email;
     user_id = data.session.user.id;
+    await createStarterBoard(user_id);
     addUserSettings(user_id, user_email);
     addUserViaLoop(user_email);
   }
@@ -63,4 +64,14 @@ async function addUserViaLoop(user_email) {
     .catch((error) => {
       console.error("Error:", error);
     });
+}
+
+async function createStarterBoard(user_id) {
+  const { users, error } = await client.from("boards").insert([{ user_id: user_id, board_name: "main" }]);
+  if (error) {
+    console.log(error);
+  }
+  if (users) {
+    console.log(users);
+  }
 }
