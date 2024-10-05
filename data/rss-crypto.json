@@ -1,0 +1,26 @@
+[
+  {
+    "icon": "logo-coindesk.webp",
+    "name": "Coindesk",
+    "sub": "",
+    "url": "https://www.coindesk.com/arc/outboundfeeds/rss/"
+  },
+  {
+    "icon": "logo_old",
+    "name": "Cointelegraph",
+    "sub": "",
+    "url": "https://cointelegraph.com/rss"
+  },
+  {
+    "icon": "logo_old",
+    "name": "Bitcoin Magazine",
+    "sub": "",
+    "url": "https://bitcoinmagazine.com/.rss/full/"
+  },
+  {
+    "icon": "logo_old",
+    "name": "Decrypt",
+    "sub": "",
+    "url": "https://decrypt.co/feed"
+  }
+]

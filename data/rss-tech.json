@@ -1,44 +1,38 @@
 [
   {
-    "icon": "logo-nyt",
-    "name": "NYT - Home Page",
+    "icon": "logo-ars.png",
+    "name": "Ars Technica",
     "sub": "",
-    "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+    "url": "http://feeds.arstechnica.com/arstechnica/index"
   },
   {
-    "icon": "logo-forbes",
-    "name": "Forbes",
+    "icon": "logo-cnet.svg",
+    "name": "CNET News",
     "sub": "",
-    "url": "https://www.forbes.com/real-time/feed2/"
+    "url": "https://www.cnet.com/rss/news/"
   },
   {
-    "icon": "logo-huffpost",
-    "name": "Huffpost - US News",
+    "icon": "logo-gizmodo.webp",
+    "name": "Gizmodo",
     "sub": "",
-    "url": "https://chaski.huffpost.com/us/auto/vertical/us-news"
+    "url": "https://gizmodo.com/rss"
   },
   {
-    "icon": "logo-wsj",
-    "name": "Wall Street Journal - World News",
+    "icon": "logo-lifehacker.png",
+    "name": "Lifehacker",
     "sub": "",
-    "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
+    "url": "https://lifehacker.com/rss"
   },
   {
-    "icon": "logo-cnn",
-    "name": "CNN Money",
+    "icon": "logo-mashable.webp",
+    "name": "Mashable",
     "sub": "",
-    "url": "http://rss.cnn.com/rss/money_topstories.rss"
+    "url": "http://feeds.mashable.com/Mashable"
   },
   {
-    "icon": "logo-yahoo",
-    "name": "Yahoo News",
+    "icon": "logo-techcrunch.svg",
+    "name": "TechCrunch",
     "sub": "",
-    "url": "http://news.yahoo.com/rss"
-  },
-  {
-    "icon": "logo-dailymail",
-    "name": "Daily Mail",
-    "sub": "",
-    "url": "https://www.dailymail.co.uk/articles.rss"
+    "url": "http://feeds.feedburner.com/TechCrunch"
   }
 ]
