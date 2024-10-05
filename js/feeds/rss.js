@@ -199,6 +199,81 @@ addNewRssBtn.addEventListener("click", async function () {
   initTooltip();
 });
 
+// Add new RSS feed from link
+async function addNewRssByLink(link) {
+  if (await isRssLinkValid(link)) {
+    closeModal("newFeedModal");
+    addNewRssBtn.disabled = true;
+
+    const feedTitle = await getRssTitle(link);
+
+    const { data, error } = await client
+      .from("feeds")
+      .insert([{ feed_name: feedTitle, feed_options: link, feed_type: "RSS", user_id: user_id }])
+      .select();
+
+    if (data) {
+      showToast("New RSS added to your feed");
+      const feedContainer = document.getElementById("feedContainer");
+      const sidebarContainer = document.getElementById("feedLogoContainer");
+      let feed = "";
+      let sidebar = "";
+      let favicon = getApexDomain(data[0].feed_options);
+
+      sidebar += `
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
+         <img class="rounded-3 m-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" alt="rss logo" width="40" height="40" />
+         </a>
+        `;
+
+      feed += `
+        <div id="${data[0].id}" class="feed border-end">
+          <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
+            <div class="d-flex align-items-center">
+              <img class="me-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" width="20" height="20" alt="rss logo" />
+               <p class="feed-title">${data[0].feed_name}<p>
+            </div>
+            <div class="btn-group">
+              <button type="button" name="options" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li onclick="getGenericRss('${link}',${data[0].id})"><button class="dropdown-item" type="button" name="reload"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="removeRssFeed(${data[0].id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
+                <li onclick="getFeedName(${data[0].id},${data[0].feed_name})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/edit.svg" width="20" height="20" />Rename</button></li>
+              </ul>
+            </div>
+          </div>
+          <div id="feed-genericRSS-${data[0].id}" class="list-group list-group-flush feed-body">
+            <div class="p-2 placeholder-glow">
+              <span class="placeholder placeholder-lg col-6 bg-secondary"></span>
+              <span class="placeholder col-7 bg-secondary"></span>
+              <span class="placeholder col-4 bg-secondary"></span>
+              <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
+            </div>
+          </div>
+        </div>
+        `;
+      hideEmpty();
+      feedContainer.innerHTML += feed;
+      sidebarContainer.innerHTML += sidebar;
+      scrollToPos(data[0].id);
+      getGenericRss(data[0].feed_options, data[0].id);
+    }
+    if (error) {
+      console.log(error);
+    }
+
+    newRssFeed.value = "";
+  } else {
+    document.getElementById("rssErrorHelp").hidden = false;
+    setTimeout(() => {
+      document.getElementById("rssErrorHelp").hidden = true;
+    }, 5000);
+  }
+  initTooltip();
+}
+
 // Remove RSS feed
 async function removeRssFeed(id) {
   const { error } = await client.from("feeds").delete().eq("id", id);
