@@ -1,3 +1,7 @@
+// Declare global variables
+let user_id = null;
+let user_email = null;
+
 // Check if the user is logged in or not
 checkSession();
 
@@ -17,15 +21,25 @@ function userNotLogged() {
 }
 
 async function checkSession() {
-  const { data, error } = await client.auth.getSession();
-  if (data.session == null) {
-    userNotLogged();
-  } else {
-    userLogged();
-    if (document.getElementById("displayAccountEmail")) {
-      document.getElementById("displayAccountEmail").innerHTML = data.session.user.email;
+  try {
+    const { data, error } = await client.auth.getSession();
+    if (error) {
+      console.error("Error retrieving session:", error);
+      userNotLogged();
+      return;
     }
-    user_email = data.session.user.email;
-    user_id = data.session.user.id;
+    if (data.session == null) {
+      userNotLogged();
+    } else {
+      userLogged();
+      if (document.getElementById("displayAccountEmail")) {
+        document.getElementById("displayAccountEmail").innerHTML = data.session.user.email;
+      }
+      user_email = data.session.user.email;
+      user_id = data.session.user.id;
+    }
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    userNotLogged();
   }
 }
