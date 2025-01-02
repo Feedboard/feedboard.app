@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./vendors/bootstrap-5.3.2/css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="input-group mb-3">
+            <input id="articleLink" type="text" class="form-control" placeholder="Article link" />
+            <button id="fetchArticle" class="btn btn-primary" type="button">Fetch</button>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h3 id="article-title" class="fw-bold"></h3>
+              <div id="article-output" class="list-group list-group-flush feed-body"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h2>Quicklinks</h2>
+          <p class="small text-decoration-underline" onclick="launch(this)">https://www.wired.com/review/samsung-hw-q990d/</p>
+          <p class="small text-decoration-underline" onclick="launch(this)">https://www.theverge.com/2024/12/26/24329549/bluesky-trending-features</p>
+          <p class="small text-decoration-underline" onclick="launch(this)">https://www.investing.com/news/press-releases/tech-companies-embracing-bitcoin-treasuries-as-a-strategic-asset-as-market-heats-up-heading-into-2025-93CH-3788949</p>
+          <p class="small text-decoration-underline" onclick="launch(this)">https://www.investing.com/news/stock-market-news/azerbaijan-airlines-flight-downed-by-russian-air-defense--reuters-93CH-3788952</p>
+          <p class="small text-decoration-underline" onclick="launch(this)">https://www.nytimes.com/2024/12/26/business/economy/hollywood-southern-california-economy.html</p>
+          <p class="small text-decoration-underline" onclick="launch(this)"></p>
+        </div>
+      </div>
+    </div>
+    <script src="./js/utils.js"></script>
+    <script src="./vendors/mozilla/readability.js"></script>
+    <script>
+      const articleLink = document.getElementById("articleLink");
+      const articleTitle = document.getElementById("article-title");
+      const articleOutput = document.getElementById("article-output");
+      const fetchBtn = document.getElementById("fetchArticle");
+      function launch(el) {
+        let link = el.textContent;
+        console.log(link);
+        articleLink.value = link;
+      }
+
+      fetchBtn.addEventListener("click", async () => {
+        let link = articleLink.value;
+        let response = await fetch("https://web-production-09ad.up.railway.app/" + link);
+        let html = await response.text();
+        let doc = new DOMParser().parseFromString(html, "text/html");
+        let reader = new Readability(doc);
+        let article = reader.parse();
+        console.log(article);
+        articleTitle.innerHTML = article.title;
+        articleOutput.innerHTML = article.content;
+      });
+    </script>
+  </body>
+</html>

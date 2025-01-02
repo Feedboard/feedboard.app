@@ -22,6 +22,11 @@ p {
   margin: 0;
 }
 
+figcaption {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
 #sidebar {
   width: 68px;
   padding: 0.5rem;
