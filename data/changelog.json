@@ -1,5 +1,10 @@
 [
   {
+    "date": "2 Jan 25",
+    "title": "Bug fixes and improvements",
+    "description": "We made some small bug fixes to handle edge-cases and general stability improvements."
+  },
+  {
     "date": "28 Mar 24",
     "title": "Rename RSS Feed",
     "description": "RSS titles can be a bit long sometimes, so we made it easy for you to rename them as you like."
