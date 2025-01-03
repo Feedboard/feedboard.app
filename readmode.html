@@ -63,11 +63,11 @@
           let reader = new Readability(doc);
           let article = reader.parse();
           console.log(article);
-          article.title = article.title.replace("(via: web.archive.org)", "").trim();
+          article.title = article.title.replace(/\(via:.*?\)/g, "").trim();
           articleTitle.innerHTML = article.title;
           articleOutput.innerHTML = article.content;
         } else {
-          article.title = article.title.replace("(via: web.archive.org)", "").trim();
+          article.title = article.title.replace(/\(via:.*?\)/g, "").trim();
           articleTitle.innerHTML = article.title;
           articleOutput.innerHTML = article.content;
         }
