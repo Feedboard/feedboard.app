@@ -22,6 +22,11 @@ p {
   margin: 0;
 }
 
+figcaption {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
 #sidebar {
   width: 68px;
   padding: 0.5rem;
@@ -188,6 +193,10 @@ MODAL
   border: none;
 }
 
+.modal-fullscreen {
+  padding: 1rem;
+}
+
 .accordion-button:not(.collapsed) {
   background-color: transparent;
   box-shadow: none;
@@ -272,6 +281,152 @@ BOOKMARKS
 }
 .btn-delete-bookmark:hover {
   opacity: 1;
+}
+
+/* =================================================================
+READ MODE
+================================================================= */
+
+#readmodeBody h1 {
+  font-size: 2.5rem;
+  font-weight: semibold;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+#readmodeBody h2 {
+  font-size: 2rem;
+  font-weight: semibold;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+#readmodeBody h3 {
+  font-weight: semibold;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+#readmodeBody h4 {
+  font-weight: semibold;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+#readmodeBody h5 {
+  font-weight: semibold;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+#readmodeBody h6 {
+  font-weight: semibold;
+  font-size: 1rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+#readmodeBody p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem !important;
+}
+
+#readmodeBody li {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+#readmodeBody blockquote {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+#readmodeBody pre {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+#readmodeBody code {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+#readmodeBody img {
+  margin-bottom: 1rem;
+}
+
+#readmodeBody iframe {
+  margin-bottom: 1rem;
+}
+
+#readmodeBody table {
+  margin-bottom: 1rem;
+}
+
+#readmodeBody table th {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+#readmodeBody table td {
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+#readmodeBody table tbody tr:nth-of-type(odd) {
+  background-color: #f8f9fa;
+}
+
+#readmodeBody table tbody tr:nth-of-type(even) {
+  background-color: #ffffff;
+}
+
+#readmodeBody hr {
+  margin-bottom: 1rem;
+}
+
+#readmodeBody a {
+  font-size: 1rem;
+  color: #ff640a;
+}
+
+#readmodeBody a:hover {
+  color: #ff640a;
+  text-decoration: underline;
+}
+
+#readmodeBody a:visited {
+  color: #ff640a;
+}
+
+#readmodeBody a:visited:hover {
+  color: #ff640a;
+  text-decoration: underline;
+}
+
+#readmodeBody a:active {
+  color: #ff640a;
+}
+
+#readmodeBody a:active:hover {
+  color: #ff640a;
+  text-decoration: underline;
+}
+
+#readmodeBody a:link {
+  color: #ff640a;
+}
+
+#readmodeBody a:link:hover {
+  color: #ff640a;
+  text-decoration: underline;
 }
 
 /* =================================================================
