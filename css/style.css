@@ -193,6 +193,10 @@ MODAL
   border: none;
 }
 
+.modal-fullscreen {
+  padding: 1rem;
+}
+
 .accordion-button:not(.collapsed) {
   background-color: transparent;
   box-shadow: none;
