@@ -63,15 +63,11 @@
           let reader = new Readability(doc);
           let article = reader.parse();
           console.log(article);
-          if (article.title) {
-            article.title = article.title.replace(/\(via:.*?\)/g, "").trim();
-          }
+          article.title = article.title.replace(/\(via:.*?\)/g, "").trim();
           articleTitle.innerHTML = article.title;
           articleOutput.innerHTML = article.content;
         } else {
-          if (article.title) {
-            article.title = article.title.replace(/\(via:.*?\)/g, "").trim();
-          }
+          article.title = article.title.replace(/\(via:.*?\)/g, "").trim();
           articleTitle.innerHTML = article.title;
           articleOutput.innerHTML = article.content;
         }
