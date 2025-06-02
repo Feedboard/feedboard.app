@@ -1,5 +1,10 @@
 [
   {
+    "date": "1 Jun 25",
+    "title": "Bug fix",
+    "description": "Fixed a bug that prevented new RSS feeds from being renamed."
+  },
+  {
     "date": "2 Jan 25",
     "title": "Bug fixes and improvements",
     "description": "We made some small bug fixes to handle edge-cases and general stability improvements."

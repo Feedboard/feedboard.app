@@ -559,7 +559,7 @@ async function loadFeed() {
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getGenericRss('${item.feed_options}', ${item.id})"><button name="get-rss-feed" class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeRssFeed(${item.id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
-                <li onclick="getFeedName(${item.id},'${item.feed_name}')"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/edit.svg" width="20" height="20" />Rename</button></li>
+                <li onclick="getFeedName(${item.id},'${item.feed_name}')"><button class="dropdown-item" type="button" name="rename"><img class="align-text-bottom me-2 svg-icon" src="./img/edit.svg" width="20" height="20" />Rename</button></li>
               </ul>
             </div>
           </div>
