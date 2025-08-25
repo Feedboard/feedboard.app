@@ -6,16 +6,28 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 async function getEmailState(user_id) {
-  const { data, error } = await client.from("settings").select("*").eq("user_id", user_id);
-  if (error) {
-    console.log(error);
-  }
-  if (data) {
-    if (data[0].newsletter) {
-      weeklyEmailSwitch.checked = true;
-    } else {
-      weeklyEmailSwitch.checked = false;
+  try {
+    if (!user_id) {
+      console.log("No user ID available");
+      return;
     }
+
+    const { data, error } = await client.from("settings").select("*").eq("user_id", user_id);
+
+    if (error) {
+      console.error("Error fetching email settings:", error);
+      return;
+    }
+
+    if (data && data.length > 0 && data[0]?.newsletter !== undefined) {
+      weeklyEmailSwitch.checked = data[0].newsletter === "TRUE";
+    } else {
+      weeklyEmailSwitch.checked = false; // default state
+      console.log("No newsletter settings found for user");
+    }
+  } catch (err) {
+    console.error("Unexpected error in getEmailState:", err);
+    weeklyEmailSwitch.checked = false; // fallback to default state
   }
 }
 
