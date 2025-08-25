@@ -642,10 +642,12 @@
 
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- App initialization must come after Supabase -->
+    <script src="./js/app.js?v=1.0"></script>
     <!-- Bootstrap -->
     <script src="./vendors/bootstrap-5.3.2/js/bootstrap.bundle.min.js"></script>
 
-    <script src="./js/app.js?v=1.0"></script>
+    <!-- App scripts -->
     <script src="/js/session.js?v=1.0"></script>
     <script src="./js/feeds/load-feed.js?v=1.0"></script>
     <script src="./js/feeds/substack.js?v=1.0"></script>
