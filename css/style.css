@@ -485,4 +485,13 @@ video {
     margin-top: 24px;
     font-size: 56px;
   }
+  #sidebar {
+    width: 100%;
+    min-height: fit-content;
+  }
+  .feed {
+    max-width: 100%;
+    min-width: 100%;
+    scroll-snap-align: center;
+  }
 }

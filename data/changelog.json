@@ -1,5 +1,10 @@
 [
   {
+    "date": "25 Aug 25",
+    "title": "Mobile improvements",
+    "description": "Added snap to scroll for feeds on mobile devices and improved sidebar layout."
+  },
+  {
     "date": "1 Jun 25",
     "title": "Bug fix",
     "description": "Fixed a bug that prevented new RSS feeds from being renamed."
