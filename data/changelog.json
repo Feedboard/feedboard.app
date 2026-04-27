@@ -1,5 +1,10 @@
 [
   {
+    "date": "27 Apr 27",
+    "title": "Mobile improvements",
+    "description": "Fixed a bug where the sidebar on mobile devices was not scrollable or was too thin and the feeds were not taking the full width of the screen."
+  },
+  {
     "date": "25 Aug 25",
     "title": "Mobile improvements",
     "description": "Added snap to scroll for feeds on mobile devices and improved sidebar layout."
