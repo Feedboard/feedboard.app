@@ -12,14 +12,14 @@ async function readmodeThis(el) {
   modal.show();
 
   const link = el.getAttribute("data-rm-link");
-  let response = await fetch("https://web-production-09ad.up.railway.app/https://clearthis.page/?u=" + link);
+  let response = await fetch("https://web-production-09ad.up.railway.app/https://clearthis.page/?u=" + encodeURIComponent(link));
   let html = await response.text();
   let doc = new DOMParser().parseFromString(html, "text/html");
   let reader = new Readability(doc);
   let article = reader.parse();
   console.log(article);
   if (article && article.textContent === "Content not availableSorry, it was not possible to extract content from this website.Return") {
-    let response = await fetch("https://web-production-09ad.up.railway.app/" + link);
+    let response = await fetch("https://web-production-09ad.up.railway.app/" + encodeURIComponent(link));
     let html = await response.text();
     let doc = new DOMParser().parseFromString(html, "text/html");
     let reader = new Readability(doc);
@@ -29,7 +29,7 @@ async function readmodeThis(el) {
       article.title = article.title.replace(/\(via:.*?\)/g, "").trim();
     }
     readmodeBody.innerHTML = `
-    <h1 id="readmodeArticleTitle" class="fw-bold mb-2">${article ? article.title : "No title available"}</h1>
+    <h1 id="readmodeArticleTitle" class="fw-bold mb-2">${article ? escapeHtml(article.title) : "No title available"}</h1>
     <div id="readmodeArticleBody">${article ? article.content : "No content available"}</div>
     `;
   } else {
@@ -37,7 +37,7 @@ async function readmodeThis(el) {
       article.title = article.title.replace(/\(via:.*?\)/g, "").trim();
     }
     readmodeBody.innerHTML = `
-    <h1 id="readmodeArticleTitle" class="fw-bold mb-2">${article ? article.title : "No title available"}</h1>
+    <h1 id="readmodeArticleTitle" class="fw-bold mb-2">${article ? escapeHtml(article.title) : "No title available"}</h1>
     <div id="readmodeArticleBody">${article ? article.content : "No content available"}</div>
     `;
   }

@@ -8,12 +8,7 @@ async function getGenericRss(link, id) {
   }
 
   try {
-    const response = await fetch(rssURL, {
-      headers: {
-        "Access-Control-Allow-Origin": rssURL,
-        "Access-Control-Allow-Headers": "content-type",
-      },
-    });
+    const response = await fetch(rssURL);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -43,31 +38,36 @@ async function getGenericRss(link, id) {
     let entryHTML = "";
 
     entries.forEach((el) => {
-      let title = el.querySelector("title")?.textContent || "No Title";
-      let link = el.querySelector("link")?.innerHTML || el.querySelector("id")?.innerHTML || "#";
-      let description = el.querySelector("description")?.textContent || el.querySelector("content")?.textContent || "";
-      let strippedContent = description.replace(/<[^>]*>/g, "");
-      let truncatedContent = strippedContent.slice(0, 160) + "...";
-      let enclosure = el.querySelector("enclosure")?.getAttribute("url");
-      let mediaContent = el.querySelector("content")?.getAttribute("url");
+      const rawTitle = el.querySelector("title")?.textContent ?? "No Title";
+      const rawLink = el.querySelector("link")?.getAttribute("href") || el.querySelector("link")?.textContent || el.querySelector("id")?.textContent || "#";
+      const title = escapeHtml(rawTitle);
+      const link = safeUrl(rawLink);
 
-      let dateElement = el.querySelector("published") || el.querySelector("updated") || el.querySelector("pubDate");
-      let date = dateElement ? convertHnDate(dateElement.innerHTML) : "";
+      const description = el.querySelector("description")?.textContent || el.querySelector("content")?.textContent || "";
+      const strippedContent = description.replace(/<[^>]*>/g, "");
+      const truncatedContent = escapeHtml(strippedContent.slice(0, 160) + "...");
+
+      const enclosure = el.querySelector("enclosure")?.getAttribute("url");
+      const mediaContent = el.querySelector("content")?.getAttribute("url");
+      const mediaUrl = safeUrl(enclosure || mediaContent || "");
+
+      const dateElement = el.querySelector("published") || el.querySelector("updated") || el.querySelector("pubDate");
+      const date = dateElement ? escapeHtml(convertHnDate(dateElement.textContent)) : "";
 
       entryHTML += `
         <div class="list-group-item list-group-item-action">
-          <a href="${link}" class="text-body text-decoration-none" target="_blank">
-            ${enclosure || mediaContent ? `<img class="img-fluid rounded-3" src="${enclosure || mediaContent}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+          <a href="${escapeHtmlAttr(link)}" class="text-body text-decoration-none" target="_blank">
+            ${mediaUrl ? `<img class="img-fluid rounded-3" src="${escapeHtmlAttr(mediaUrl)}" alt="${escapeHtmlAttr(rawTitle)}" loading="lazy" onError="this.remove();" />` : ""}
             <p class="fw-semibold">${title}</p>
             ${description ? `<p class="text-secondary small text-break">${truncatedContent}</p>` : ""}
           </a>
           <div class="d-flex flex-row justify-content-between align-items-center">
             ${date ? `<p class="text-secondary small">${date}</p>` : ""}
             <div>
-            <button class="btn btn-bookmark p-0 border-0" data-rm-link="${link}" onclick="readmodeThis(this)">
+            <button class="btn btn-bookmark p-0 border-0" data-rm-link="${escapeHtmlAttr(rawLink)}" onclick="readmodeThis(this)">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM72,144a8,8,0,0,1-4.89,7.37A7.86,7.86,0,0,1,64,152H52a8,8,0,0,1,0-16h4V88H52a8,8,0,0,1,0-16H64a8,8,0,0,1,6.91,4L92,112.12,113.09,76A8,8,0,0,1,120,72h12a8,8,0,0,1,0,16h-4v48h4a8,8,0,0,1,0,16H120a7.86,7.86,0,0,1-3.11-.63A8,8,0,0,1,112,144V109.59L98.91,132a8,8,0,0,1-13.82,0L72,109.59Zm128,40H88a8,8,0,0,1,0-16H200a8,8,0,0,1,0,16Zm0-32H160a8,8,0,0,1,0-16h40a8,8,0,0,1,0,16Zm0-32H160a8,8,0,0,1,0-16h40a8,8,0,0,1,0,16Z"/></svg>
             </button>
-              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${title}" data-bm-link="${link}" data-bm-type="rss" onclick="bookmarkThis(this)">
+              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${escapeHtmlAttr(rawTitle)}" data-bm-link="${escapeHtmlAttr(rawLink)}" data-bm-type="rss" onclick="bookmarkThis(this)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
               </button>
             </div>
@@ -77,7 +77,7 @@ async function getGenericRss(link, id) {
     });
 
     entryHTML += `
-      <div class="bg-dark-subtle py-4 px- text-center">
+      <div class="bg-dark-subtle py-4 text-center">
         <p class="text-secondary small">You reached the end of the feed</p>
       </div>
     `;
@@ -91,9 +91,7 @@ async function getGenericRss(link, id) {
       feedGenericRSS.innerHTML = `
         <div class="alert alert-danger d-flex align-items-center border-0 rounded-0 p-2" role="alert">
           <img class="me-2" src="./img/error.svg" width="20" height="20" alt="error icon" />
-          <div>
-            Failed to load RSS feed: ${error.message}
-          </div>
+          <div>Failed to load RSS feed.</div>
         </div>
       `;
     }
@@ -121,25 +119,23 @@ addNewRssBtn.addEventListener("click", async function () {
       .select();
 
     if (data) {
+      const safeName = escapeHtml(data[0].feed_name);
+      const favicon = getApexDomain(data[0].feed_options);
       showToast("New RSS added to your feed");
       const feedContainer = document.getElementById("feedContainer");
       const sidebarContainer = document.getElementById("feedLogoContainer");
-      let feed = "";
-      let sidebar = "";
-      let favicon = getApexDomain(data[0].feed_options);
 
-      sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_name}" aria-label="${data[0].feed_name}">
-         <img class="rounded-3 m-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" alt="rss logo" width="40" height="40" />
-         </a>
-        `;
+      const sidebar = `
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${escapeHtmlAttr(data[0].feed_name)}" aria-label="${escapeHtmlAttr(data[0].feed_name)}">
+         <img class="rounded-3 m-2" src="${escapeHtmlAttr(safeUrl(favicon))}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" alt="rss logo" width="40" height="40" />
+         </a>`;
 
-      feed += `
+      const feed = `
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
-              <img class="me-2" src="${favicon}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" width="20" height="20" alt="rss logo" />
-               <p class="feed-title">${data[0].feed_name}<p>
+              <img class="me-2" src="${escapeHtmlAttr(safeUrl(favicon))}" onError="this.onerror=null;this.src='./img/logo-rss.svg';" width="20" height="20" alt="rss logo" />
+              <p class="feed-title">${safeName}</p>
             </div>
             <div class="btn-group">
               <button type="button" name="options" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
@@ -148,7 +144,7 @@ addNewRssBtn.addEventListener("click", async function () {
               <ul class="dropdown-menu dropdown-menu-end">
                 <li onclick="getGenericRss(${data[0].id})"><button class="dropdown-item" type="button" name="reload"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeRssFeed(${data[0].id})"><button class="dropdown-item" type="button" name="remove"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
-                <li onclick="getFeedName(${data[0].id},'${data[0].feed_name}')"><button class="dropdown-item" type="button" name="rename"><img class="align-text-bottom me-2 svg-icon" src="./img/edit.svg" width="20" height="20" />Rename</button></li>
+                <li onclick="getFeedName(${data[0].id},'${escapeHtmlAttr(data[0].feed_name)}')"><button class="dropdown-item" type="button" name="rename"><img class="align-text-bottom me-2 svg-icon" src="./img/edit.svg" width="20" height="20" />Rename</button></li>
               </ul>
             </div>
           </div>
@@ -160,11 +156,10 @@ addNewRssBtn.addEventListener("click", async function () {
               <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
             </div>
           </div>
-        </div>
-        `;
+        </div>`;
       hideEmpty();
-      feedContainer.innerHTML += feed;
-      sidebarContainer.innerHTML += sidebar;
+      feedContainer.insertAdjacentHTML("beforeend", feed);
+      sidebarContainer.insertAdjacentHTML("beforeend", sidebar);
       scrollToPos(data[0].id);
       getGenericRss(data[0].feed_options, data[0].id);
     }
@@ -282,12 +277,7 @@ async function getRssTitle(link) {
   const rssLink = "https://web-production-09ad.up.railway.app/" + link;
 
   try {
-    const response = await fetch(rssLink, {
-      headers: {
-        "Access-Control-Allow-Origin": rssLink,
-        "Access-Control-Allow-Headers": "content-type",
-      },
-    });
+    const response = await fetch(rssLink);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

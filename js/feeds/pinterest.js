@@ -1,63 +1,59 @@
 async function getPinterestAccount(username, id) {
   console.log("Loading " + username);
-  const pinterestAccountUrl = "https://web-production-09ad.up.railway.app/pinterest.com/" + username + "/feed.rss";
+  const pinterestAccountUrl = "https://web-production-09ad.up.railway.app/pinterest.com/" + encodeURIComponent(username) + "/feed.rss";
   const feedPinterestAccount = document.getElementById("feed-pinterestAccount-" + id);
 
-  await fetch(pinterestAccountUrl, {
-    headers: {
-      "X-Requested-With": "XMLHttpRequest",
-    },
-  })
-    .then((response) => response.text())
-    .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then((data) => {
-      const entries = data.querySelectorAll("item");
-      feedPinterestAccount.innerHTML = "";
-      let entry = "";
-      if (entries.length <= 0) {
-        console.log("not ok");
-        entry += `
+  try {
+    const response = await fetch(pinterestAccountUrl);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const str = await response.text();
+    const data = new window.DOMParser().parseFromString(str, "text/xml");
+    const entries = data.querySelectorAll("item");
+
+    if (entries.length === 0) {
+      feedPinterestAccount.innerHTML = `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
           <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" alt="warning icon" />
-          <div>
-            This functionality is in Beta and it might fail. If you think the username is correct try to reload this tab.
-            In alternative this Pinterest account is not public or doesn't seem to exist.
-          </div>
-        </div>
-              `;
-        feedPinterestAccount.innerHTML = entry;
-      } else {
-        entries.forEach((el) => {
-          let title = el.querySelector("title").textContent;
-          let description = el.querySelector("description").textContent;
-          let pubDate = el.querySelector("pubDate").textContent;
-          let link = el.querySelector("link").textContent;
+          <div>This Pinterest account is not public or doesn't seem to exist.</div>
+        </div>`;
+      return;
+    }
 
-          const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(description, "text/xml");
+    let entry = "";
+    entries.forEach((el) => {
+      const rawTitle = el.querySelector("title")?.textContent ?? "";
+      const rawLink = el.querySelector("link")?.textContent ?? "#";
+      const title = escapeHtml(rawTitle);
+      const link = safeUrl(rawLink);
+      const pubDate = escapeHtml(convertHnDate(el.querySelector("pubDate")?.textContent ?? ""));
 
-          const documentRoot = xmlDoc.documentElement;
-          const cdataContent = documentRoot.textContent;
+      const description = el.querySelector("description")?.textContent ?? "";
+      const htmlDoc = new DOMParser().parseFromString(description, "text/html");
+      const imgEl = htmlDoc.querySelector("img");
+      const imgSrc = imgEl ? escapeHtmlAttr(safeUrl(imgEl.getAttribute("src") ?? "")) : "";
 
-          const htmlDoc = new DOMParser().parseFromString(description, "text/html");
-          const imgEl = htmlDoc.querySelector("img");
-
-          entry += `
-            <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
-              <p class="fw-semibold mb-2">${title}</p>
-              <p class="text-secondary small">${convertHnDate(pubDate)}</p>
-            </a>
-              `;
-        });
-        entry += `
-        <div class="bg-dark-subtle py-4 px- text-center">
-          <p class="text-secondary small">You reached the end of the feed</p>
-        </div>
-        `;
-        feedPinterestAccount.innerHTML = entry;
-      }
+      entry += `
+        <a href="${escapeHtmlAttr(link)}" class="list-group-item list-group-item-action" target="_blank">
+          ${imgSrc ? `<img class="w-100 img-fluid rounded-3" src="${imgSrc}" alt="${escapeHtmlAttr(rawTitle)}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+          <p class="fw-semibold mb-2">${title}</p>
+          <p class="text-secondary small">${pubDate}</p>
+        </a>`;
     });
+    entry += `
+      <div class="bg-dark-subtle py-4 text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>`;
+    feedPinterestAccount.innerHTML = entry;
+  } catch (error) {
+    console.error("Error fetching Pinterest account feed:", error);
+    if (feedPinterestAccount) {
+      feedPinterestAccount.innerHTML = `
+        <div class="alert alert-danger d-flex align-items-center border-0 rounded-0 p-2" role="alert">
+          <img class="me-2" src="./img/error.svg" width="20" height="20" alt="error icon" />
+          <div>Failed to load Pinterest feed.</div>
+        </div>`;
+    }
+  }
 }
 
 // Add new Pinterest account
@@ -78,31 +74,29 @@ addNewPinterestAccountBtn.addEventListener("click", async function () {
     .select();
 
   if (data) {
-    showToast(newPinterestAccountName.value + " added to your feed");
+    const safeOptions = escapeHtml(data[0].feed_options);
+    showToast(safeOptions + " added to your feed");
     const feedContainer = document.getElementById("feedContainer");
     const sidebarContainer = document.getElementById("feedLogoContainer");
-    let feed = "";
-    let sidebar = "";
 
-    sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}" aria-label="${data[0].feed_options}">
+    const sidebar = `
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${escapeHtmlAttr(data[0].feed_options)}" aria-label="${escapeHtmlAttr(data[0].feed_options)}">
          <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="pinterest logo" width="40" height="40" />
-         </a>
-        `;
+         </a>`;
 
-    feed += `
+    const feed = `
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="pinterest logo" />
-              <p class="feed-title">${data[0].feed_options}</p>
+              <p class="feed-title">${safeOptions}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
                 <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPinterestAccount('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="getPinterestAccount('${safeOptions}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removePinterestAccount(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
@@ -115,11 +109,10 @@ addNewPinterestAccountBtn.addEventListener("click", async function () {
               <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
             </div>
           </div>
-        </div>
-        `;
+        </div>`;
     hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
+    feedContainer.insertAdjacentHTML("beforeend", feed);
+    sidebarContainer.insertAdjacentHTML("beforeend", sidebar);
     scrollToPos(data[0].id);
     getPinterestAccount(data[0].feed_options, data[0].id);
   }
@@ -151,59 +144,60 @@ async function removePinterestAccount(id) {
 
 async function getPinterestBoard(slug, id) {
   console.log("Loading " + slug);
-  const pinterestBoardUrl = "https://web-production-09ad.up.railway.app/pinterest.com/" + slug + ".rss";
+  const pinterestBoardUrl = "https://web-production-09ad.up.railway.app/pinterest.com/" + encodeURIComponent(slug) + ".rss";
   const feedPinterestBoard = document.getElementById("feed-pinterestBoard-" + id);
 
-  await fetch(pinterestBoardUrl, {
-    headers: {
-      "X-Requested-With": "XMLHttpRequest",
-    },
-  })
-    .then((response) => response.text())
-    .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then((data) => {
-      const entries = data.querySelectorAll("item");
-      feedPinterestBoard.innerHTML = "";
-      let entry = "";
-      if (entries.length <= 0) {
-        console.log("not ok");
-        entry += `
+  try {
+    const response = await fetch(pinterestBoardUrl);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const str = await response.text();
+    const data = new window.DOMParser().parseFromString(str, "text/xml");
+    const entries = data.querySelectorAll("item");
+
+    if (entries.length === 0) {
+      feedPinterestBoard.innerHTML = `
         <div class="alert alert-warning d-flex align-items-center border-0 rounded-0 p-2" role="alert">
           <img class="me-2" src="./img/warning-diamond.svg" width="20" height="20" alt="warning icon" />
-          <div>
-            This functionality is in Beta and it might fail. If you think the username is correct try to reload this tab.
-            In alternative this Pinterest board is not public or doesn't seem to exist.
-          </div>
-        </div>
-              `;
-        feedPinterestBoard.innerHTML = entry;
-      }
+          <div>This Pinterest board is not public or doesn't seem to exist.</div>
+        </div>`;
+      return;
+    }
 
-      entries.forEach((el) => {
-        let title = el.querySelector("title").textContent;
-        let description = el.querySelector("description").textContent;
-        let pubDate = el.querySelector("pubDate").textContent;
-        let link = el.querySelector("link").textContent;
+    let entry = "";
+    entries.forEach((el) => {
+      const rawTitle = el.querySelector("title")?.textContent ?? "";
+      const rawLink = el.querySelector("link")?.textContent ?? "#";
+      const title = escapeHtml(rawTitle);
+      const link = safeUrl(rawLink);
+      const pubDate = escapeHtml(convertHnDate(el.querySelector("pubDate")?.textContent ?? ""));
 
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(description, "text/xml");
+      const description = el.querySelector("description")?.textContent ?? "";
+      const htmlDoc = new DOMParser().parseFromString(description, "text/html");
+      const imgEl = htmlDoc.querySelector("img");
+      const imgSrc = imgEl ? escapeHtmlAttr(safeUrl(imgEl.getAttribute("src") ?? "")) : "";
 
-        const documentRoot = xmlDoc.documentElement;
-        const cdataContent = documentRoot.textContent;
-
-        const htmlDoc = new DOMParser().parseFromString(description, "text/html");
-        const imgEl = htmlDoc.querySelector("img");
-
-        entry += `
-            <a href="${link}" class="list-group-item list-group-item-action" target="_blank">
-              ${imgEl ? `<img class="w-100 img-fluid rounded-3" src="${imgEl.getAttribute("src")}" alt="${title}" />` : ""}
-              <p class="fw-semibold mb-2">${title}</p>
-              <p class="text-secondary small">${convertHnDate(pubDate)}</p>
-            </a>
-              `;
-      });
-      feedPinterestBoard.innerHTML = entry;
+      entry += `
+        <a href="${escapeHtmlAttr(link)}" class="list-group-item list-group-item-action" target="_blank">
+          ${imgSrc ? `<img class="w-100 img-fluid rounded-3" src="${imgSrc}" alt="${escapeHtmlAttr(rawTitle)}" loading="lazy" onError="this.onerror=null;this.src='./img/image-placeholder.png';" />` : ""}
+          <p class="fw-semibold mb-2">${title}</p>
+          <p class="text-secondary small">${pubDate}</p>
+        </a>`;
     });
+    entry += `
+      <div class="bg-dark-subtle py-4 text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>`;
+    feedPinterestBoard.innerHTML = entry;
+  } catch (error) {
+    console.error("Error fetching Pinterest board feed:", error);
+    if (feedPinterestBoard) {
+      feedPinterestBoard.innerHTML = `
+        <div class="alert alert-danger d-flex align-items-center border-0 rounded-0 p-2" role="alert">
+          <img class="me-2" src="./img/error.svg" width="20" height="20" alt="error icon" />
+          <div>Failed to load Pinterest board feed.</div>
+        </div>`;
+    }
+  }
 }
 
 // Add new Pinterest board
@@ -224,31 +218,29 @@ addNewPinterestBoardBtn.addEventListener("click", async function () {
     .select();
 
   if (data) {
-    showToast(newPinterestBoardName.value + " added to your feed");
+    const safeOptions = escapeHtml(data[0].feed_options);
+    showToast(safeOptions + " added to your feed");
     const feedContainer = document.getElementById("feedContainer");
     const sidebarContainer = document.getElementById("feedLogoContainer");
-    let feed = "";
-    let sidebar = "";
 
-    sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}" aria-label="${data[0].feed_options}">
+    const sidebar = `
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${escapeHtmlAttr(data[0].feed_options)}" aria-label="${escapeHtmlAttr(data[0].feed_options)}">
          <img class="rounded-3 m-2" src="./img/logo-pinterest.svg" alt="pinterest logo" width="40" height="40" />
-         </a>
-        `;
+         </a>`;
 
-    feed += `
+    const feed = `
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-pinterest.svg" width="20" height="20" alt="pinterest logo" />
-              <p class="feed-title">${data[0].feed_options}</p>
+              <p class="feed-title">${safeOptions}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
                 <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getPinterestBoard('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="getPinterestBoard('${safeOptions}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removePinterestBoard(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
@@ -261,11 +253,10 @@ addNewPinterestBoardBtn.addEventListener("click", async function () {
               <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
             </div>
           </div>
-        </div>
-        `;
+        </div>`;
     hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
+    feedContainer.insertAdjacentHTML("beforeend", feed);
+    sidebarContainer.insertAdjacentHTML("beforeend", sidebar);
     scrollToPos(data[0].id);
     getPinterestBoard(data[0].feed_options, data[0].id);
   }

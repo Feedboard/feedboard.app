@@ -1,49 +1,59 @@
 async function getSubstack(substack, id) {
   console.log("Loading Substack for " + substack + "...");
-  const substackURL = "https://substackapi.com/api/feeds/" + substack + ".substack.com?limit=12&sort=new";
+  const substackURL = "https://substackapi.com/api/feeds/" + encodeURIComponent(substack) + ".substack.com?limit=12&sort=new";
   const substackFeed = document.getElementById("substack-feed-" + id);
 
-  await fetch(substackURL, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      substackFeed.innerHTML = "";
-      let substackPost = "";
-      data.forEach((el) => {
-        const reactionValue = Object.values(el.reactions)[0];
-        const truncatedContent = el.description.slice(0, 160) + "...";
-        substackPost += `
+  try {
+    const response = await fetch(substackURL, { headers: { "Content-Type": "application/json" } });
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+
+    let substackPost = "";
+    data.forEach((el) => {
+      const rawUrl = el.canonical_url ?? "#";
+      const url = safeUrl(rawUrl);
+      const title = escapeHtml(el.title ?? "");
+      const truncatedContent = escapeHtml((el.description ?? "").slice(0, 160) + "...");
+      const authorName = escapeHtml(el.publishedBylines?.[0]?.name ?? "");
+      const postDate = escapeHtml(el.post_date ?? "");
+      const reactionValue = el.reactions ? (Object.values(el.reactions)[0] ?? 0) : 0;
+
+      substackPost += `
         <div class="list-group-item list-group-item-action">
-        <a href="${el.canonical_url}" class="text-body text-decoration-none" target="_blank">
-          <p class="fw-semibold mb-2">${el.title}</p>
-          <p class="text-secondary small mb-2">${truncatedContent}</p>
-        </a>
-        <div class="d-flex flex-row justify-content-between align-item-center">
-          <div class="d-flex flex-row">
-            <p class="text-uppercase text-secondary small me-3">${el.publishedBylines[0].name}</p>
-            <p class="text-uppercase text-secondary small me-3">${el.post_date}</p>
-            <div class="d-flex flex-row align-items-center">
-              <img src="./img/love.svg" width="16" height="16">
-              <p class="text-uppercase text-secondary small me-3 ms-1">${reactionValue}</p>
+          <a href="${escapeHtmlAttr(url)}" class="text-body text-decoration-none" target="_blank">
+            <p class="fw-semibold mb-2">${title}</p>
+            <p class="text-secondary small mb-2">${truncatedContent}</p>
+          </a>
+          <div class="d-flex flex-row justify-content-between align-item-center">
+            <div class="d-flex flex-row">
+              <p class="text-uppercase text-secondary small me-3">${authorName}</p>
+              <p class="text-uppercase text-secondary small me-3">${postDate}</p>
+              <div class="d-flex flex-row align-items-center">
+                <img src="./img/love.svg" width="16" height="16" alt="reactions icon">
+                <p class="text-uppercase text-secondary small me-3 ms-1">${escapeHtml(String(reactionValue))}</p>
+              </div>
             </div>
-          </div>
-          <button class="btn btn-bookmark p-0 border-0" data-bm-title="${el.title}" data-bm-link="${el.canonical_url}" data-bm-type="substack" onclick="bookmarkThis(this)">
+            <button class="btn btn-bookmark p-0 border-0" data-bm-title="${escapeHtmlAttr(el.title ?? "")}" data-bm-link="${escapeHtmlAttr(rawUrl)}" data-bm-type="substack" onclick="bookmarkThis(this)">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
             </button>
           </div>
-        </div>
-        `;
-      });
-      substackPost += `
-      <div class="bg-dark-subtle py-4 px- text-center">
-        <p class="text-secondary small">You reached the end of the feed</p>
-      </div>
-      `;
-      substackFeed.innerHTML = substackPost;
+        </div>`;
     });
+    substackPost += `
+      <div class="bg-dark-subtle py-4 text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>`;
+    substackFeed.innerHTML = substackPost;
+  } catch (error) {
+    console.error("Error fetching Substack feed:", error);
+    if (substackFeed) {
+      substackFeed.innerHTML = `
+        <div class="alert alert-danger d-flex align-items-center border-0 rounded-0 p-2" role="alert">
+          <img class="me-2" src="./img/error.svg" width="20" height="20" alt="error icon" />
+          <div>Failed to load Substack feed.</div>
+        </div>`;
+    }
+  }
 }
 
 // Add new substack
@@ -66,31 +76,29 @@ addNewSubstackBtn.addEventListener("click", async function () {
       .select();
 
     if (data) {
-      showToast(newSubstackName.value + " added to your feed");
+      const safeOptions = escapeHtml(data[0].feed_options);
+      showToast(safeOptions + " added to your feed");
       const feedContainer = document.getElementById("feedContainer");
       const sidebarContainer = document.getElementById("feedLogoContainer");
-      let feed = "";
-      let sidebar = "";
 
-      sidebar += `
-         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${data[0].feed_options}" aria-label="${data[0].feed_options}">
+      const sidebar = `
+         <a id="sidebarLogo-${data[0].id}" href="#${data[0].id}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="${escapeHtmlAttr(data[0].feed_options)}" aria-label="${escapeHtmlAttr(data[0].feed_options)}">
          <img class="rounded-3 m-2" src="./img/logo-substack.svg" alt="substack logo" width="40" height="40" />
-         </a>
-        `;
+         </a>`;
 
-      feed += `
+      const feed = `
         <div id="${data[0].id}" class="feed border-end">
           <div class="feed-header d-flex flex-row justify-content-between bg-body-tertiary border-bottom">
             <div class="d-flex align-items-center">
               <img class="me-2" src="./img/logo-substack.svg" width="20" height="20" alt="substack logo" />
-              <p class="feed-title">${data[0].feed_options}<p>
+              <p class="feed-title">${safeOptions}</p>
             </div>
             <div class="btn-group">
               <button type="button" class="btn bg-body-tertiary btn-sm p-0 rounded-1 border-0" data-bs-toggle="dropdown" aria-expanded="false">
                 <img class="svg-icon" src="./img/dots-three-vertical.svg" width="24" height="24" alt="dots icon" />
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li onclick="getSubstack('${data[0].feed_options}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
+                <li onclick="getSubstack('${safeOptions}', ${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/reload.svg" width="20" height="20" />Reload</button></li>
                 <li onclick="removeSubstack(${data[0].id})"><button class="dropdown-item" type="button"><img class="align-text-bottom me-2 svg-icon" src="./img/delete.svg" width="20" height="20" />Remove</button></li>
               </ul>
             </div>
@@ -103,11 +111,10 @@ addNewSubstackBtn.addEventListener("click", async function () {
               <span class="placeholder placeholder-sm col-2 bg-secondary"></span>
             </div>
           </div>
-        </div>
-        `;
+        </div>`;
       hideEmpty();
-      feedContainer.innerHTML += feed;
-      sidebarContainer.innerHTML += sidebar;
+      feedContainer.insertAdjacentHTML("beforeend", feed);
+      sidebarContainer.insertAdjacentHTML("beforeend", sidebar);
       scrollToPos(data[0].id);
       getSubstack(data[0].feed_options, data[0].id);
     }

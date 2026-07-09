@@ -3,46 +3,49 @@ async function getHnFeed() {
   const hnUrl = "https://web-production-09ad.up.railway.app/https://hnrss.org/newest";
   const feedHackernews = document.getElementById("feed-hackernews");
 
-  await fetch(hnUrl, {
-    headers: {
-      "Access-Control-Allow-Origin": hnUrl,
-      "Access-Control-Allow-Headers": "content-type",
-    },
-  })
-    .then((response) => response.text())
-    .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then((data) => {
-      const entries = data.querySelectorAll("item");
-      feedHackernews.innerHTML = "";
-      let entry = "";
-      entries.forEach((el) => {
-        // console.log(el);
+  try {
+    const response = await fetch(hnUrl);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const str = await response.text();
+    const data = new window.DOMParser().parseFromString(str, "text/xml");
+    const entries = data.querySelectorAll("item");
 
-        let title = el.querySelector("title").textContent;
-        let link = el.querySelector("link").innerHTML;
-        let pubDate = convertHnDate(el.querySelector("pubDate").innerHTML);
-        entry += `
-            <div class="list-group-item list-group-item-action">
-              <a href="${link}" class="text-body text-decoration-none" target="_blank">
+    let entry = "";
+    entries.forEach((el) => {
+      const rawTitle = el.querySelector("title")?.textContent ?? "";
+      const rawLink = el.querySelector("link")?.textContent ?? "";
+      const title = escapeHtml(rawTitle);
+      const link = safeUrl(rawLink);
+      const pubDate = escapeHtml(convertHnDate(el.querySelector("pubDate")?.textContent ?? ""));
+      entry += `
+          <div class="list-group-item list-group-item-action">
+            <a href="${escapeHtmlAttr(link)}" class="text-body text-decoration-none" target="_blank">
               <p class="fw-semibold">${title}</p>
-              <p class="text-secondary small text-break">${link}</p>
-              </a>
-              <div class="d-flex flex-row justify-content-between align-items-center">
+              <p class="text-secondary small text-break">${escapeHtml(link)}</p>
+            </a>
+            <div class="d-flex flex-row justify-content-between align-items-center">
               <p class="text-secondary small">${pubDate}</p>
-              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${title}" data-bm-link="${link}" data-bm-type="hackernews" onclick="bookmarkThis(this)">
+              <button class="btn btn-bookmark p-0 border-0" data-bm-title="${escapeHtmlAttr(rawTitle)}" data-bm-link="${escapeHtmlAttr(rawLink)}" data-bm-type="hackernews" onclick="bookmarkThis(this)">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path></svg>
               </button>
-              </div>
             </div>
-              `;
-      });
-      entry += `
-      <div class="bg-dark-subtle py-4 px- text-center">
-        <p class="text-secondary small">You reached the end of the feed</p>
-      </div>
-      `;
-      feedHackernews.innerHTML = entry;
+          </div>`;
     });
+    entry += `
+      <div class="bg-dark-subtle py-4 text-center">
+        <p class="text-secondary small">You reached the end of the feed</p>
+      </div>`;
+    feedHackernews.innerHTML = entry;
+  } catch (error) {
+    console.error("Error fetching HackerNews feed:", error);
+    if (feedHackernews) {
+      feedHackernews.innerHTML = `
+        <div class="alert alert-danger d-flex align-items-center border-0 rounded-0 p-2" role="alert">
+          <img class="me-2" src="./img/error.svg" width="20" height="20" alt="error icon" />
+          <div>Failed to load HackerNews feed.</div>
+        </div>`;
+    }
+  }
 }
 
 // Add HackerNews
@@ -99,8 +102,8 @@ addHackerNewsBtn.addEventListener("click", async function () {
         </div>
         `;
     hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
+    feedContainer.insertAdjacentHTML("beforeend", feed);
+    sidebarContainer.insertAdjacentHTML("beforeend", sidebar);
     scrollToPos(data[0].id);
     getHnFeed(data[0].id);
   }

@@ -3,24 +3,24 @@ async function getPhFeed() {
   const feedProductHunt = document.getElementById("feed-producthunt");
 
   const url = "https://feedboard-api-relay-production.up.railway.app/producthunt";
-  // Create a fetch request
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      let feed = "";
-      data.forEach((el) => {
-        let name = el.node.name;
-        let tagLine = el.node.tagline;
-        let createdAt = convertTime(el.node.createdAt);
-        let votesCount = el.node.votesCount;
-        let image = el.node.thumbnail.url;
-        let url = el.node.url;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    let feed = "";
+    data.forEach((el) => {
+      const name = escapeHtml(el.node.name);
+      const tagLine = escapeHtml(el.node.tagline);
+      const createdAt = escapeHtml(convertTime(el.node.createdAt));
+      const votesCount = escapeHtml(String(el.node.votesCount));
+      const image = escapeHtmlAttr(safeUrl(el.node.thumbnail?.url ?? ""));
+      const itemUrl = escapeHtmlAttr(safeUrl(el.node.url));
 
-        feed += `
-      <a href="${url}" class="list-group-item list-group-item-action" target="_blank">
+      feed += `
+      <a href="${itemUrl}" class="list-group-item list-group-item-action" target="_blank">
       <div class="d-flex flex-row justify-content-between">
       <div class="d-flex flex-row">
-            <img src="${image}" class="rounded-3 me-3" width="64" height="64" alt="${name}"/>
+            ${image ? `<img src="${image}" class="rounded-3 me-3" width="64" height="64" alt="${name}"/>` : ""}
             <div>
             <p class="fw-semibold">${name}</p>
             <p class="text-secondary small">${tagLine}</p>
@@ -34,17 +34,16 @@ async function getPhFeed() {
         </div>
         </a>
             `;
-      });
-      feed += `
+    });
+    feed += `
       <div class="bg-dark-subtle py-4 px- text-center">
         <p class="text-secondary small">You reached the end of the feed</p>
       </div>
       `;
-      feedProductHunt.innerHTML = feed;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+    feedProductHunt.innerHTML = feed;
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 // Add ProductHunt
@@ -101,8 +100,8 @@ addProductHuntBtn.addEventListener("click", async function () {
         </div>
         `;
     hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
+    feedContainer.insertAdjacentHTML("beforeend", feed);
+    sidebarContainer.insertAdjacentHTML("beforeend", sidebar);
     scrollToPos(data[0].id);
     getPhFeed(data[0].id);
   }

@@ -3,25 +3,29 @@ async function getUnsplashFeed() {
   const feedUnsplash = document.getElementById("feed-unsplash");
 
   const url = "https://feedboard-api-relay-production.up.railway.app/unsplash";
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      let photos = "";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    let photos = "";
 
-      data.forEach((el) => {
-        photos += `
-        <a href="${el.links.html}" class="list-group-item list-group-item-action" target="_blank">
-        <img class="img-fluid rounded-3 mb-2 bg-light" src="${el.links.download}" alt="${el.alt_description}" loading="lazy"/>
-        <p class="fw-semibold text-capitalize">${el.alt_description}</p>
-        <p class="text-secondary small"><img src="./img/thumbs-up.svg" width="14" height="14" alt="thungs up icon"/> ${el.likes} likes</p>
+    data.forEach((el) => {
+      const itemUrl = escapeHtmlAttr(safeUrl(el.links.html));
+      const downloadUrl = escapeHtmlAttr(safeUrl(el.links.download));
+      const altDesc = escapeHtml(el.alt_description ?? "");
+      const likes = escapeHtml(String(el.likes));
+      photos += `
+        <a href="${itemUrl}" class="list-group-item list-group-item-action" target="_blank">
+        <img class="img-fluid rounded-3 mb-2 bg-light" src="${downloadUrl}" alt="${escapeHtmlAttr(el.alt_description ?? "")}" loading="lazy"/>
+        <p class="fw-semibold text-capitalize">${altDesc}</p>
+        <p class="text-secondary small"><img src="./img/thumbs-up.svg" width="14" height="14" alt="thungs up icon"/> ${likes} likes</p>
         </a>
         `;
-      });
-      feedUnsplash.innerHTML = photos;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
     });
+    feedUnsplash.innerHTML = photos;
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 // Add Unsplash
@@ -79,8 +83,8 @@ addUnsplashBtn.addEventListener("click", async function () {
         </div>
         `;
     hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
+    feedContainer.insertAdjacentHTML("beforeend", feed);
+    sidebarContainer.insertAdjacentHTML("beforeend", sidebar);
     scrollToPos(data[0].id);
     getUnsplashFeed(data[0].id);
   }

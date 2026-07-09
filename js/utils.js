@@ -1,3 +1,24 @@
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str ?? "";
+  return div.innerHTML;
+}
+
+function escapeHtmlAttr(str) {
+  const div = document.createElement("div");
+  div.textContent = str ?? "";
+  return div.innerHTML.replace(/"/g, "&quot;");
+}
+
+function safeUrl(url) {
+  try {
+    const u = new URL(url);
+    return u.protocol === "https:" || u.protocol === "http:" ? url : "#";
+  } catch {
+    return "#";
+  }
+}
+
 function convertHnDate(datetime) {
   // Parse the input date string
   const inputDate = new Date(datetime);

@@ -27,17 +27,18 @@ async function getCoingeckoTop() {
     feedCoingeckoTop.innerHTML = "";
     let entry = "";
     data.forEach((el) => {
-      // console.log(el);
-      let coinId = el.id;
-      let coinImage = el.image;
-      let coinName = el.name;
-      let symbol = el.symbol;
-      let currentPrice = el.current_price;
-      let change24h = el.price_change_percentage_24h.toFixed(2);
+      const coinId = escapeHtml(el.id ?? "");
+      const coinImage = escapeHtmlAttr(safeUrl(el.image ?? ""));
+      const coinName = escapeHtml(el.name ?? "");
+      const symbol = escapeHtml(el.symbol ?? "");
+      const currentPrice = escapeHtml(String(el.current_price ?? 0));
+      const change24h = (el.price_change_percentage_24h ?? 0).toFixed(2);
+      const safeChange24h = escapeHtml(String(change24h));
+      const coinUrl = escapeHtmlAttr(safeUrl("https://www.coingecko.com/en/coins/" + encodeURIComponent(el.id ?? "")));
       entry += `
-              <a href="https://www.coingecko.com/en/coins/${coinId}" class="d-flex justify-content-between list-group-item list-group-item-action align-items-center" target="_blank">
+              <a href="${coinUrl}" class="d-flex justify-content-between list-group-item list-group-item-action align-items-center" target="_blank">
               <div class="d-flex align-items-center">
-                <img class="rounded-3 me-2" src="${coinImage} width="32" height="32" alt="${coinId}"/>
+                <img class="rounded-3 me-2" src="${coinImage}" width="32" height="32" alt="${coinId}"/>
                 <div>
                   <p class="fw-semibold">${coinName}</p>
                   <p class="text-secondary small text-uppercase">${symbol}</p>
@@ -45,7 +46,7 @@ async function getCoingeckoTop() {
                 </div>
                 <div class="d-flex">
                   <p class="text-secondary small me-4">$${currentPrice}</p>
-                  ${change24h >= 0 ? `<p class="text-success small">+${change24h}</p>` : `<p class="text-danger small">${change24h}</p>`}
+                  ${change24h >= 0 ? `<p class="text-success small">+${safeChange24h}</p>` : `<p class="text-danger small">${safeChange24h}</p>`}
                 </div>
               </a>
               `;
@@ -114,8 +115,8 @@ addCoingeckoTopBtn.addEventListener("click", async function () {
         </div>
         `;
     hideEmpty();
-    feedContainer.innerHTML += feed;
-    sidebarContainer.innerHTML += sidebar;
+    feedContainer.insertAdjacentHTML("beforeend", feed);
+    sidebarContainer.insertAdjacentHTML("beforeend", sidebar);
     scrollToPos(data[0].id);
     getCoingeckoTop();
   }
